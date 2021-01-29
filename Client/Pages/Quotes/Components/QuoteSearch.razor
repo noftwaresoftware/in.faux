@@ -1,0 +1,29 @@
+﻿@if (_showBusyIndicator == true)
+{
+    <BusyIndicator />
+}
+
+<h2 class="quote">@_textName search</h2>
+<EditForm Model="@_quoteSearch" OnValidSubmit="@OnSubmitAsync" class="mb-3">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <InputText @bind-Value="@_quoteSearch.Phrase" @onkeyup="@OnSearchKeyUpAsync" id="SearchPhrase" class="form-control" placeholder="Separate multiple words with a space" />
+        <ValidationMessage For=@( () => _quoteSearch.Phrase ) />
+    </div>
+    <div>
+        <button type="submit" class="btn btn-success">Search</button>
+    </div>
+</EditForm>
+
+@if (_noResultsFound == true)
+{
+    <div>No results found.</div>
+}
+@if (_resultsFound == true)
+{
+    <div class="small">@_resultsCountText.</div>
+}
+@if (_searchResults?.Any() == true)
+{
+    <QuoteList Quotes="_searchResults" />
+}

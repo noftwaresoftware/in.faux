@@ -1,0 +1,9 @@
+﻿@if (_quote is null)
+{
+    <BusyIndicator />
+}
+else
+{
+    <button @onclick="@GetRandomOnClickAsync" class="btn btn-primary"><i class="fas fa-random"></i> Get Random @Configuration["TextName"]</button>
+    <QuoteDisplay Quote="@_quote" />
+}

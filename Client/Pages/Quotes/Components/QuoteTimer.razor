@@ -1,0 +1,11 @@
+﻿<div class="small">
+    @_currentCounterDisplay&nbsp;
+</div>
+@if (_quote is null)
+{
+    <BusyIndicator />
+}
+else
+{
+    <QuoteDisplay Quote="@_quote" />
+}

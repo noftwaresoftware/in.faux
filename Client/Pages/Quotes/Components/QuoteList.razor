@@ -1,0 +1,38 @@
+﻿<table class="table table-striped table-hover table-borderless">
+    <tbody>
+        @if (this.Quotes is not null)
+        {
+            foreach (var quote in this.Quotes)
+            {
+                <tr class="pointer" @onclick="@(e => DisplayQuoteAsync(quote))">
+                    <td>
+                        @if (quote?.Base64ThumbnailImage is not null)
+                        {
+                            <img src="data:image;base64,@quote?.Base64ThumbnailImage" class="img-thumbnail card-maxwidth" />
+                        }
+                        else
+                        {
+                            <img src="images/1px.png" />
+                        }
+                    </td>
+                    <td>
+                        @quote.Text
+                        @if (quote.SearchShowBusyIndicator == true)
+                        {
+                            <BusyIndicator />
+                        }
+                    </td>
+                    <td class="text-right"><span class="oi @(quote.SearchPanelVisibilityClass ?? ClosedIcon)"></span></td>
+                </tr>
+                @if (quote.SearchShowResizedImage == true)
+                {
+                    <tr class="pointer" @onclick="@(e => DisplayQuoteAsync(quote))">
+                        <td colspan="3">
+                            <QuoteDisplay Quote="quote" />
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>

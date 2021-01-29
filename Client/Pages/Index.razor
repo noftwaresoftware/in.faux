@@ -1,0 +1,40 @@
+﻿@page "/"
+
+<Title Value="Home"></Title>
+
+<QuoteDisplay Quote="@_introQuote" />
+
+<div class="card bg-light">
+    <div class="card-body">
+        <h4 class="quote">Choose an option</h4>
+        <p>
+            <NavLink class="nav-link p-0" href="random">
+                <h5 class="oi oi-random d-inline" aria-hidden="true"></h5>&nbsp;<h5 class="d-inline">Random</h5>
+            </NavLink>
+        </p>
+        <p>
+            <NavLink class="nav-link p-0" href="timer">
+                <h5 class="oi oi-clock d-inline" aria-hidden="true"></h5>&nbsp;<h5 class="d-inline">Auto-refresh</h5>
+            </NavLink>
+        </p>
+        <p>
+            <NavLink class="nav-link p-0" href="search">
+                <h5 class="oi oi-magnifying-glass d-inline" aria-hidden="true"></h5>&nbsp;<h5 class="d-inline">Search</h5>
+            </NavLink>
+        </p>
+    </div>
+</div>
+
+@code {
+    private ViewModels.ViewQuote _introQuote;
+
+    protected override void OnInitialized()
+    {
+        _introQuote = new ViewModels.ViewQuote()
+        {
+            Text = "What are business clichés?",
+            Description = @"Business clichés (or idioms) are phrases that we often use at work.
+                        They have other meanings but the clichés themselves are usually clever and easier to remember. So, don't 'kick the can down the road' or 'wait until the eleventh hour' to check us out!"
+        };
+    }
+}

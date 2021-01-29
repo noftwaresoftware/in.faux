@@ -1,0 +1,12 @@
+﻿<h2 class="quote">@this.Quote?.Text&nbsp;</h2>
+<h6>@this.Quote?.Description&nbsp;</h6>
+<div>
+    @if (this.Quote?.Base64Image is not null)
+    {
+        <img src="data:image;base64,@this.Quote?.Base64Image" class="img-thumbnail card-maxwidth" />
+    }
+    else
+    {
+        <img src="images/1px.png" />
+    }
+</div>
