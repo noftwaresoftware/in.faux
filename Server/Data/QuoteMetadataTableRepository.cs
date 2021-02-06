@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace Noftware.In.Faux.Server.Data
 {
     /// <summary>
-    /// The Azure file share repository for resized images. These are the ones shown with each quote.
+    /// The Azure table repository for the single quote metadata item.
     /// </summary>
-    public class ResizedQuoteFileShareRepository : FileShareRepository<ResizedImageFile>
+    public class QuoteMetadataTableRepository : TableRepository<QuoteMetadataTableEntity>
     {
         /// <summary>
         /// Constructor to set the Azure storage connection string.
         /// </summary>
         /// <param name="storageConnectionString">Azure storage connection string.</param>
-        public ResizedQuoteFileShareRepository(string storageConnectionString) : base(storageConnectionString, "quote", "resized") { }
+        public QuoteMetadataTableRepository(string storageConnectionString) : base(storageConnectionString, "QuoteMetadata", "QuoteMetadata") { }
     }
 }

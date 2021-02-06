@@ -14,7 +14,7 @@ namespace Noftware.In.Faux.Client.ViewModels
         /// <summary>
         /// Unique identifier.
         /// </summary>
-        public Guid Key { get; set; }
+        public string Key { get; set; }
 
         /// <summary>
         /// The text.
@@ -35,11 +35,6 @@ namespace Noftware.In.Faux.Client.ViewModels
         /// Associated display image.
         /// </summary>
         public string Base64Image { get; set; }
-
-        /// <summary>
-        /// Associated thumbnail image.
-        /// </summary>
-        public string Base64ThumbnailImage { get; set; }
 
         /// <summary>
         /// Search results page: Show the busy indicator?

@@ -65,7 +65,6 @@ namespace Noftware.In.Faux.Server.Controllers
         public async Task<IEnumerable<Quote>> SearchAsync(ViewQuoteSearch searchPhrase)
         {
             var quotes = await _quoteService.SearchQuotesAsync(searchPhrase.Phrase);
-
             return quotes;
         }
 
@@ -78,7 +77,7 @@ namespace Noftware.In.Faux.Server.Controllers
         [Route("resizedimage")]
         public async Task<string> GetResizedImageAsync(ViewQuoteFileName fileName)
         {
-            var base64Image = await _quoteService.GetResizedImageAsync(fileName.FileName);
+            var base64Image = await _quoteService.GetResizedImageAsync(fileName.QuoteRowKey, fileName.FileName);
             return base64Image;
         }
     }

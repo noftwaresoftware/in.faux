@@ -18,7 +18,7 @@ namespace Noftware.In.Faux.Server.Azure.Entities
 		public string Word { get; set; }
 
 		/// <summary>
-		/// The row key (GUID) of the quote.
+		/// The row key (int) of the quote.
 		/// </summary>
 		public string QuoteRowKey { get; set; }
 	}

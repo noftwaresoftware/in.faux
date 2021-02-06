@@ -11,7 +11,7 @@ namespace Noftware.In.Faux.Server.Services
     /// <summary>
     /// Quote caching service.
     /// </summary>
-    public class QuoteCacheService : ICacheService<Quote, Guid>
+    public class QuoteCacheService : ICacheService<Quote, string>
     {
         // Cached list
         private readonly List<Quote> _cachedQuotes = new List<Quote>();
@@ -56,7 +56,7 @@ namespace Noftware.In.Faux.Server.Services
         /// </summary>
         /// <param name="key">Unique identifier.</param>
         /// <returns><see cref="Task{bool}"/></returns>
-        public Task<bool> ExistsAsync(Guid key)
+        public Task<bool> ExistsAsync(string key)
         {
             bool exists = _cachedQuotes.Any(f => f.Key == key);
             return Task.FromResult(exists);
@@ -67,7 +67,7 @@ namespace Noftware.In.Faux.Server.Services
         /// </summary>
         /// <param name="key">Unique identifier.</param>
         /// <returns><see cref="Task{Quote}"/></returns>
-        public Task<Quote> GetAsync(Guid key)
+        public Task<Quote> GetAsync(string key)
         {
             var quote = _cachedQuotes.FirstOrDefault(f => f.Key == key);
             return Task.FromResult(quote);
@@ -98,7 +98,7 @@ namespace Noftware.In.Faux.Server.Services
         /// </summary>
         /// <param name="key">Unique identifier.</param>
         /// <returns><see cref="Task"/></returns>
-        public Task RemoveAsync(Guid key)
+        public Task RemoveAsync(string key)
         {
             _cachedQuotes.RemoveAll(r => r.Key == key);
             return Task.CompletedTask;

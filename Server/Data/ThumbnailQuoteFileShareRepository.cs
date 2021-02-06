@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Noftware.In.Faux.Server.Data
 {
     /// <summary>
-    /// The Azure file share repository for thumbnail images. This are the ones shown with multiple search results.
+    /// The Azure file share repository for thumbnail images. These are the ones shown with multiple search results.
     /// </summary>
     public class ThumbnailQuoteFileShareRepository : FileShareRepository<ThumbnailImageFile>
     {

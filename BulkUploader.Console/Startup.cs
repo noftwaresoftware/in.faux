@@ -1,24 +1,19 @@
-using Noftware.In.Faux.Shared.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Noftware.In.Faux.Server.Azure;
-using System.Configuration;
-using System.Linq;
-using Noftware.In.Faux.Server.Services;
-using Noftware.In.Faux.Shared.Models;
-using System;
-using Noftware.In.Faux.Client.Services;
-using Noftware.In.Faux.Server.Data;
-using Noftware.In.Faux.Shared.Data;
 using Noftware.In.Faux.Server.Azure.Entities;
-using Microsoft.Extensions.Logging;
+using Noftware.In.Faux.Server.Data;
+using Noftware.In.Faux.Server.Services;
+using Noftware.In.Faux.Shared.Data;
+using Noftware.In.Faux.Shared.Services;
+using Noftware.In.Faux.Shared.Extensions;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Noftware.In.Faux.Shared.Models;
 
-namespace Noftware.In.Faux.Server
+namespace In.Faux.BulkUploader
 {
     public class Startup
     {
@@ -33,6 +28,8 @@ namespace Noftware.In.Faux.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
+
             // Key Vault settings
             string kvUrl = this.Configuration["KeyVault:VaultUri"];
             string kvClientId = this.Configuration["KeyVault:ClientId"];
@@ -57,20 +54,6 @@ namespace Noftware.In.Faux.Server
                 return tblRepo;
             });
 
-            // Azure table repository for quote metadata
-            services.AddScoped<ITableRepository<QuoteMetadataTableEntity>, QuoteMetadataTableRepository>(f =>
-            {
-                var tblRepo = new QuoteMetadataTableRepository(tblStgConnectionString);
-                return tblRepo;
-            });
-
-            // Azure table repository for quote impressions
-            services.AddScoped<ITableRepository<QuoteImpressionTableEntity>, QuoteImpressionTableRepository>(f =>
-            {
-                var tblRepo = new QuoteImpressionTableRepository(tblStgConnectionString);
-                return tblRepo;
-            });
-
             // Azure file share repository for resized quote images
             services.AddScoped<IFileShareRepository<ResizedImageFile>, ResizedQuoteFileShareRepository>(f =>
             {
@@ -85,40 +68,26 @@ namespace Noftware.In.Faux.Server
                 return fileShare;
             });
 
-            services.AddLogging();
-            services.AddScoped<IQuoteService, QuoteService>();
-
-            services.AddControllersWithViews();
-            services.AddRazorPages();
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
+            // Settings for the quote flat file parser and image resizing
+            int maxResizedImageDimension = this.Configuration["QuoteParser:MaximumResizedImageDimension"].ConvertTo<int>();
+            int maxThumbnailImageDimension = this.Configuration["QuoteParser:MaximumThumbnailImageDimension"].ConvertTo<int>();
+            string inputImagePath = this.Configuration["QuoteParser:InputImagePath"];
+            string quoteTextFile = this.Configuration["QuoteParser:QuoteTextFile"];
+            services.AddScoped<QuoteParserSettings>(f =>
             {
-                app.UseDeveloperExceptionPage();
-                app.UseWebAssemblyDebugging();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+                var quoteParserSettings = new QuoteParserSettings()
+                {
+                    InputImagePath = inputImagePath,
+                    MaximumResizedImageDimension = maxResizedImageDimension,
+                    MaximumThumbnailImageDimension = maxThumbnailImageDimension,
+                    QuoteTextFile = quoteTextFile
+                };
 
-            app.UseHttpsRedirection();
-            app.UseBlazorFrameworkFiles();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-                endpoints.MapControllers();
-                endpoints.MapFallbackToFile("index.html");
+                return quoteParserSettings;
             });
+
+            services.AddScoped<IQuoteService, QuoteService>();
+            services.AddScoped<IQuoteParser, QuoteParser>();
         }
     }
 }

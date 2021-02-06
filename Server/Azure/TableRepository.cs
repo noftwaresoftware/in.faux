@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System;
 using Noftware.In.Faux.Server.Azure.Entities;
 using Noftware.In.Faux.Shared.Models;
+using Microsoft.Azure.Cosmos.Table.Protocol;
 
 namespace Noftware.In.Faux.Server.Azure
 {
@@ -22,8 +23,16 @@ namespace Noftware.In.Faux.Server.Azure
         // Table to be persisted to
         private readonly CloudTable _table;
 
+        // Table name
+        private readonly string _tableName;
+
         // Table partition key
         private readonly string _partitionKey;
+
+        /// <summary>
+        /// Event handler to notify caller of status.
+        /// </summary>
+        public event EventHandler<TableRepositoryEventArgs> StatusUpdate;
 
         /// <summary>
         /// Constructor.
@@ -36,6 +45,8 @@ namespace Noftware.In.Faux.Server.Azure
             CloudStorageAccount account = CloudStorageAccount.Parse(storageConnectionString);
             _tableClient = account.CreateCloudTableClient();
 
+            _tableName = tableName;
+
             _table = _tableClient.GetTableReference(tableName);
             _table.CreateIfNotExists();
             _partitionKey = partitionKey;
@@ -44,52 +55,134 @@ namespace Noftware.In.Faux.Server.Azure
         /// <summary>
         /// Delete the Azure table.
         /// </summary>
-        public async Task DeleteTableAsync()
+        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        public async Task<bool> DeleteTableAsync()
         {
-            await _table.DeleteIfExistsAsync();
+            bool success = false;
+
+            try
+            {
+                success = await _table.DeleteIfExistsAsync();
+            }
+            catch (Exception ex)
+            {
+                OnStatusUpdate($"An error occurred deleting table {_tableName}. {ex}", OperationStatus.Error);
+            }
+
+            // Final status notification
+            if (success == true)
+            {
+                OnStatusUpdate($"{_tableName} table was successfully deleted.", OperationStatus.Success);
+            }
+            else
+            {
+                OnStatusUpdate($"{_tableName} table was not successfully deleted.", OperationStatus.Error);
+            }
+
+            return success;
         }
 
         /// <summary>
         /// Create the Azure table.
         /// </summary>
-        public async Task CreateTableAsync()
+        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        public async Task<bool> CreateTableAsync()
         {
-            await _table.CreateIfNotExistsAsync();
+            bool success = false;
+
+            // https://stackoverflow.com/questions/15508517/the-correct-way-to-delete-and-recreate-a-windows-azure-storage-table-error-409
+            const int MaxTries = 60;
+            int count = 0;
+            do
+            {
+                try
+                {
+                    await _table.CreateIfNotExistsAsync();
+                    count = MaxTries + 1;
+                    success = true;
+                }
+                catch (StorageException stgEx)
+                {
+                    if ((stgEx.RequestInformation.HttpStatusCode == 409) && (stgEx.RequestInformation.ExtendedErrorInformation.ErrorCode.Equals(TableErrorCodeStrings.TableBeingDeleted)))
+                    {
+                        OnStatusUpdate($"{count + 1}: The {_tableName} table is currently being created. Please wait.", OperationStatus.Warning);
+                        await Task.Delay(1000); // The table is currently being deleted. Try again until it works.
+                    }
+                    else
+                    {
+                        OnStatusUpdate($"A storage error occurred creating table {_tableName}. {stgEx}", OperationStatus.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Catch-all
+                    OnStatusUpdate($"An error occurred creating table {_tableName}. {ex}", OperationStatus.Error);
+                }
+
+                count++;
+
+            } while (count < MaxTries);
+
+            // Final status notification
+            if (success == true)
+            {
+                OnStatusUpdate($"{_tableName} table was successfully created.", OperationStatus.Success);
+            }
+            else
+            {
+                OnStatusUpdate($"{_tableName} table was not successfully created. Retry attempts: {count}.", OperationStatus.Error);
+            }
+
+            return success;
         }
 
         /// <summary>
         /// Add or update the Azure table.
         /// </summary>
         /// <param name="tableEntity">Azure table.</param>
-        /// <returns><see cref="Task{TableResult}"/></returns>
-        public async Task<TableResult> AddOrUpdateAsync(TEntity tableEntity)
+        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        public async Task<bool> AddOrUpdateAsync(TEntity tableEntity)
         {
+            if (tableEntity is null)
+            {
+                OnStatusUpdate($"nameof{tableEntity} was null. Unable to persist to table {_tableName}.", OperationStatus.Error);
+                return false;
+            }
+
             var operation = TableOperation.InsertOrReplace(tableEntity);
-            var result = await _table.ExecuteAsync(operation);
-
-            return result;
+            try
+            {
+                var result = await _table.ExecuteAsync(operation);
+                OnStatusUpdate($"Persisted row key '{tableEntity.RowKey}' to table {_tableName}.", OperationStatus.Success);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                OnStatusUpdate($"An error occurred persisting row key '{tableEntity.RowKey}' to table {_tableName}. {ex}", OperationStatus.Error);
+                return false;
+            }
         }
 
-        /// <summary>
-        /// Get a random item based on the specified random row key and either the first item greater than rowKey, less than rowKey, or null if not found.
-        /// </summary>
-        /// <param name="selectColumns">Specified columns to include.</param>
-        /// <returns><see cref="Task{TEntity}"/></returns>
-        public async Task<TEntity> GetRandomAsync(params string[] selectColumns)
-        {
-            const string comparisonOperator = "gt";
+        ///// <summary>
+        ///// Get a random item based on the specified random row key and either the first item greater than rowKey, less than rowKey, or null if not found.
+        ///// </summary>
+        ///// <param name="selectColumns">Specified columns to include.</param>
+        ///// <returns><see cref="Task{TEntity}"/></returns>
+        //public async Task<TEntity> GetRandomAsync(params string[] selectColumns)
+        //{
+        //    const string comparisonOperator = "gt";
 
-            var entity = await this.GetRandomByComparisonOperatorAsync(comparisonOperator, _partitionKey, System.Guid.NewGuid().ToString(), selectColumns);
+        //    var entity = await this.GetRandomByComparisonOperatorAsync(comparisonOperator, _partitionKey, System.Guid.NewGuid().ToString(), selectColumns);
 
-            return entity;
-        }
+        //    return entity;
+        //}
 
         /// <summary>
         /// Get an item based on the row key.
         /// </summary>
         /// <param name="rowKey">The row key.</param>
         /// <returns><see cref="Task{TEntity}"/> or null, if not found.</returns>
-        public async Task<TEntity> Get(string rowKey, params string[] selectColumns)
+        public async Task<TEntity> GetAsync(string rowKey, params string[] selectColumns)
         {
             var query = new TableQuery<TEntity>()
             {
@@ -106,9 +199,11 @@ namespace Noftware.In.Faux.Server.Azure
             var queryResult = await _table.ExecuteQuerySegmentedAsync(query, null);
             if (queryResult.Results.Any() == true)
             {
+                OnStatusUpdate($"Successfully obtained {rowKey} from table {_tableName}.", OperationStatus.Success);
                 return queryResult.Results.First();
             }
 
+            OnStatusUpdate($"{rowKey} not found in table {_tableName}.", OperationStatus.Error);
             return null;
         }
 
@@ -148,36 +243,49 @@ namespace Noftware.In.Faux.Server.Azure
             } while (token is not null);
         }
 
+        ///// <summary>
+        ///// Get a random item based on the specified partition key and either the first item greater than rowKey, less than rowKey, or null if not found.
+        ///// </summary>
+        ///// <param name="comparisonOperator">OData comparison operators, i.e. gt, lt, eq, etc.</param>
+        ///// <param name="partitionKey">Partition key.</param>
+        ///// <param name="rowKey">Row key used in the greater than or less than comparison.</param>
+        ///// <param name="selectColumns">Specified columns to include.</param>
+        ///// <returns><see cref="Task{TEntity}"/></returns>
+        //private async Task<TEntity> GetRandomByComparisonOperatorAsync(string comparisonOperator, string partitionKey, string rowKey, params string[] selectColumns)
+        //{
+        //    var query = new TableQuery<TEntity>()
+        //    {
+        //        FilterString = $"PartitionKey eq '{partitionKey}' and RowKey {comparisonOperator} '{rowKey}'",
+        //        TakeCount = 1
+        //    };
+
+        //    // Which columns to include?
+        //    if (selectColumns is not null && selectColumns.Length > 0)
+        //    {
+        //        // Include specified columns
+        //        query.SelectColumns = selectColumns;
+        //    }
+
+        //    var queryResult = await _table.ExecuteQuerySegmentedAsync(query, null);
+        //    if (queryResult.Results.Any() == true)
+        //    {
+        //        return queryResult.Results.First();
+        //    }
+
+        //    return null;
+        //}
+
         /// <summary>
-        /// Get a random item based on the specified partition key and either the first item greater than rowKey, less than rowKey, or null if not found.
+        /// Event handler to notify caller of status.
         /// </summary>
-        /// <param name="comparisonOperator">OData comparison operators, i.e. gt, lt, eq, etc.</param>
-        /// <param name="partitionKey">Partition key.</param>
-        /// <param name="rowKey">Row key used in the greater than or less than comparison.</param>
-        /// <param name="selectColumns">Specified columns to include.</param>
-        /// <returns><see cref="Task{TEntity}"/></returns>
-        private async Task<TEntity> GetRandomByComparisonOperatorAsync(string comparisonOperator, string partitionKey, string rowKey, params string[] selectColumns)
+        /// <param name="message">Status message.</param>
+        /// <param name="operationStatus">Status of the operation.</param>
+        private void OnStatusUpdate(string message, OperationStatus operationStatus)
         {
-            var query = new TableQuery<TEntity>()
+            if (this.StatusUpdate != null)
             {
-                FilterString = $"PartitionKey eq '{partitionKey}' and RowKey {comparisonOperator} '{rowKey}'",
-                TakeCount = 1
-            };
-
-            // Which columns to include?
-            if (selectColumns is not null && selectColumns.Length > 0)
-            {
-                // Include specified columns
-                query.SelectColumns = selectColumns;
+                this.StatusUpdate(this, new TableRepositoryEventArgs(message, operationStatus));
             }
-
-            var queryResult = await _table.ExecuteQuerySegmentedAsync(query, null);
-            if (queryResult.Results.Any() == true)
-            {
-                return queryResult.Results.First();
-            }
-
-            return null;
         }
     }
 }

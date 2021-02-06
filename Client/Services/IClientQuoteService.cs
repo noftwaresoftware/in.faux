@@ -21,9 +21,10 @@ namespace Noftware.In.Faux.Client.Services
         /// <summary>
         /// Get a resized (display) image from the file share
         /// </summary>
+        /// <param name="quoteKey">Quote key unique identifier.</param>
         /// <param name="fileName">Name of file.</param>
         /// <returns><see cref="Task{string}"/></returns>
-        Task<string> GetResizedImageAsync(string fileName);
+        Task<string> GetResizedImageAsync(string quoteKey, string fileName);
 
         /// <summary>
         /// Search for quotes based on a space-delimited phrase and map to view models.

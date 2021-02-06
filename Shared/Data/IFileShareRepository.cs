@@ -16,31 +16,40 @@ namespace Noftware.In.Faux.Shared.Data
 		// https://www.serverless360.com/blog/azure-blob-storage-vs-file-storage
 
 		/// <summary>
+		/// Event handler to notify caller of status.
+		/// </summary>
+		event EventHandler<FileShareEventArgs> StatusUpdate;
+
+		/// <summary>
 		/// Delete the Azure file share.
 		/// </summary>
-		Task DeleteAsync();
+		/// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+		Task<bool> DeleteAsync();
 
 		/// <summary>
 		/// Create the Azure file share directory.
 		/// </summary>
-		Task CreateAsync();
+		/// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+		Task<bool> CreateAsync();
 
 		/// <summary>
 		/// Delete the Azure file share directory.
 		/// </summary>
-		Task DeleteDirectoryAsync();
+		/// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+		Task<bool> DeleteDirectoryAsync();
 
 		/// <summary>
 		/// Create the Azure file share directory.
 		/// </summary>
-		Task CreateDirectoryAsync();
+		/// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+		Task<bool> CreateDirectoryAsync();
 
 		/// <summary>
 		/// Add or update the file.
 		/// </summary>
 		/// <param name="file">File.</param>
-		/// <returns><see cref="Task{ShareFileUploadInfo}"/></returns>
-		Task<ShareFileUploadInfo> AddOrUpdateAsync(TFile file);
+		/// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+		Task<bool> AddOrUpdateAsync(TFile file);
 
 		/// <summary>
 		/// Based on the filename in the existing directory, get the file contents as a byte array.

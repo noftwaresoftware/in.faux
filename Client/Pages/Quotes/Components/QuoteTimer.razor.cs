@@ -133,7 +133,6 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         public void Dispose()
         {
             _recurringTimer?.Dispose();
-            GC.SuppressFinalize(this);
         }
     }
 }

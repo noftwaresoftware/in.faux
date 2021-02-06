@@ -22,8 +22,14 @@ namespace Noftware.In.Faux.Server.Services
         // Azure Table repository for quotes
         private readonly ITableRepository<QuoteTableEntity> _quoteTableRepository;
 
+        // Azure Table repository for a single quote metadata item
+        private readonly ITableRepository<QuoteMetadataTableEntity> _quoteTableMetadataRepository;
+
         // Azure Table repository for the quote search index
         private readonly ITableRepository<QuoteSearchIndexTableEntity> _quoteSearchTableRepository;
+
+        // Azure Table repository for the quote search index
+        private readonly ITableRepository<QuoteImpressionTableEntity> _quoteImpressionTableRepository;
 
         // Azure file share repository for resized quote images
         private readonly IFileShareRepository<ResizedImageFile> _resizedImageFileRepository;
@@ -35,16 +41,22 @@ namespace Noftware.In.Faux.Server.Services
         /// Constructor.
         /// </summary>
         /// <param name="quoteTableRepository">Azure Table repository for quotes.</param>
+        /// <param name="quoteTablemetaDataRepository">Azure Table repository for a single quote metadata item.</param>
         /// <param name="quoteSearchTableRepository">Azure Table repository for the quote search index.</param>
+        /// <param name="quoteImpressionTableRepository">Azure Table repository for the quote impressions.</param>
         /// <param name="resizedImageFileRepository">Azure file share repository for resized quote images.</param>
         /// <param name="thumbnailImageFileRepository">Azure file share repository for thumbnail quote images.</param>
         public QuoteService(ITableRepository<QuoteTableEntity> quoteTableRepository,
+            ITableRepository<QuoteMetadataTableEntity> quoteTablemetaDataRepository,
             ITableRepository<QuoteSearchIndexTableEntity> quoteSearchTableRepository,
+            ITableRepository<QuoteImpressionTableEntity> quoteImpressionTableRepository,
             IFileShareRepository<ResizedImageFile> resizedImageFileRepository,
             IFileShareRepository<ThumbnailImageFile> thumbnailImageFileRepository)
         {
             _quoteTableRepository = quoteTableRepository;
+            _quoteTableMetadataRepository = quoteTablemetaDataRepository;
             _quoteSearchTableRepository = quoteSearchTableRepository;
+            _quoteImpressionTableRepository = quoteImpressionTableRepository;
 
             _resizedImageFileRepository = resizedImageFileRepository;
             _thumbnailImageFileRepository = thumbnailImageFileRepository;
@@ -56,20 +68,35 @@ namespace Noftware.In.Faux.Server.Services
         /// <returns><see cref="Task{Quote}"/></returns>
         public async Task<Quote> GetRandomQuoteAsync()
         {
-            string[] selectFields = GetQuotePublicSelectFields();
+            // This is only a single quote metadata record
+            var quoteMetadata = await _quoteTableMetadataRepository.GetAsync("1", GetQuoteMetadataSelectFields());
+            if (quoteMetadata is null)
+            {
+                return null;
+            }
 
-            var quoteEntity = await _quoteTableRepository.GetRandomAsync(selectFields);
-            var resizedFile = await _resizedImageFileRepository.GetFileAsync(quoteEntity.FileName);
-            var thumbnailFile = await _thumbnailImageFileRepository.GetFileAsync(quoteEntity.FileName);
+            // Total quote count
+            int totalQuoteCount = quoteMetadata.QuoteTotalCount;
+
+            // Get a random number between 1 and 'total quote count'
+            int randomQuoteKey = ThreadSafeRandom.Next(1, totalQuoteCount + 1);
+
+            // Get the quote based on row key
+            var quoteEntity = await _quoteTableRepository.GetAsync(randomQuoteKey.ToString(), GetQuoteSelectFields());
+            if (quoteEntity is null)
+            {
+                return null;
+            }
+
+            string resizedFileBase64 = await this.GetResizedImageAsync(quoteEntity.RowKey, quoteEntity.FileName);
 
             var quote = new Quote()
             {
                 Description = quoteEntity.Description,
-                Key = quoteEntity.RowKey.ConvertTo<Guid>(),
+                Key = quoteEntity.RowKey,
                 Text = quoteEntity.Text,
                 FileName = quoteEntity.FileName,
-                Base64Image = (resizedFile is null ? null : System.Convert.ToBase64String(resizedFile.Contents)),
-                Base64ThumbnailImage = (thumbnailFile is null ? null : System.Convert.ToBase64String(thumbnailFile.Contents))
+                Base64Image = resizedFileBase64
             };
 
             return quote;
@@ -78,12 +105,22 @@ namespace Noftware.In.Faux.Server.Services
         /// <summary>
         /// Get a thumbnail image from the file share
         /// </summary>
+        /// <param name="quoteKey">Quote key unique identifier.</param>
         /// <param name="fileName">Name of file.</param>
         /// <returns><see cref="Task{string}"/></returns>
-        public async Task<string> GetResizedImageAsync(string fileName)
+        public async Task<string> GetResizedImageAsync(string quoteKey, string fileName)
         {
             var file = await _resizedImageFileRepository.GetFileAsync(fileName);
             string base64Image = (file is null ? null : System.Convert.ToBase64String(file.Contents));
+
+            // Add a new impression/view
+            await _quoteImpressionTableRepository.AddOrUpdateAsync(new QuoteImpressionTableEntity()
+            {
+                QuoteRowKey = quoteKey,
+                PartitionKey = "QuoteImpression",
+                RowKey = System.Guid.NewGuid().ToString(),
+                Timestamp = DateTimeOffset.UtcNow
+            });
 
             return base64Image;
         }
@@ -104,7 +141,7 @@ namespace Noftware.In.Faux.Server.Services
             var searchWords = this.BuildSearchWords(searchPhrase);
 
             // Search fields
-            string[] selectFieldsSearch = this.GetQuoteSearchPublicSelectFields();
+            string[] selectFieldsSearch = this.GetQuoteSearchSelectFields();
 
             // Build a list of word filters (Note: PartitionKey is already present)
             var filters = new List<TableEntityFilter>();
@@ -157,7 +194,7 @@ namespace Noftware.In.Faux.Server.Services
                                         .OrderByDescending(x => x.Count);
 
             // Quote fields
-            string[] selectFieldsQuote = this.GetQuotePublicSelectFields();
+            string[] selectFieldsQuote = this.GetQuoteSelectFields();
 
             // Searched quotes
             var quotes = new List<Quote>();
@@ -166,7 +203,7 @@ namespace Noftware.In.Faux.Server.Services
             foreach (var groupedSearchWord in groupedSearchWords)
             {
                 // Get the quote
-                var quoteEntity = await _quoteTableRepository.Get(groupedSearchWord.QuoteRowKey, selectFieldsQuote);
+                var quoteEntity = await _quoteTableRepository.GetAsync(groupedSearchWord.QuoteRowKey, selectFieldsQuote);
                 if (quoteEntity is not null)
                 {
                     // Get the thumbnail and build the return quote
@@ -176,11 +213,9 @@ namespace Noftware.In.Faux.Server.Services
                     var quote = new Quote()
                     {
                         Description = quoteEntity.Description,
-                        Key = quoteEntity.RowKey.ConvertTo<Guid>(),
+                        Key = quoteEntity.RowKey,
                         Text = quoteEntity.Text,
-                        FileName = quoteEntity.FileName,
-                        //Base64Image = (resizedFile is null ? null : System.Convert.ToBase64String(resizedFile.Contents)),
-                        Base64ThumbnailImage = (thumbnailFile is null ? null : System.Convert.ToBase64String(thumbnailFile.Contents))
+                        FileName = quoteEntity.FileName
                     };
                     quotes.Add(quote);
                 }
@@ -194,7 +229,7 @@ namespace Noftware.In.Faux.Server.Services
         /// </summary>
         /// <param name="input">Input string.</param>
         /// <returns><see cref="IEnumerable{string}"/> or null, if input is empty.</returns>
-        private IEnumerable<string> BuildSearchWords(string input)
+        public IEnumerable<string> BuildSearchWords(string input)
         {
             // Empty string
             if (string.IsNullOrWhiteSpace(input) == true)
@@ -245,10 +280,10 @@ namespace Noftware.In.Faux.Server.Services
         }
 
         /// <summary>
-        /// Get only the list of quote fields required to populate on the public UI.
+        /// Get only the list of quote fields required for this service.
         /// </summary>
         /// <returns><see cref="string[]"/></returns>
-        private string[] GetQuotePublicSelectFields()
+        private string[] GetQuoteSelectFields()
         {
             string[] selectFields = new string[] {
                 nameof(QuoteTableEntity.Description),
@@ -261,10 +296,23 @@ namespace Noftware.In.Faux.Server.Services
         }
 
         /// <summary>
-        /// Get only the list of quote search fields required to populate on the public UI.
+        /// Get only the list of quote metadata fields required for this service.
         /// </summary>
         /// <returns><see cref="string[]"/></returns>
-        private string[] GetQuoteSearchPublicSelectFields()
+        private string[] GetQuoteMetadataSelectFields()
+        {
+            string[] selectFields = new string[] {
+                nameof(QuoteMetadataTableEntity.QuoteTotalCount)
+            };
+
+            return selectFields;
+        }
+
+        /// <summary>
+        /// Get only the list of quote search fields required for this service.
+        /// </summary>
+        /// <returns><see cref="string[]"/></returns>
+        private string[] GetQuoteSearchSelectFields()
         {
             string[] selectFields = new string[] {
                 nameof(QuoteSearchIndexTableEntity.QuoteRowKey),

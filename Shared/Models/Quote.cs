@@ -12,7 +12,7 @@ namespace Noftware.In.Faux.Shared.Models
         /// <summary>
         /// Unique identifier.
         /// </summary>
-        public Guid Key { get; set; }
+        public string Key { get; set; }
 
         /// <summary>
         /// The text.
@@ -40,11 +40,6 @@ namespace Noftware.In.Faux.Shared.Models
         public string Base64Image { get; set; }
 
         /// <summary>
-        /// Associated thumbnail image.
-        /// </summary>
-        public string Base64ThumbnailImage { get; set; }
-
-        /// <summary>
         /// In the event that the service is temporarily unavailable, get a default one.
         /// </summary>
         /// <returns><see cref="Quote"/></returns>
@@ -55,7 +50,7 @@ namespace Noftware.In.Faux.Shared.Models
                 Text = "Take it offline.",
                 Description = "When a discussion goes too deep into detail or the topic is digressed, this is said to get everybody back on topic.",
                 Keywords = new string[] { "detail", "reduce", "deep", "digress", "topic" },
-                Key = System.Guid.Empty
+                Key = null
             };
         }
     }

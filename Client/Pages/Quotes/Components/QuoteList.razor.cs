@@ -55,7 +55,7 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
             {
                 await this.BusyIndicatorVisibilityAsync(quote, showBusyIndicator: true);
 
-                string resizedImage = await this.QuoteService.GetResizedImageAsync(quote.FileName);
+                string resizedImage = await this.QuoteService.GetResizedImageAsync(quote.Key, quote.FileName);
                 quote.Base64Image = resizedImage;
 
                 await this.BusyIndicatorVisibilityAsync(quote, showBusyIndicator: false);

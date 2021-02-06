@@ -12,6 +12,11 @@ namespace Noftware.In.Faux.Client.ViewModels
     public class ViewQuoteFileName
     {
         /// <summary>
+        /// Quote's unique row key.
+        /// </summary>
+        public string QuoteRowKey { get; set; }
+
+        /// <summary>
         /// Quote filename.
         /// </summary>
         public string FileName { get; set; }

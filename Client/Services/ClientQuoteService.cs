@@ -84,7 +84,6 @@ namespace Noftware.In.Faux.Client.Services
                 var viewQuote = new ViewQuote()
                 {
                     Base64Image = quote.Base64Image,
-                    Base64ThumbnailImage = quote.Base64ThumbnailImage,
                     Description = quote.Description,
                     FileName = quote.FileName,
                     Key = quote.Key,
@@ -100,9 +99,10 @@ namespace Noftware.In.Faux.Client.Services
         /// <summary>
         /// Get a resized (display) image from the file share
         /// </summary>
+        /// <param name="quoteKey">Quote key unique identifier.</param>
         /// <param name="fileName">Name of file.</param>
         /// <returns><see cref="Task{string}"/></returns>
-        public async Task<string> GetResizedImageAsync(string fileName)
+        public async Task<string> GetResizedImageAsync(string quoteKey, string fileName)
         {
             string base64Image = null;
 
@@ -111,7 +111,7 @@ namespace Noftware.In.Faux.Client.Services
             {
                 try
                 {
-                    var response = await _httpClient.PostAsJsonAsync("Quote/resizedimage", new ViewQuoteFileName() { FileName = fileName });
+                    var response = await _httpClient.PostAsJsonAsync("Quote/resizedimage", new ViewQuoteFileName() { QuoteRowKey = quoteKey, FileName = fileName });
                     base64Image = await response.Content.ReadAsStringAsync();
 
                     count = _httpRetries + 1;
@@ -152,7 +152,6 @@ namespace Noftware.In.Faux.Client.Services
                             quotes.Add(new ViewQuote()
                             {
                                 Base64Image = searchedQuote.Base64Image,
-                                Base64ThumbnailImage = searchedQuote.Base64ThumbnailImage,
                                 Description = searchedQuote.Description,
                                 FileName = searchedQuote.FileName,
                                 Key = searchedQuote.Key,

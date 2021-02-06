@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure.Cosmos.Table;
 using Noftware.In.Faux.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,28 +13,35 @@ namespace Noftware.In.Faux.Shared.Data
     public interface ITableRepository<TEntity> where TEntity : TableEntity, new()
     {
         /// <summary>
+        /// Event handler to notify caller of status.
+        /// </summary>
+        event EventHandler<TableRepositoryEventArgs> StatusUpdate;
+
+        /// <summary>
         /// Delete the Azure table.
         /// </summary>
-        Task DeleteTableAsync();
+        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        Task<bool> DeleteTableAsync();
 
         /// <summary>
         /// Create the Azure table.
         /// </summary>
-        Task CreateTableAsync();
+        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        Task<bool> CreateTableAsync();
 
         /// <summary>
         /// Add or update the Azure table.
         /// </summary>
         /// <param name="tableEntity">Azure table.</param>
-        /// <returns><see cref="Task{TableResult}"/></returns>
-        Task<TableResult> AddOrUpdateAsync(TEntity tableEntity);
+        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        Task<bool> AddOrUpdateAsync(TEntity tableEntity);
 
-        /// <summary>
-        /// Get a random item based on the partition key and either the first item greater than rowKey, less than rowKey, or null if not found.
-        /// </summary>
-        /// <param name="selectColumns">Specified columns to include.</param>
-        /// <returns><see cref="Task{TEntity}"/></returns>
-        Task<TEntity> GetRandomAsync(params string[] selectColumns);
+        ///// <summary>
+        ///// Get a random item based on the partition key and either the first item greater than rowKey, less than rowKey, or null if not found.
+        ///// </summary>
+        ///// <param name="selectColumns">Specified columns to include.</param>
+        ///// <returns><see cref="Task{TEntity}"/></returns>
+        //Task<TEntity> GetRandomAsync(params string[] selectColumns);
 
         /// <summary>
         /// Based on one or more filters, search for table items.
@@ -48,6 +56,6 @@ namespace Noftware.In.Faux.Shared.Data
         /// </summary>
         /// <param name="rowKey">The row key.</param>
         /// <returns><see cref="Task{TEntity}"/> or null, if not found.</returns>
-        Task<TEntity> Get(string rowKey, params string[] selectColumns);
+        Task<TEntity> GetAsync(string rowKey, params string[] selectColumns);
     }
 }

@@ -47,11 +47,26 @@ namespace Noftware.In.Faux.Server.Azure.Entities
 		public int ResizedImageHeight { get; set; }
 
 		/// <summary>
+		/// Thumbnail image's width (in pixels).
+		/// </summary>
+		public int ThumbnailImageWidth { get; set; }
+
+		/// <summary>
+		/// Thumbnail image's height (in pixels).
+		/// </summary>
+		public int ThumbnailImageHeight { get; set; }
+
+		/// <summary>
 		/// Associated keywords, separated by commas.
 		/// </summary>
 		public string KeyWords { get; set; }
 
-		// The PartitionKey property stores string values that identify the partition that an entity belongs to. Entities that have the same PartitionKey value are stored in the same partition.</param>
-		// The RowKey property stores string values that uniquely identify entities within each partition.</param>
+		/// <summary>
+		/// The searchable content consisting of the Text, Description, and KeyWords.
+		/// </summary>
+		public string SearchIndex { get; set; }
+
+		// The PartitionKey property stores string values that identify the partition that an entity belongs to. Entities that have the same PartitionKey value are stored in the same partition.
+		// The RowKey property stores string values that uniquely identify entities within each partition.
 	}
 }
