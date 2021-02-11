@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "In.Faux.Server", "Server\In.Faux.Server.csproj", "{4C428057-01C5-4666-A741-3F08F3762787}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "In.Faux.Data", "Data\In.Faux.Data.csproj", "{4C428057-01C5-4666-A741-3F08F3762787}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "In.Faux.Client", "Client\In.Faux.Client.csproj", "{DC6EFFB8-F111-4953-928E-C24589B53615}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "In.Faux.Shared", "Shared\In.Faux.Shared.csproj", "{9B7F23EE-6752-4B01-A45E-EB4568B9244B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "In.Faux.Core", "Core\In.Faux.Core.csproj", "{9B7F23EE-6752-4B01-A45E-EB4568B9244B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkUploader", "BulkUploader.Console\BulkUploader.csproj", "{2427419C-46BB-4395-A4ED-1587DF84DBAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "In.Faux.BulkUploader.Console", "BulkUploader.Console\In.Faux.BulkUploader.Console.csproj", "{2427419C-46BB-4395-A4ED-1587DF84DBAB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "In.Faux.Function", "Function\In.Faux.Function.csproj", "{4031D575-2AA8-4351-B8A9-5CC7D8563837}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2427419C-46BB-4395-A4ED-1587DF84DBAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2427419C-46BB-4395-A4ED-1587DF84DBAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2427419C-46BB-4395-A4ED-1587DF84DBAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4031D575-2AA8-4351-B8A9-5CC7D8563837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4031D575-2AA8-4351-B8A9-5CC7D8563837}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4031D575-2AA8-4351-B8A9-5CC7D8563837}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4031D575-2AA8-4351-B8A9-5CC7D8563837}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

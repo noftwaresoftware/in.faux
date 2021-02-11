@@ -1,19 +1,19 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Noftware.In.Faux.Server.Azure;
-using Noftware.In.Faux.Server.Azure.Entities;
-using Noftware.In.Faux.Server.Data;
-using Noftware.In.Faux.Server.Services;
-using Noftware.In.Faux.Shared.Data;
-using Noftware.In.Faux.Shared.Services;
-using Noftware.In.Faux.Shared.Extensions;
+using Noftware.In.Faux.Data.Azure;
+using Noftware.In.Faux.Data.Azure.Entities;
+using Noftware.In.Faux.Data.Repositories;
+using Noftware.In.Faux.Data.Services;
+using Noftware.In.Faux.Core.Data;
+using Noftware.In.Faux.Core.Services;
+using Noftware.In.Faux.Core.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Noftware.In.Faux.Shared.Models;
+using Noftware.In.Faux.Core.Models;
 
-namespace In.Faux.BulkUploader
+namespace Noftware.In.Faux.BulkUploader
 {
     public class Startup
     {

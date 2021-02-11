@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Noftware.In.Faux.Client.ViewModels;
-using Noftware.In.Faux.Shared.Models;
+using Noftware.In.Faux.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +43,10 @@ namespace Noftware.In.Faux.Client.Services
             _logger = logger;
 
             // Set the HTTP Retries
-            int.TryParse(_configuration["RequestRetries"], out _httpRetries);
+            if (int.TryParse(_configuration["RequestRetries"], out _httpRetries) == false)
+            {
+                _logger.LogWarning("RequestRetries is non-numeric. Using default value.");
+            };
         }
 
         /// <summary>
@@ -59,7 +62,7 @@ namespace Noftware.In.Faux.Client.Services
             {
                 try
                 {
-                    quote = await _httpClient.GetFromJsonAsync<Quote>("Quote");
+                    quote = await _httpClient.GetFromJsonAsync<Quote>("api/randomquote");
                     count = _httpRetries + 1;
                 }
                 catch (JsonException ex)
@@ -111,7 +114,7 @@ namespace Noftware.In.Faux.Client.Services
             {
                 try
                 {
-                    var response = await _httpClient.PostAsJsonAsync("Quote/resizedimage", new ViewQuoteFileName() { QuoteRowKey = quoteKey, FileName = fileName });
+                    var response = await _httpClient.PostAsJsonAsync("api/resizedimage", new ViewQuoteFileName() { QuoteRowKey = quoteKey, FileName = fileName });
                     base64Image = await response.Content.ReadAsStringAsync();
 
                     count = _httpRetries + 1;
@@ -142,7 +145,7 @@ namespace Noftware.In.Faux.Client.Services
             {
                 try
                 {
-                    var response = await _httpClient.PostAsJsonAsync("Quote/search", new ViewQuoteSearch() { Phrase = searchPhrase });
+                    var response = await _httpClient.PostAsJsonAsync("api/search", new ViewQuoteSearch() { Phrase = searchPhrase });
 
                     var searchedQuotes = await response.Content.ReadFromJsonAsync<IEnumerable<Quote>>();
                     if (searchedQuotes?.Any() == true)

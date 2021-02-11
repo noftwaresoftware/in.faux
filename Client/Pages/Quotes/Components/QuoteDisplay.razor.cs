@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Noftware.In.Faux.Client.ViewModels;
-using Noftware.In.Faux.Shared.Models;
+using Noftware.In.Faux.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -5,9 +5,9 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using System.Threading;
-using Noftware.In.Faux.Shared.Models;
+using Noftware.In.Faux.Core.Models;
 using Microsoft.AspNetCore.Components;
-using Noftware.In.Faux.Shared.Extensions;
+using Noftware.In.Faux.Core.Extensions;
 using Microsoft.Extensions.Configuration;
 using Noftware.In.Faux.Client.Services;
 using Noftware.In.Faux.Client.ViewModels;
@@ -40,7 +40,7 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         /// <summary>
         /// Quote search view model.
         /// </summary>
-        private ViewQuoteSearch _quoteSearch = new ViewQuoteSearch();
+        private readonly ViewQuoteSearch _quoteSearch = new ViewQuoteSearch();
 
         /// <summary>
         /// Results to display.

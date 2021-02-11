@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace In.Faux.BulkUploader
+namespace Noftware.In.Faux.BulkUploader
 {
     /// <summary>
     /// Helper methods to support the console application.
@@ -17,10 +17,12 @@ namespace In.Faux.BulkUploader
         /// <returns><see cref="IEnumerable{string}"/></returns>
         public static IEnumerable<string> GetArgumentInformation()
         {
-            var argItems = new List<string>();
-            argItems.Add("Valid modes:");
-            argItems.Add("/a = Append to existing Azure table storage and file shares.");
-            argItems.Add("/o = Overwrite existing Azure table storage and file shares with new data.");
+            var argItems = new List<string>()
+            {
+                "Valid modes:",
+                "/a = Append to existing Azure table storage and file shares.",
+                "/o = Overwrite existing Azure table storage and file shares with new data."
+            };
 
             return argItems;
         }
@@ -31,9 +33,11 @@ namespace In.Faux.BulkUploader
         /// <returns><see cref="IEnumerable{string}"/></returns>
         public static IEnumerable<string> GetInputInformation()
         {
-            var inputItems = new List<string>();
-            inputItems.Add("append = Append to existing Azure table storage and file shares.");
-            inputItems.Add("overwrite = Overwrite existing Azure table storage and file shares with new data.");
+            var inputItems = new List<string>()
+            {
+                "append = Append to existing Azure table storage and file shares.",
+                "overwrite = Overwrite existing Azure table storage and file shares with new data."
+            };
 
             return inputItems;
         }

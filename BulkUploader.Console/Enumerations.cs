@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace In.Faux.BulkUploader
+namespace Noftware.In.Faux.BulkUploader
 {
     /// <summary>
     /// Persistence mode for quote data and images.

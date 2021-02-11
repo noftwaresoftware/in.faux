@@ -4,21 +4,21 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
-using Noftware.In.Faux.Server.Azure;
-using Noftware.In.Faux.Shared.Data;
-using Noftware.In.Faux.Server.Azure.Entities;
-using Noftware.In.Faux.Server.Data;
-using Noftware.In.Faux.Shared.Extensions;
-using Noftware.In.Faux.Shared.Models;
-using Noftware.In.Faux.Shared.Services;
-using Noftware.In.Faux.Server.Services;
+using Noftware.In.Faux.Data.Azure;
+using Noftware.In.Faux.Core.Data;
+using Noftware.In.Faux.Data.Azure.Entities;
+using Noftware.In.Faux.Data.Repositories;
+using Noftware.In.Faux.Core.Extensions;
+using Noftware.In.Faux.Core.Models;
+using Noftware.In.Faux.Core.Services;
+using Noftware.In.Faux.Data.Services;
 
-namespace In.Faux.BulkUploader
+namespace Noftware.In.Faux.BulkUploader
 {
     public class Program
     {
         // Capture original color to reset
-        private static ConsoleColor OriginalConsoleForegroundColor = Console.ForegroundColor;
+        private static readonly ConsoleColor OriginalConsoleForegroundColor = Console.ForegroundColor;
 
         /// <summary>
         /// Application's main entry point.
@@ -252,7 +252,7 @@ namespace In.Faux.BulkUploader
 
                     // Search index words. Add a table row per word. These will have the same FK row key as Quote.
                     var searchIndexWords = parsedQuote.DelimitedSearchItems?.Split(' ');
-                    if (searchIndexWords is not null)
+                    if (searchIndexWords != null)
                     {
                         foreach (var word in searchIndexWords)
                         {
@@ -266,7 +266,7 @@ namespace In.Faux.BulkUploader
                             };
                             await tableRepoQuoteSearchIndex.AddOrUpdateAsync(searchIndexTableEntity);
                         }
-                    } // if (searchIndexWords is not null)
+                    } // if (searchIndexWords != null)
 
                     // Persist original, resized, and thumbnail images to Azure file share
                     await fileRepoQuoteOriginal.AddOrUpdateAsync(new OriginalImageFile
