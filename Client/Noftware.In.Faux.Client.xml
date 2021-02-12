@@ -1,0 +1,367 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Noftware.In.Faux.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteButton">
+            <summary>
+            Using a button click, get a random quote.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteButton.Configuration">
+            <summary>
+            Injected Configuration.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteButton.QuoteService">
+            <summary>
+            Injected Quote Service.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteButton.OnInitializedAsync">
+            <summary>
+            Method invoked when the component is ready to start, having received its initial parameters from its parent in the render tree.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteButton.GetRandomOnClickAsync">
+            <summary>
+            Get Random button: Get a random quote.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteButton.GetRandomQuote">
+            <summary>
+            Button click event handler to get a random quote.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteDisplay">
+            <summary>
+            Display the quote's data.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteDisplay.Quote">
+            <summary>
+            Parameter: The quote to display.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteList">
+            <summary>
+            Display a list of quotes with a thumbnail image.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteList.Configuration">
+            <summary>
+            Injected Configuration.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteList.QuoteService">
+            <summary>
+            Injected Quote Service.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteList.Quotes">
+            <summary>
+            Parameter: The list of quotes to display.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteList.ClosedIcon">
+            <summary>
+            Icon for closed-panel.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteList.OpenIcon">
+            <summary>
+            Icon for open-panel.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteList.DisplayQuoteAsync(Noftware.In.Faux.Client.ViewModels.ViewQuote)">
+            <summary>
+            Table row click event handler: Display or hide the quote.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteList.BusyIndicatorVisibilityAsync(Noftware.In.Faux.Client.ViewModels.ViewQuote,System.Boolean)">
+            <summary>
+            Show or hide the busy indicator.
+            </summary>
+            <param name="quote">The associated quote's row to show the busy indicator within.</param>
+            <param name="showBusyIndicator">True to show or false to hide.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteRandom">
+            <summary>
+            Show a single random quote (not a timer or a button).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteRandom.QuoteService">
+            <summary>
+            Injected Quote Service.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteRandom.OnInitializedAsync">
+            <summary>
+            Method invoked when the component is ready to start, having received its initial parameters from its parent in the render tree.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch">
+            <summary>
+            Search functionality to allow the user to search for quotes based on the search index.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.QuoteService">
+            <summary>
+            Injected Quote Service.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.Configuration">
+            <summary>
+            Injected Configuration.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._showBusyIndicator">
+            <summary>
+            Show busy indicator?
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._quoteSearch">
+            <summary>
+            Quote search view model.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._searchResults">
+            <summary>
+            Results to display.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._noResultsFound">
+            <summary>
+            True if no search results were found based on the search phrase.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._resultsFound">
+            <summary>
+            True if search results were found based on the search phrase.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._textName">
+            <summary>
+            Count of the search results for display.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._resultsCountText">
+            <summary>
+            Name of the quote's text field (for display purposes).
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.OnInitialized">
+            <summary>
+            Method invoked when the component is ready to start, having received its initial parameters from its parent in the render tree.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.OnSearchKeyUpAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+            <summary>
+            Enter key: Perform search based on space separated words.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.OnSubmitAsync">
+            <summary>
+            Search button: Perform search based on space separated words.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.BusyIndicatorVisibilityAsync(System.Boolean)">
+            <summary>
+            Show or hide the busy indicator.
+            </summary>
+            <param name="showBusyIndicator">True to show or false to hide.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer">
+            <summary>
+            Using a timer, display a random quote.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.QuoteService">
+            <summary>
+            Injected Quote Service.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.Configuration">
+            <summary>
+            Injected Configuration.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.TimerRefreshSeconds">
+            <summary>
+            Parameter: The number of seconds to elapse to get the next random quote.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.OnInitializedAsync">
+            <summary>
+            Method invoked when the component is ready to start, having received its initial parameters from its parent in the render tree.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.OnElapsedQuoteTimerAsync(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            Recurring timer to display a new quote.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">An System.Timers.ElapsedEventArgs object that contains the event data.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting
+            unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Client.Pages.Quotes.Timer">
+            <summary>
+            Get a random quote every 'x' seconds via a timer job.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Timer.Configuration">
+            <summary>
+            Injected Configuration.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Timer.OnInitialized">
+            <summary>
+            Method invoked when the component is ready to start, having received its initial parameters from its parent in the render tree.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Client.Services.ClientQuoteService">
+            <summary>
+            Client quote service interface.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Services.ClientQuoteService.#ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILogger{Noftware.In.Faux.Client.Services.IClientQuoteService})">
+            <summary>
+            DI constructor.
+            </summary>
+            <param name="httpClient">HTTP client to call the API.</param>
+            <param name="configuration">Represents a set of key/value application configuration properties.</param>
+            <param name="logger">Logger.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Services.ClientQuoteService.GetRandomQuoteAsync">
+            <summary>
+            Get a random quote from the data store and map to the view model.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task`1"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Services.ClientQuoteService.GetResizedImageAsync(System.String,System.String)">
+            <summary>
+            Get a resized (display) image from the file share
+            </summary>
+            <param name="quoteKey">Quote key unique identifier.</param>
+            <param name="fileName">Name of file.</param>
+            <returns><see cref="!:Task&lt;string&gt;"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Services.ClientQuoteService.SearchQuotesAsync(System.String)">
+            <summary>
+            Search for quotes based on a space-delimited phrase and map to view models.
+            </summary>
+            <param name="searchPhrase">Words delimited by spaces.</param>
+            <returns><see cref="!:Task&lt;IEnumerable&lt;ViewQuote&gt;&gt;"/></returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Client.Services.IClientQuoteService">
+            <summary>
+            Client quote service interface.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Services.IClientQuoteService.GetRandomQuoteAsync">
+            <summary>
+            Get a random quote from the data store and map to the view model.
+            </summary>
+            <returns><see cref="!:Quote"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Services.IClientQuoteService.GetResizedImageAsync(System.String,System.String)">
+            <summary>
+            Get a resized (display) image from the file share
+            </summary>
+            <param name="quoteKey">Quote key unique identifier.</param>
+            <param name="fileName">Name of file.</param>
+            <returns><see cref="!:Task&lt;string&gt;"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Services.IClientQuoteService.SearchQuotesAsync(System.String)">
+            <summary>
+            Search for quotes based on a space-delimited phrase and map to view models.
+            </summary>
+            <param name="searchPhrase">Words delimited by spaces.</param>
+            <returns><see cref="!:Task&lt;IEnumerable&lt;ViewQuote&gt;&gt;"/></returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Client.ViewModels.ViewQuote">
+            <summary>
+            A quote for the UI.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.ViewModels.ViewQuote.Key">
+            <summary>
+            Unique identifier.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.ViewModels.ViewQuote.Text">
+            <summary>
+            The text.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.ViewModels.ViewQuote.Description">
+            <summary>
+            The description.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.ViewModels.ViewQuote.FileName">
+            <summary>
+            File name of the image.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.ViewModels.ViewQuote.Base64Image">
+            <summary>
+            Associated display image.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.ViewModels.ViewQuote.SearchShowBusyIndicator">
+            <summary>
+            Search results page: Show the busy indicator?
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.ViewModels.ViewQuote.SearchShowResizedImage">
+            <summary>
+            Search results page: Show the resized image?
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.ViewModels.ViewQuote.SearchPanelVisibilityClass">
+            <summary>
+            Search results page: The class open-icon class to show if the panel is open or closed.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Client.ViewModels.ViewQuoteFileName">
+            <summary>
+            Name of quote filename.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.ViewModels.ViewQuoteFileName.QuoteRowKey">
+            <summary>
+            Quote's unique row key.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.ViewModels.ViewQuoteFileName.FileName">
+            <summary>
+            Quote filename.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Client.ViewModels.ViewQuoteSearch">
+            <summary>
+            View model for quote searching.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Client.ViewModels.ViewQuoteSearch.Phrase">
+            <summary>
+            Search phrase. Words are delimited by spaces.
+            </summary>
+        </member>
+    </members>
+</doc>

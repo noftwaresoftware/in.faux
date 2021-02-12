@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BulkUploader</name>
+    </assembly>
+    <members>
+        <member name="T:Noftware.In.Faux.BulkUploader.PersistenceMode">
+            <summary>
+            Persistence mode for quote data and images.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.BulkUploader.PersistenceMode.Unknown">
+            <summary>
+            Mode not known.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.BulkUploader.PersistenceMode.Append">
+            <summary>
+            Append to existing table storage and file share.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.BulkUploader.PersistenceMode.Overwrite">
+            <summary>
+            Delete table repositories and file shares and re-upload all data.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.BulkUploader.Helpers">
+            <summary>
+            Helper methods to support the console application.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.BulkUploader.Helpers.GetArgumentInformation">
+            <summary>
+            Get a list of command-line arguments to display to the user.
+            </summary>
+            <returns><see cref="!:IEnumerable&lt;string&gt;"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.BulkUploader.Helpers.GetInputInformation">
+            <summary>
+            Get a list of keyboard inputs to display to the user.
+            </summary>
+            <returns><see cref="!:IEnumerable&lt;string&gt;"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.BulkUploader.Program.Main(System.String[])">
+            <summary>
+            Application's main entry point.
+            </summary>
+            <param name="args">Optional command-line arguments.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.BulkUploader.Program.ValidateArgument(System.String,System.String@,Noftware.In.Faux.BulkUploader.PersistenceMode@)">
+            <summary>
+            Validate that the argument is only an 'a' or 'o'.
+            </summary>
+            <param name="arg">Input/argument.</param>
+            <param name="errorMessage">Error message, if return is false.</param>
+            <param name="persistenceMode">Append, Overwrite, or Unknown when in error.</param>
+            <returns>True if valid, false if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.BulkUploader.Program.FileShareRepositoryOnStatusUpdate(System.Object,Noftware.In.Faux.Core.Data.FileShareEventArgs)">
+            <summary>
+            Status update event handler for file share repositories.
+            </summary>
+            <param name="sender">Sender.</param>
+            <param name="e"><see cref="T:Noftware.In.Faux.Core.Data.FileShareEventArgs"/></param>
+        </member>
+        <member name="M:Noftware.In.Faux.BulkUploader.Program.TableRepositoryOnStatusUpdate(System.Object,Noftware.In.Faux.Core.Data.TableRepositoryEventArgs)">
+            <summary>
+            Status update event handler for table repositories.
+            </summary>
+            <param name="sender">Sender.</param>
+            <param name="e"><see cref="T:Noftware.In.Faux.Core.Data.TableRepositoryEventArgs"/></param>
+        </member>
+        <member name="M:Noftware.In.Faux.BulkUploader.Program.ConsoleErrorWriteLine(System.Object)">
+            <summary>
+            Set console foreground color to red and display error.
+            </summary>
+            <param name="value">Data to display.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.BulkUploader.Program.ConsoleWarningWriteLine(System.Object)">
+            <summary>
+            Set console foreground color to yellow and display warning.
+            </summary>
+            <param name="value">Data to display.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.BulkUploader.Program.ConsoleInformationWriteLine(System.Object)">
+            <summary>
+            Set console foreground color to original and display information.
+            </summary>
+            <param name="value">Data to display.</param>
+        </member>
+    </members>
+</doc>

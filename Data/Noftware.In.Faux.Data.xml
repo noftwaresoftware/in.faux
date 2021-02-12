@@ -1,0 +1,545 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Noftware.In.Faux.Data</name>
+    </assembly>
+    <members>
+        <member name="T:Noftware.In.Faux.Data.Azure.Entities.OriginalImageFile">
+            <summary>
+            Original image file.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Azure.Entities.QuoteImpressionTableEntity">
+            <summary>
+            Represents a single view/impression of a quote.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteImpressionTableEntity.QuoteRowKey">
+            <summary>
+            The row key (int) of the quote.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Azure.Entities.QuoteMetadataTableEntity">
+            <summary>
+            Azure Table entity for quote a single quote meta data.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteMetadataTableEntity.QuoteTotalCount">
+            <summary>
+            The total number of quote rows.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Azure.Entities.QuoteSearchIndexTableEntity">
+            <summary>
+            Azure Table entity for quote search index.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteSearchIndexTableEntity.Word">
+            <summary>
+            The indexed quote word.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteSearchIndexTableEntity.QuoteRowKey">
+            <summary>
+            The row key (int) of the quote.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity">
+            <summary>
+            Azure Table entity for quote items.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity.Text">
+            <summary>
+            The text.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity.Description">
+            <summary>
+            The description.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity.FileName">
+            <summary>
+            Name of the original image file.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity.OriginalImageWidth">
+            <summary>
+            Original image's width (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity.OriginalImageHeight">
+            <summary>
+            Original image's height (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity.ResizedImageWidth">
+            <summary>
+            Resized image's width (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity.ResizedImageHeight">
+            <summary>
+            Resized image's height (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity.ThumbnailImageWidth">
+            <summary>
+            Thumbnail image's width (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity.ThumbnailImageHeight">
+            <summary>
+            Thumbnail image's height (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity.KeyWords">
+            <summary>
+            Associated keywords, separated by commas.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity.SearchIndex">
+            <summary>
+            The searchable content consisting of the Text, Description, and KeyWords.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Azure.Entities.ResizedImageFile">
+            <summary>
+            Resized image file.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Azure.Entities.ThumbnailImageFile">
+            <summary>
+            Thumbnail image file.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Azure.FileShareRepository`1">
+            <summary>
+            Azure file share repository.
+            </summary>
+        </member>
+        <member name="E:Noftware.In.Faux.Data.Azure.FileShareRepository`1.StatusUpdate">
+            <summary>
+            Event handler to notify caller of status.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.FileShareRepository`1.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
+            <param name="shareName">Azure file share name.</param>
+            <param name="directoryName">Directory/folder within the file share.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.FileShareRepository`1.DeleteAsync">
+            <summary>
+            Delete the Azure file share.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.FileShareRepository`1.CreateAsync">
+            <summary>
+            Create the Azure file share directory.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.FileShareRepository`1.DeleteDirectoryAsync">
+            <summary>
+            Delete the Azure file share directory.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.FileShareRepository`1.CreateDirectoryAsync">
+            <summary>
+            Create the Azure file share directory.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.FileShareRepository`1.AddOrUpdateAsync(`0)">
+            <summary>
+            Add or update the file.
+            </summary>
+            <param name="file">File.</param>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.FileShareRepository`1.GetFileAsync(System.String)">
+            <summary>
+            Based on the filename in the existing directory, get the file contents as a byte array.
+            </summary>
+            <param name="fileName">Name of existing file.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task`1"/> or null if file not found.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.FileShareRepository`1.OnStatusUpdate(System.String,Noftware.In.Faux.Core.Data.OperationStatus)">
+            <summary>
+            Event handler to notify caller of status.
+            </summary>
+            <param name="message">Status message.</param>
+            <param name="operationStatus">Status of the operation.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Azure.KeyVaultSettings">
+            <summary>
+            Wrapper to access settings from Azure KeyVault.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.KeyVaultSettings.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Default constructor when tenant id, client Id and secret are known.
+            </summary>
+            <param name="vaultAddress">KeyVault address.</param>
+            <param name="clientId">KeyVault client Id.</param>
+            <param name="clientId">KeyVault client Id.</param>
+            <param name="secret">KeyVault secret.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.KeyVaultSettings.#ctor(System.String)">
+            <summary>
+            Default constructor when az login or environment variables are used.
+            </summary>
+            <param name="vaultAddress">KeyVault address.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.KeyVaultSettings.GetOptions">
+            <summary>
+            Retry operations.
+            </summary>
+            <returns><see cref="T:Azure.Security.KeyVault.Secrets.SecretClientOptions"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.KeyVaultSettings.GetSecret(System.String)">
+            <summary>
+            Get secret value based on key.
+            </summary>
+            <param name="key">Key. Example: secret:KeyName/KeyVersion</param>
+            <returns>Value, if found. Null, if otherwise.</returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Azure.KeyVaultSettings.ParsedKey">
+            <summary>
+            Parses a KV string in the following formats:
+            secret:KeyName/KeyVersion
+            KeyName/KeyVersion
+            KeyName
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.KeyVaultSettings.ParsedKey.#ctor(System.String)">
+            <summary>
+            Constructor to accept the KV string.
+            </summary>
+            <param name="input">KV string.</param>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.KeyVaultSettings.ParsedKey.KeyName">
+            <summary>
+            Name of key.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.KeyVaultSettings.ParsedKey.HasKey">
+            <summary>
+            True if key is defined, false if otherwise.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.KeyVaultSettings.ParsedKey.Version">
+            <summary>
+            [optional] Version.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Data.Azure.KeyVaultSettings.ParsedKey.HasVersion">
+            <summary>
+            True if version is defined, false if otherwise.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.KeyVaultSettings.ParsedKey.ToString">
+            <summary>
+            Rebuilds the entire string.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Azure.TableRepository`1">
+            <summary>
+            Azure table repository.
+            </summary>
+            <typeparam name="TEntity">Model of type TableEntity.</typeparam>
+        </member>
+        <member name="E:Noftware.In.Faux.Data.Azure.TableRepository`1.StatusUpdate">
+            <summary>
+            Event handler to notify caller of status.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.TableRepository`1.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
+            <param name="tableName">Azure table name.</param>
+            <param name="partitionKey">Table partition key.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.TableRepository`1.DeleteTableAsync">
+            <summary>
+            Delete the Azure table.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.TableRepository`1.CreateTableAsync">
+            <summary>
+            Create the Azure table.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.TableRepository`1.AddOrUpdateAsync(`0)">
+            <summary>
+            Add or update the Azure table.
+            </summary>
+            <param name="tableEntity">Azure table.</param>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.TableRepository`1.GetAsync(System.String,System.String[])">
+            <summary>
+            Get an item based on the row key.
+            </summary>
+            <param name="rowKey">The row key.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task`1"/> or null, if not found.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.TableRepository`1.SearchAsync(System.Collections.Generic.IEnumerable{Noftware.In.Faux.Core.Models.TableEntityFilter},System.String[])">
+            <summary>
+            Based on one or more filters, search for table items. PartitionKey is already included.
+            </summary>
+            <param name="filters">One of more filters.</param>
+            <param name="selectColumns">Specified columns to include.</param>
+            <returns><see cref="T:System.Collections.Generic.IAsyncEnumerable`1"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Azure.TableRepository`1.OnStatusUpdate(System.String,Noftware.In.Faux.Core.Data.OperationStatus)">
+            <summary>
+            Event handler to notify caller of status.
+            </summary>
+            <param name="message">Status message.</param>
+            <param name="operationStatus">Status of the operation.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Extensions.StringExtensions">
+            <summary>
+            String extensions/helpers.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Extensions.StringExtensions.ReplaceIgnoreCase(System.String,System.String,System.String)">
+            <summary>
+            Replace all text within the string while ignoring the case sensitivity.
+            </summary>
+            <param name="source">source string.</param>
+            <param name="oldValue">Old value to be replaced.</param>
+            <param name="newValue">New value to replace the old value.</param>
+            <returns><see cref="T:System.String"/></returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Repositories.OriginalQuoteFileShareRepository">
+            <summary>
+            The Azure file share repository for original images. These are the original/untouched images from the source directory.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Repositories.OriginalQuoteFileShareRepository.#ctor(System.String)">
+            <summary>
+            Constructor to set the Azure storage connection string.
+            </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Repositories.QuoteImpressionTableRepository">
+            <summary>
+            The Azure table repository for the quote search index.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Repositories.QuoteImpressionTableRepository.#ctor(System.String)">
+            <summary>
+            Constructor to set the Azure storage connection string.
+            </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Repositories.QuoteMetadataTableRepository">
+            <summary>
+            The Azure table repository for the single quote metadata item.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Repositories.QuoteMetadataTableRepository.#ctor(System.String)">
+            <summary>
+            Constructor to set the Azure storage connection string.
+            </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Repositories.QuoteSearchIndexTableRepository">
+            <summary>
+            The Azure table repository for the quote search index.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Repositories.QuoteSearchIndexTableRepository.#ctor(System.String)">
+            <summary>
+            Constructor to set the Azure storage connection string.
+            </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Repositories.QuoteTableRepository">
+            <summary>
+            The Azure table repository for quotes.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Repositories.QuoteTableRepository.#ctor(System.String)">
+            <summary>
+            Constructor to set the Azure storage connection string.
+            </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Repositories.ResizedQuoteFileShareRepository">
+            <summary>
+            The Azure file share repository for resized images. These are the ones shown with each quote.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Repositories.ResizedQuoteFileShareRepository.#ctor(System.String)">
+            <summary>
+            Constructor to set the Azure storage connection string.
+            </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Repositories.ThumbnailQuoteFileShareRepository">
+            <summary>
+            The Azure file share repository for thumbnail images. These are the ones shown with multiple search results.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Repositories.ThumbnailQuoteFileShareRepository.#ctor(System.String)">
+            <summary>
+            Constructor to set the Azure storage connection string.
+            </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Services.QuoteCacheService">
+            <summary>
+            Quote caching service.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteCacheService.AddOrUpdateAsync(Noftware.In.Faux.Core.Models.Quote)">
+            <summary>
+            Add or update a cached quote.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteCacheService.ClearAsync">
+            <summary>
+            Clear all cached quotes.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteCacheService.ExistsAsync(System.String)">
+            <summary>
+            Check for quote existence by key.
+            </summary>
+            <param name="key">Unique identifier.</param>
+            <returns><see cref="!:Task&lt;bool&gt;"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteCacheService.GetAsync(System.String)">
+            <summary>
+            Get quote by key.
+            </summary>
+            <param name="key">Unique identifier.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task`1"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteCacheService.GetRandomAsync">
+            <summary>
+            Get random quote.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task`1"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteCacheService.RemoveAsync(System.String)">
+            <summary>
+            Remove quote by key.
+            </summary>
+            <param name="key">Unique identifier.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Services.QuoteParser">
+            <summary>
+            Parses a text file that contains quote data.
+            Format: Quote text {Meaning/explanation text} [FileName] |Comma-separated keywords/tags|
+            Example: Circle back {Following up on progress.} [CircleBack.png] |reach,contact,follow,up,follow-up,communicate|
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteParser.#ctor(Noftware.In.Faux.Core.Models.QuoteParserSettings,Noftware.In.Faux.Core.Services.IQuoteService)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="settings">Settings for the parser.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteParser.ParseInputFileAsync">
+            <summary>
+            Parses the quote text file.
+            </summary>
+            <returns><see cref="T:System.Collections.Generic.IAsyncEnumerable`1"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteParser.LoadImage(Noftware.In.Faux.Core.Models.ParsedQuote)">
+            <summary>
+            Based on a filename in the quote, load the image from disk into the OriginalImage byte array.
+            </summary>
+            <param name="quote">Parsed quote with filename.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteParser.ResizeImage(Noftware.In.Faux.Core.Models.ParsedQuote,System.Int32,System.Byte[]@,System.Int32@,System.Int32@)">
+            <summary>
+            Resize the OriginalImage byte array to a maximum width or height and store in the ResizedImage byte array.
+            </summary>
+            <param name="quote">Parsed quote with populated OriginalImage.</param>
+            <param name="maximumDimension">The maximum dimension of the resized height or width.</param>
+            <param name="newImageBytes">The resized image.</param>
+            <param name="newImageHeight">The height of the resized image.</param>
+            <param name="newImageWidth">The width of the resized image.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Data.Services.QuoteService">
+            <summary>
+            Service for obtaining quote items from the data store.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteService.#ctor(Noftware.In.Faux.Core.Data.ITableRepository{Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity},Noftware.In.Faux.Core.Data.ITableRepository{Noftware.In.Faux.Data.Azure.Entities.QuoteMetadataTableEntity},Noftware.In.Faux.Core.Data.ITableRepository{Noftware.In.Faux.Data.Azure.Entities.QuoteSearchIndexTableEntity},Noftware.In.Faux.Core.Data.ITableRepository{Noftware.In.Faux.Data.Azure.Entities.QuoteImpressionTableEntity},Noftware.In.Faux.Core.Data.IFileShareRepository{Noftware.In.Faux.Data.Azure.Entities.ResizedImageFile},Noftware.In.Faux.Core.Data.IFileShareRepository{Noftware.In.Faux.Data.Azure.Entities.ThumbnailImageFile})">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="quoteTableRepository">Azure Table repository for quotes.</param>
+            <param name="quoteTablemetaDataRepository">Azure Table repository for a single quote metadata item.</param>
+            <param name="quoteSearchTableRepository">Azure Table repository for the quote search index.</param>
+            <param name="quoteImpressionTableRepository">Azure Table repository for the quote impressions.</param>
+            <param name="resizedImageFileRepository">Azure file share repository for resized quote images.</param>
+            <param name="thumbnailImageFileRepository">Azure file share repository for thumbnail quote images.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteService.GetRandomQuoteAsync">
+            <summary>
+            Get a random quote from the data store.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task`1"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteService.GetResizedImageAsync(System.String,System.String)">
+            <summary>
+            Get a thumbnail image from the file share
+            </summary>
+            <param name="quoteKey">Quote key unique identifier.</param>
+            <param name="fileName">Name of file.</param>
+            <returns><see cref="!:Task&lt;string&gt;"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteService.SearchQuotesAsync(System.String)">
+            <summary>
+            Search for quotes via one or more words. Words should be separated by spaces.
+            </summary>
+            <param name="searchPhrase">Search word(s) separated by spaces.</param>
+            <returns><see cref="!:Task&lt;IEnumerable&lt;Quote&gt;&gt;"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteService.BuildSearchWords(System.String)">
+            <summary>
+            Build the search word index by filtering out characters/words that should not be indexed, such as punctuation and whitespace.
+            </summary>
+            <param name="input">Input string.</param>
+            <returns><see cref="!:IEnumerable&lt;string&gt;"/> or null, if input is empty.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteService.GetQuoteSelectFields">
+            <summary>
+            Get only the list of quote fields required for this service.
+            </summary>
+            <returns><see cref="!:string[]"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteService.GetQuoteMetadataSelectFields">
+            <summary>
+            Get only the list of quote metadata fields required for this service.
+            </summary>
+            <returns><see cref="!:string[]"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Data.Services.QuoteService.GetQuoteSearchSelectFields">
+            <summary>
+            Get only the list of quote search fields required for this service.
+            </summary>
+            <returns><see cref="!:string[]"/></returns>
+        </member>
+    </members>
+</doc>

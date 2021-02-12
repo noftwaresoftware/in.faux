@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Noftware.In.Faux.Function</name>
+    </assembly>
+    <members>
+        <member name="T:Noftware.In.Faux.Function.QuoteFunction">
+            <summary>
+            Get a random quote.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Function.QuoteFunction.#ctor(Noftware.In.Faux.Core.Services.IQuoteService)">
+            <summary>
+            DI constructor.
+            </summary>
+            <param name="quoteService">Quote service.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.Function.QuoteFunction.GetRandomQuote(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Get a random quote.
+            </summary>
+            <param name="req">HTTP request.</param>
+            <param name="log">Logger.</param>
+            <returns><see cref="T:Noftware.In.Faux.Core.Models.Quote"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Function.QuoteFunction.GetResizedImage(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Get a Base 64 encoded resized image.
+            </summary>
+            <param name="req">HTTP request.</param>
+            <param name="log">Logger.</param>
+            <returns><see cref="T:System.String"/></returns>
+            <remarks>
+            Posted body format:
+            {
+              "quoteRowKey": "8675309",
+              "fileName": "JennyJenny.png"
+            }
+            </remarks>
+        </member>
+        <member name="M:Noftware.In.Faux.Function.QuoteFunction.SearchQuotes(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Search the quotes.
+            </summary>
+            <param name="req">HTTP request.</param>
+            <param name="log">Logger.</param>
+            <returns><see cref="T:System.Collections.Generic.IEnumerable`1"/></returns>
+            <remarks>
+            Posted body format:
+            {
+              "phrase": "tommy tutone",
+            }
+            </remarks>
+        </member>
+    </members>
+</doc>

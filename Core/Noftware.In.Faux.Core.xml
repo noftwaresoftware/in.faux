@@ -1,0 +1,617 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Noftware.In.Faux.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Noftware.In.Faux.Core.Data.DataEventArgs">
+            <summary>
+            Base class for all data-related event arguments.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Data.DataEventArgs.Message">
+            <summary>
+            Notification message.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Data.DataEventArgs.Status">
+            <summary>
+            Status of the operation.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.DataEventArgs.#ctor(System.String,Noftware.In.Faux.Core.Data.OperationStatus)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="message">Notification message.</param>
+            <param name="status">Status of the operation.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Data.OperationStatus">
+            <summary>
+            Status of the operation.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Data.OperationStatus.Success">
+            <summary>
+            Success.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Data.OperationStatus.Warning">
+            <summary>
+            Warning.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Data.OperationStatus.Error">
+            <summary>
+            An error occurred.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Data.FileShareEventArgs">
+            <summary>
+            Event arguments for Azure file share notifications.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.FileShareEventArgs.#ctor(System.String,Noftware.In.Faux.Core.Data.OperationStatus)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="message">Notification message.</param>
+            <param name="operationStatus">Status of the operation.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Data.IFileShareRepository`1">
+            <summary>
+            Azure file share repository.
+            </summary>
+        </member>
+        <member name="E:Noftware.In.Faux.Core.Data.IFileShareRepository`1.StatusUpdate">
+            <summary>
+            Event handler to notify caller of status.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.IFileShareRepository`1.DeleteAsync">
+            <summary>
+            Delete the Azure file share.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.IFileShareRepository`1.CreateAsync">
+            <summary>
+            Create the Azure file share directory.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.IFileShareRepository`1.DeleteDirectoryAsync">
+            <summary>
+            Delete the Azure file share directory.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.IFileShareRepository`1.CreateDirectoryAsync">
+            <summary>
+            Create the Azure file share directory.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.IFileShareRepository`1.AddOrUpdateAsync(`0)">
+            <summary>
+            Add or update the file.
+            </summary>
+            <param name="file">File.</param>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.IFileShareRepository`1.GetFileAsync(System.String)">
+            <summary>
+            Based on the filename in the existing directory, get the file contents as a byte array.
+            </summary>
+            <param name="fileName">Name of existing file.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task`1"/> or null if file not found.</returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Data.ITableRepository`1">
+            <summary>
+            Azure table repository interface.
+            </summary>
+            <typeparam name="TEntity">Model of type TableEntity.</typeparam>
+        </member>
+        <member name="E:Noftware.In.Faux.Core.Data.ITableRepository`1.StatusUpdate">
+            <summary>
+            Event handler to notify caller of status.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.ITableRepository`1.DeleteTableAsync">
+            <summary>
+            Delete the Azure table.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.ITableRepository`1.CreateTableAsync">
+            <summary>
+            Create the Azure table.
+            </summary>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.ITableRepository`1.AddOrUpdateAsync(`0)">
+            <summary>
+            Add or update the Azure table.
+            </summary>
+            <param name="tableEntity">Azure table.</param>
+            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.ITableRepository`1.SearchAsync(System.Collections.Generic.IEnumerable{Noftware.In.Faux.Core.Models.TableEntityFilter},System.String[])">
+            <summary>
+            Based on one or more filters, search for table items.
+            </summary>
+            <param name="filters">One of more filters.</param>
+            <param name="selectColumns">Specified columns to include.</param>
+            <returns><see cref="T:System.Collections.Generic.IAsyncEnumerable`1"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.ITableRepository`1.GetAsync(System.String,System.String[])">
+            <summary>
+            Get an item based on the row key.
+            </summary>
+            <param name="rowKey">The row key.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task`1"/> or null, if not found.</returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Data.TableRepositoryEventArgs">
+            <summary>
+            Event arguments for Azure table repository notifications.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.TableRepositoryEventArgs.#ctor(System.String,Noftware.In.Faux.Core.Data.OperationStatus)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="message">Notification message.</param>
+            <param name="operationStatus">Status of the operation.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Extensions.NumericExtensions">
+            <summary>
+            Extensions for numeric type handling.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Extensions.NumericExtensions.GetRandomIndex``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Based on the item count in the collection, get a random index.
+            </summary>
+            <typeparam name="T">Collection type.</typeparam>
+            <param name="items">Collection.</param>
+            <returns>Numeric index.</returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Extensions.NumericExtensions.GetRandomNumber(System.Int32,System.Int32)">
+            <summary>
+            Returns a random integer that is within a specified range.
+            </summary>
+            <param name="minValue">The inclusive lower bound of the random number returned.</param>
+            <param name="maxValue">The exclusive upper bound of the random number returned. maxValue must be greater than or equal to minValue.</param>
+            <returns>A 32-bit signed integer greater than or equal to minValue and less than maxValue;
+            that is, the range of return values includes minValue but not maxValue. If minValue
+            equals maxValue, minValue is returned.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">minValue is greater than maxValue.</exception>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Extensions.ObjectExtensions">
+            <summary>
+            Extensions for object handling.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Extensions.ObjectExtensions.ConvertTo``1(System.Object)">
+            <summary>
+            Based on the input, convert to the specified type (if possible).
+            </summary>
+            <param name="input">Object to be converted.</param>
+            <returns>T or default(T), if not convertible.</returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Extensions.StringExtensions">
+            <summary>
+            String extensions/helpers.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Extensions.StringExtensions.Pluralize(System.String,System.Int32)">
+            <summary>
+            Pluralize a word, if required.
+            </summary>
+            <param name="input">String to pluralize (if required).</param>
+            <param name="count">Number of items.</param>
+            <returns>string</returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Extensions.ThreadSafeRandom">
+            <summary>
+            A thread-safe random number implementation.
+            </summary>
+            <seealso cref="!:https://stackoverflow.com/questions/3049467/is-c-sharp-random-number-generator-thread-safe/24648788#24648788"/>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Extensions.ThreadSafeRandom.Next(System.Int32,System.Int32)">
+            <summary>
+            Returns a random integer that is within a specified range.
+            </summary>
+            <param name="minValue">The inclusive lower bound of the random number returned.</param>
+            <param name="maxValue">The exclusive upper bound of the random number returned. maxValue must be greater than or equal to minValue.</param>
+            <returns>A 32-bit signed integer greater than or equal to minValue and less than maxValue;
+            that is, the range of return values includes minValue but not maxValue. If minValue
+            equals maxValue, minValue is returned.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">minValue is greater than maxValue.</exception>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Models.File">
+            <summary>
+            Represents the base class of a file.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.File.Name">
+            <summary>
+            File name.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.File.Path">
+            <summary>
+            Path to file.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.File.Contents">
+            <summary>
+            Contents of file.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Models.ParsedQuote">
+            <summary>
+            A quote parsed from a source text file. 
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.Line">
+            <summary>
+            Source line.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.Errors">
+            <summary>
+            A list of parser errors. If empty, parse was a success.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.FileName">
+            <summary>
+            Name of the image file.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.KeyWords">
+            <summary>
+            Associated keywords.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.Text">
+            <summary>
+            The text.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.Description">
+            <summary>
+            The description.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.OriginalImage">
+            <summary>
+            Original image.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.OriginalImageWidth">
+            <summary>
+            Original image's width (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.OriginalImageHeight">
+            <summary>
+            Original image's height (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.ResizedImage">
+            <summary>
+            Resized image.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.ResizedImageWidth">
+            <summary>
+            Resized image's width (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.ResizedImageHeight">
+            <summary>
+            Resized image's height (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.ThumbnailImage">
+            <summary>
+            Thumbnail image.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.ThumbnailImageWidth">
+            <summary>
+            Thumbnail image's width (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.ThumbnailImageHeight">
+            <summary>
+            Thumbnail image's height (in pixels).
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.DelimitedKeyWords">
+            <summary>
+            Associated keywords, delimited by a comma.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.SearchItems">
+            <summary>
+            The searchable content consisting of the Text, Description, and KeyWords.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.ParsedQuote.DelimitedSearchItems">
+            <summary>
+            Associated search items (Text, Description, and KeyWords), delimited by a space.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Models.ParsedQuote.ToString">
+            <summary>
+            Formatted output suitable for display.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Models.Quote">
+            <summary>
+            Data item.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.Quote.Key">
+            <summary>
+            Unique identifier.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.Quote.Text">
+            <summary>
+            The text.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.Quote.Description">
+            <summary>
+            The description.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.Quote.Keywords">
+            <summary>
+            Keywords or tags for search lookups.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.Quote.FileName">
+            <summary>
+            File name of the image.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.Quote.Base64Image">
+            <summary>
+            Associated display image.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Models.Quote.GetDefault">
+            <summary>
+            In the event that the service is temporarily unavailable, get a default one.
+            </summary>
+            <returns><see cref="T:Noftware.In.Faux.Core.Models.Quote"/></returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Models.QuoteParserSettings">
+            <summary>
+            Settings for the quote flat file parser and image resizing.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.QuoteParserSettings.MaximumResizedImageDimension">
+            <summary>
+            Maximum resized dimension in pixels.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.QuoteParserSettings.MaximumThumbnailImageDimension">
+            <summary>
+            Maximum thumbnail dimension in pixels.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.QuoteParserSettings.InputImagePath">
+            <summary>
+            Path to where all images are located.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.QuoteParserSettings.QuoteTextFile">
+            <summary>
+            Path and name of quote source file.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Models.TableEntityFilter">
+            <summary>
+            A single Azure table entity filter to be used in the filter builder.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.TableEntityFilter.BooleanOperator">
+            <summary>
+            Boolean operator.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.TableEntityFilter.Field">
+            <summary>
+            Name of field.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.TableEntityFilter.ComparisonOperator">
+            <summary>
+            Comparison operator.
+            </summary>
+        </member>
+        <member name="P:Noftware.In.Faux.Core.Models.TableEntityFilter.Value">
+            <summary>
+            Value. If string or DateTime, surround by single quotes.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Models.TableEntityFilterBuilder">
+            <summary>
+            Azure table entity filter builder.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Models.TableEntityFilterBuilder.Build(System.Collections.Generic.IEnumerable{Noftware.In.Faux.Core.Models.TableEntityFilter})">
+            <summary>
+            Based on one or more filter expressions, build a filter for an Azure table query.
+            </summary>
+            <param name="filters">One of more filters.</param>
+            <returns><see cref="T:System.String"/> filter or null, if the filters parameter is empty.</returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Models.BooleanOperator">
+            <summary>
+            Boolean operators.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Models.BooleanOperator.None">
+            <summary>
+            No boolean operator. This should only be used for the first expression.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Models.BooleanOperator.And">
+            <summary>
+            And operator.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Models.BooleanOperator.Or">
+            <summary>
+            Or operator.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Models.ComparisonOperator">
+            <summary>
+            Comparison operators.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Models.ComparisonOperator.EqualTo">
+            <summary>
+            Equal to.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Models.ComparisonOperator.NotEqualTo">
+            <summary>
+            Not equal to.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Models.ComparisonOperator.GreaterThan">
+            <summary>
+            Greater than.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Models.ComparisonOperator.GreaterThanOrEqualTo">
+            <summary>
+            Greater than or Equal to.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Models.ComparisonOperator.LessThan">
+            <summary>
+            Greater than.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Core.Models.ComparisonOperator.LessThanOrEqualTo">
+            <summary>
+            Greater than or Equal to.
+            </summary>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Services.ICacheService`2">
+            <summary>
+            Cached items.
+            </summary>
+            <typeparam name="TEntity">The entity to cache.</typeparam>
+            <typeparam name="TKey">The type of unique identifier of <see cref="!:TEntity"/>.</typeparam>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.ICacheService`2.ClearAsync">
+            <summary>
+            Clear all cached items.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.ICacheService`2.AddOrUpdateAsync(`0)">
+            <summary>
+            Add or update a cached item.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.ICacheService`2.ExistsAsync(`1)">
+            <summary>
+            Check for item existence by key.
+            </summary>
+            <param name="key">Unique identifier.</param>
+            <returns><see cref="!:Task&lt;bool&gt;"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.ICacheService`2.GetAsync(`1)">
+            <summary>
+            Get item by key.
+            </summary>
+            <param name="key">Unique identifier.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task`1"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.ICacheService`2.GetRandomAsync">
+            <summary>
+            Get random item.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task`1"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.ICacheService`2.RemoveAsync(`1)">
+            <summary>
+            Remove item by key.
+            </summary>
+            <param name="key">Unique identifier.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Services.IKeyVaultSettings">
+            <summary>
+            Interface to access settings from Azure KeyVault.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.IKeyVaultSettings.GetSecret(System.String)">
+            <summary>
+            Get secret value based on key.
+            </summary>
+            <param name="key">Key. Example: secret:KeyName/KeyVersion</param>
+            <returns>Value, if found. Null, if otherwise.</returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Services.IQuoteParser">
+            <summary>
+            Parses a text file that contains quote data.
+            Format: Quote text {Meaning/explanation text} [FileName] |Comma-separated keywords/tags|
+            Example: Circle back {Following up on progress.} [CircleBack.png] |reach,contact,follow,up,follow-up,communicate|
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.IQuoteParser.ParseInputFileAsync">
+            <summary>
+            Parses the quote text file.
+            </summary>
+            <returns><see cref="T:System.Collections.Generic.IAsyncEnumerable`1"/></returns>
+        </member>
+        <member name="T:Noftware.In.Faux.Core.Services.IQuoteService">
+            <summary>
+            Quote service interface.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.IQuoteService.GetRandomQuoteAsync">
+            <summary>
+            Get a random quote item.
+            </summary>
+            <returns><see cref="T:System.Threading.Tasks.Task`1"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.IQuoteService.GetResizedImageAsync(System.String,System.String)">
+            <summary>
+            Get a resized (display) image from the file share
+            </summary>
+            <param name="quoteKey">Quote key unique identifier.</param>
+            <param name="fileName">Name of file.</param>
+            <returns><see cref="!:Task&lt;string&gt;"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.IQuoteService.SearchQuotesAsync(System.String)">
+            <summary>
+            Search for quotes based on a space-delimited phrase.
+            </summary>
+            <param name="searchPhrase">Words delimited by spaces.</param>
+            <returns><see cref="T:System.Collections.Generic.IEnumerable`1"/></returns>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Services.IQuoteService.BuildSearchWords(System.String)">
+            <summary>
+            Build the search word index by filtering out characters/words that should not be indexed, such as punctuation and whitespace.
+            </summary>
+            <param name="input">Input string.</param>
+            <returns><see cref="!:IEnumerable&lt;string&gt;"/> or null, if input is empty.</returns>
+        </member>
+    </members>
+</doc>
