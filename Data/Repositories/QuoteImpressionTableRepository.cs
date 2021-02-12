@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Noftware.In.Faux.Data.Repositories
 {
     /// <summary>
-    /// The Azure table repository for the quote search index.
+    /// The Azure table repository for the quote impressions.
     /// </summary>
     public class QuoteImpressionTableRepository : TableRepository<QuoteImpressionTableEntity>
     {

@@ -15,8 +15,15 @@ using Noftware.In.Faux.Data.Azure;
 
 namespace Noftware.In.Faux.Function
 {
+    /// <summary>
+    /// DI for function.
+    /// </summary>
     public class QuoteFunctionStartup : FunctionsStartup
     {
+        /// <summary>
+        /// DI for function.
+        /// </summary>
+        /// <param name="builder">Function host builder.</param>
         public override void Configure(IFunctionsHostBuilder builder)
         {
             var services = builder.Services;
