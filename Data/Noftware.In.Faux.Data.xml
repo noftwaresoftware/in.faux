@@ -336,7 +336,7 @@
         </member>
         <member name="T:Noftware.In.Faux.Data.Repositories.QuoteImpressionTableRepository">
             <summary>
-            The Azure table repository for the quote search index.
+            The Azure table repository for the quote impressions.
             </summary>
         </member>
         <member name="M:Noftware.In.Faux.Data.Repositories.QuoteImpressionTableRepository.#ctor(System.String)">

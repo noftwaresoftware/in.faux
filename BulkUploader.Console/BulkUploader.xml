@@ -41,9 +41,14 @@
             </summary>
             <returns><see cref="!:IEnumerable&lt;string&gt;"/></returns>
         </member>
+        <member name="T:Noftware.In.Faux.BulkUploader.Program">
+            <summary>
+            The application's main entry point.
+            </summary>
+        </member>
         <member name="M:Noftware.In.Faux.BulkUploader.Program.Main(System.String[])">
             <summary>
-            Application's main entry point.
+            The application's main method.
             </summary>
             <param name="args">Optional command-line arguments.</param>
         </member>
@@ -87,6 +92,29 @@
             Set console foreground color to original and display information.
             </summary>
             <param name="value">Data to display.</param>
+        </member>
+        <member name="T:Noftware.In.Faux.BulkUploader.Startup">
+            <summary>
+            DI startup.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.BulkUploader.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="configuration">Represents a set of key/value application configuration properties.</param>
+        </member>
+        <member name="P:Noftware.In.Faux.BulkUploader.Startup.Configuration">
+            <summary>
+            Represents a set of key/value application configuration properties.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.BulkUploader.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+            </summary>
+            <param name="services">Specifies the contract for a collection of service descriptors.</param>
         </member>
     </members>
 </doc>

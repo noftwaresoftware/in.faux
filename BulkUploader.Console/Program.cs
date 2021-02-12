@@ -15,13 +15,16 @@ using Noftware.In.Faux.Data.Services;
 
 namespace Noftware.In.Faux.BulkUploader
 {
+    /// <summary>
+    /// The application's main entry point.
+    /// </summary>
     public class Program
     {
         // Capture original color to reset
         private static readonly ConsoleColor OriginalConsoleForegroundColor = Console.ForegroundColor;
 
         /// <summary>
-        /// Application's main entry point.
+        /// The application's main method.
         /// </summary>
         /// <param name="args">Optional command-line arguments.</param>
         public static async Task Main(string[] args)
@@ -158,7 +161,7 @@ namespace Noftware.In.Faux.BulkUploader
             if (mode == PersistenceMode.Overwrite)
             {
                 // Delete and recreate
-                ConsoleInformationWriteLine("Creating the quote table repository.");
+                ConsoleInformationWriteLine("Deleting and re-creating the quote table repository.");
                 await tableRepoQuote.DeleteTableAsync();
                 await tableRepoQuote.CreateTableAsync();
             }
@@ -169,9 +172,20 @@ namespace Noftware.In.Faux.BulkUploader
             if (mode == PersistenceMode.Overwrite)
             {
                 // Delete and recreate
-                ConsoleInformationWriteLine("Creating the quote search index table repository.");
+                ConsoleInformationWriteLine("Deleting and re-creating the quote search index table repository.");
                 await tableRepoQuoteSearchIndex.DeleteTableAsync();
                 await tableRepoQuoteSearchIndex.CreateTableAsync();
+            }
+
+            // Quote impression table repository
+            var tableRepoQuoteImpression = services.GetService<ITableRepository<QuoteImpressionTableEntity>>();
+            tableRepoQuoteImpression.StatusUpdate += TableRepositoryOnStatusUpdate;
+            if (mode == PersistenceMode.Overwrite)
+            {
+                // Delete and recreate
+                ConsoleInformationWriteLine("Deleting and re-creating the quote impression table repository.");
+                await tableRepoQuoteImpression.DeleteTableAsync();
+                await tableRepoQuoteImpression.CreateTableAsync();
             }
 
             // File share storage for the original images
@@ -180,7 +194,7 @@ namespace Noftware.In.Faux.BulkUploader
             if (mode == PersistenceMode.Overwrite)
             {
                 // Delete and recreate
-                ConsoleInformationWriteLine("Creating the file share storage for the original images.");
+                ConsoleInformationWriteLine("Deleting and re-creating the file share storage for the original images.");
                 await fileRepoQuoteOriginal.DeleteAsync();
                 await fileRepoQuoteOriginal.CreateAsync();
                 await fileRepoQuoteOriginal.CreateDirectoryAsync();
@@ -192,7 +206,7 @@ namespace Noftware.In.Faux.BulkUploader
             if (mode == PersistenceMode.Overwrite)
             {
                 // Delete and recreate
-                ConsoleInformationWriteLine("Creating the file share directory for the resized images.");
+                ConsoleInformationWriteLine("Deleting and re-creating the file share directory for the resized images.");
                 await fileRepoQuoteResized.CreateDirectoryAsync();
             }
 
@@ -202,7 +216,7 @@ namespace Noftware.In.Faux.BulkUploader
             if (mode == PersistenceMode.Overwrite)
             {
                 // Delete and recreate
-                ConsoleInformationWriteLine("Creating the file share directory for the thumbnail images.");
+                ConsoleInformationWriteLine("Deleting and re-creating the file share directory for the thumbnail images.");
                 await fileRepoQuoteThumbnail.CreateDirectoryAsync();
 
                 ConsoleInformationWriteLine();
@@ -394,6 +408,12 @@ namespace Noftware.In.Faux.BulkUploader
                 {
                     // Azure table repository for quote metadata
                     var tblRepo = new QuoteMetadataTableRepository(tblStgConnectionString);
+                    return tblRepo;
+                })
+                .AddScoped<ITableRepository<QuoteImpressionTableEntity>, QuoteImpressionTableRepository>(f =>
+                {
+                    // Azure table repository for quote impressions
+                    var tblRepo = new QuoteImpressionTableRepository(tblStgConnectionString);
                     return tblRepo;
                 })
                 .AddScoped<IFileShareRepository<OriginalImageFile>, OriginalQuoteFileShareRepository>(f =>

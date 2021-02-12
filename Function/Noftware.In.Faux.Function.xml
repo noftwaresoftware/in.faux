@@ -52,5 +52,16 @@
             }
             </remarks>
         </member>
+        <member name="T:Noftware.In.Faux.Function.QuoteFunctionStartup">
+            <summary>
+            DI for function.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Function.QuoteFunctionStartup.Configure(Microsoft.Azure.Functions.Extensions.DependencyInjection.IFunctionsHostBuilder)">
+            <summary>
+            DI for function.
+            </summary>
+            <param name="builder">Function host builder.</param>
+        </member>
     </members>
 </doc>

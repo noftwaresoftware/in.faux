@@ -15,30 +15,36 @@ using Noftware.In.Faux.Core.Models;
 
 namespace Noftware.In.Faux.BulkUploader
 {
+    /// <summary>
+    /// DI startup.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="configuration">Represents a set of key/value application configuration properties.</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Represents a set of key/value application configuration properties.
+        /// </summary>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        /// </summary>
+        /// <param name="services">Specifies the contract for a collection of service descriptors.</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddLogging();
 
-            // Key Vault settings
-            string kvUrl = this.Configuration["KeyVault:VaultUri"];
-            string kvClientId = this.Configuration["KeyVault:ClientId"];
-            string kvSecret = this.Configuration["KeyVault:Secret"];
-            string kvTenantId = this.Configuration["KeyVault:TenantId"];
-            var kvSettings = new KeyVaultSettings(kvUrl, kvTenantId, kvClientId, kvSecret);
-
             // Get the Azure Table storage connection string
-            string tblStgConnectionString = kvSettings.GetSecret("table-storage-connection-string");
+            string tblStgConnectionString = this.Configuration["Azure:StorageConnectionString"];
 
             // Azure table repository for quotes
             services.AddScoped<ITableRepository<QuoteTableEntity>, QuoteTableRepository>(f =>
@@ -51,6 +57,13 @@ namespace Noftware.In.Faux.BulkUploader
             services.AddScoped<ITableRepository<QuoteSearchIndexTableEntity>, QuoteSearchIndexTableRepository>(f =>
             {
                 var tblRepo = new QuoteSearchIndexTableRepository(tblStgConnectionString);
+                return tblRepo;
+            });
+
+            // Azure table repository for quote impressions
+            services.AddScoped<ITableRepository<QuoteImpressionTableEntity>, QuoteImpressionTableRepository>(f =>
+            {
+                var tblRepo = new QuoteImpressionTableRepository(tblStgConnectionString);
                 return tblRepo;
             });
 
@@ -73,7 +86,7 @@ namespace Noftware.In.Faux.BulkUploader
             int maxThumbnailImageDimension = this.Configuration["QuoteParser:MaximumThumbnailImageDimension"].ConvertTo<int>();
             string inputImagePath = this.Configuration["QuoteParser:InputImagePath"];
             string quoteTextFile = this.Configuration["QuoteParser:QuoteTextFile"];
-            services.AddScoped<QuoteParserSettings>(f =>
+            services.AddScoped(f =>
             {
                 var quoteParserSettings = new QuoteParserSettings()
                 {
