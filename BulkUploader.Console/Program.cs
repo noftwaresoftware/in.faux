@@ -366,15 +366,8 @@ namespace Noftware.In.Faux.BulkUploader
                          .AddJsonFile("appsettings.json", optional: true);
             var config = configBuilder.Build();
 
-            // Key Vault settings
-            string kvUrl = config["KeyVault:VaultUri"];
-            string kvClientId = config["KeyVault:ClientId"];
-            string kvSecret = config["KeyVault:Secret"];
-            string kvTenantId = config["KeyVault:TenantId"];
-            var kvSettings = new KeyVaultSettings(kvUrl, kvTenantId, kvClientId, kvSecret);
-
             // Get the Azure Table storage connection string
-            string tblStgConnectionString = kvSettings.GetSecret("table-storage-connection-string");
+            string tblStgConnectionString = config["Azure:StorageConnectionString"];
 
             // Settings for the quote flat file parser and image resizing
             int maxResizedImageDimension = config["QuoteParser:MaximumResizedImageDimension"].ConvertTo<int>();

@@ -21,15 +21,8 @@ namespace Noftware.In.Faux.Function
         {
             var services = builder.Services;
 
-            // Key Vault settings
-            string kvUrl = Environment.GetEnvironmentVariable("KeyVault:VaultUri");
-            string kvClientId = Environment.GetEnvironmentVariable("KeyVault:ClientId");
-            string kvSecret = Environment.GetEnvironmentVariable("KeyVault:Secret");
-            string kvTenantId = Environment.GetEnvironmentVariable("KeyVault:TenantId");
-            var kvSettings = new KeyVaultSettings(kvUrl, kvTenantId, kvClientId, kvSecret);
-
             // Get the Azure Table storage connection string
-            string tblStgConnectionString = kvSettings.GetSecret("table-storage-connection-string");
+            string tblStgConnectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
 
             // Azure table repository for quotes
             services.AddScoped<ITableRepository<QuoteTableEntity>, QuoteTableRepository>(f =>
