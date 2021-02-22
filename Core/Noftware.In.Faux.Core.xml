@@ -72,39 +72,39 @@
             <summary>
             Delete the Azure file share.
             </summary>
-            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+            <returns><see cref="T:System.Boolean"/> True if success. False if otherwise.</returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Data.IFileShareRepository`1.CreateAsync">
             <summary>
             Create the Azure file share directory.
             </summary>
-            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+            <returns><see cref="T:System.Boolean"/> True if success. False if otherwise.</returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Data.IFileShareRepository`1.DeleteDirectoryAsync">
             <summary>
             Delete the Azure file share directory.
             </summary>
-            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+            <returns><see cref="T:System.Boolean"/> True if success. False if otherwise.</returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Data.IFileShareRepository`1.CreateDirectoryAsync">
             <summary>
             Create the Azure file share directory.
             </summary>
-            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+            <returns><see cref="T:System.Boolean"/> True if success. False if otherwise.</returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Data.IFileShareRepository`1.AddOrUpdateAsync(`0)">
             <summary>
             Add or update the file.
             </summary>
             <param name="file">File.</param>
-            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+            <returns><see cref="T:System.Boolean"/> True if success. False if otherwise.</returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Data.IFileShareRepository`1.GetFileAsync(System.String)">
             <summary>
             Based on the filename in the existing directory, get the file contents as a byte array.
             </summary>
             <param name="fileName">Name of existing file.</param>
-            <returns><see cref="T:System.Threading.Tasks.Task`1"/> or null if file not found.</returns>
+            <returns><see cref="T:Noftware.In.Faux.Core.Models.File"/> or null if file not found.</returns>
         </member>
         <member name="T:Noftware.In.Faux.Core.Data.ITableRepository`1">
             <summary>
@@ -121,20 +121,20 @@
             <summary>
             Delete the Azure table.
             </summary>
-            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+            <returns><see cref="T:System.Boolean"/> True if success. False if otherwise.</returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Data.ITableRepository`1.CreateTableAsync">
             <summary>
             Create the Azure table.
             </summary>
-            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+            <returns><see cref="T:System.Boolean"/> True if success. False if otherwise.</returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Data.ITableRepository`1.AddOrUpdateAsync(`0)">
             <summary>
             Add or update the Azure table.
             </summary>
             <param name="tableEntity">Azure table.</param>
-            <returns><see cref="!:Task&lt;bool&gt;"/> True if success. False if otherwise.</returns>
+            <returns><see cref="T:System.Boolean"/> True if success. False if otherwise.</returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Data.ITableRepository`1.SearchAsync(System.Collections.Generic.IEnumerable{Noftware.In.Faux.Core.Models.TableEntityFilter},System.String[])">
             <summary>
@@ -149,7 +149,8 @@
             Get an item based on the row key.
             </summary>
             <param name="rowKey">The row key.</param>
-            <returns><see cref="T:System.Threading.Tasks.Task`1"/> or null, if not found.</returns>
+            <param name="selectColumns">An array of column names to select.</param>
+            <returns><see cref="T:Microsoft.Azure.Cosmos.Table.TableEntity"/> or null, if not found.</returns>
         </member>
         <member name="T:Noftware.In.Faux.Core.Data.TableRepositoryEventArgs">
             <summary>
@@ -217,7 +218,6 @@
             <summary>
             A thread-safe random number implementation.
             </summary>
-            <seealso cref="!:https://stackoverflow.com/questions/3049467/is-c-sharp-random-number-generator-thread-safe/24648788#24648788"/>
         </member>
         <member name="M:Noftware.In.Faux.Core.Extensions.ThreadSafeRandom.Next(System.Int32,System.Int32)">
             <summary>
@@ -514,7 +514,7 @@
             Cached items.
             </summary>
             <typeparam name="TEntity">The entity to cache.</typeparam>
-            <typeparam name="TKey">The type of unique identifier of <see cref="!:TEntity"/>.</typeparam>
+            <typeparam name="TKey">The type of unique identifier for TEntity.</typeparam>
         </member>
         <member name="M:Noftware.In.Faux.Core.Services.ICacheService`2.ClearAsync">
             <summary>
@@ -533,20 +533,20 @@
             Check for item existence by key.
             </summary>
             <param name="key">Unique identifier.</param>
-            <returns><see cref="!:Task&lt;bool&gt;"/></returns>
+            <returns><see cref="T:System.Boolean"/></returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Services.ICacheService`2.GetAsync(`1)">
             <summary>
             Get item by key.
             </summary>
             <param name="key">Unique identifier.</param>
-            <returns><see cref="T:System.Threading.Tasks.Task`1"/></returns>
+            <returns>TEntity"</returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Services.ICacheService`2.GetRandomAsync">
             <summary>
             Get random item.
             </summary>
-            <returns><see cref="T:System.Threading.Tasks.Task`1"/></returns>
+            <returns>TEntity</returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Services.ICacheService`2.RemoveAsync(`1)">
             <summary>
@@ -589,7 +589,7 @@
             <summary>
             Get a random quote item.
             </summary>
-            <returns><see cref="T:System.Threading.Tasks.Task`1"/></returns>
+            <returns><see cref="T:Noftware.In.Faux.Core.Models.Quote"/></returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Services.IQuoteService.GetResizedImageAsync(System.String,System.String)">
             <summary>
@@ -597,7 +597,7 @@
             </summary>
             <param name="quoteKey">Quote key unique identifier.</param>
             <param name="fileName">Name of file.</param>
-            <returns><see cref="!:Task&lt;string&gt;"/></returns>
+            <returns><see cref="T:System.String"/></returns>
         </member>
         <member name="M:Noftware.In.Faux.Core.Services.IQuoteService.SearchQuotesAsync(System.String)">
             <summary>
@@ -611,7 +611,7 @@
             Build the search word index by filtering out characters/words that should not be indexed, such as punctuation and whitespace.
             </summary>
             <param name="input">Input string.</param>
-            <returns><see cref="!:IEnumerable&lt;string&gt;"/> or null, if input is empty.</returns>
+            <returns><see cref="T:System.Collections.IEnumerable"/> or null, if input is empty.</returns>
         </member>
     </members>
 </doc>

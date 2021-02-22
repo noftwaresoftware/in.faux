@@ -15,11 +15,10 @@
             </summary>
             <param name="quoteService">Quote service.</param>
         </member>
-        <member name="M:Noftware.In.Faux.Function.QuoteFunction.GetRandomQuote(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Extensions.Logging.ILogger)">
+        <member name="M:Noftware.In.Faux.Function.QuoteFunction.GetRandomQuote(Microsoft.Extensions.Logging.ILogger)">
             <summary>
             Get a random quote.
             </summary>
-            <param name="req">HTTP request.</param>
             <param name="log">Logger.</param>
             <returns><see cref="T:Noftware.In.Faux.Core.Models.Quote"/></returns>
         </member>

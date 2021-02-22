@@ -33,13 +33,11 @@ namespace Noftware.In.Faux.Function
         /// <summary>
         /// Get a random quote.
         /// </summary>
-        /// <param name="req">HTTP request.</param>
         /// <param name="log">Logger.</param>
         /// <returns><see cref="Quote"/></returns>
         [FunctionName("randomquote")]
         public async Task<IActionResult> GetRandomQuote(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] ILogger log)
         {
             log.LogInformation("randomquote function request.");
 

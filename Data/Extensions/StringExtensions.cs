@@ -23,5 +23,5 @@ namespace Noftware.In.Faux.Data.Extensions
 			// https://stackoverflow.com/questions/6275980/string-replace-ignoring-case
 			return Regex.Replace(source, Regex.Escape(oldValue), newValue.Replace("$", "$$"), RegexOptions.IgnoreCase);
 		}
-    }
+	}
 }

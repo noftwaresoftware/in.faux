@@ -23,39 +23,39 @@ namespace Noftware.In.Faux.Core.Data
 		/// <summary>
 		/// Delete the Azure file share.
 		/// </summary>
-		/// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+		/// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
 		Task<bool> DeleteAsync();
 
 		/// <summary>
 		/// Create the Azure file share directory.
 		/// </summary>
-		/// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+		/// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
 		Task<bool> CreateAsync();
 
 		/// <summary>
 		/// Delete the Azure file share directory.
 		/// </summary>
-		/// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+		/// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
 		Task<bool> DeleteDirectoryAsync();
 
 		/// <summary>
 		/// Create the Azure file share directory.
 		/// </summary>
-		/// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+		/// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
 		Task<bool> CreateDirectoryAsync();
 
 		/// <summary>
 		/// Add or update the file.
 		/// </summary>
 		/// <param name="file">File.</param>
-		/// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+		/// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
 		Task<bool> AddOrUpdateAsync(TFile file);
 
 		/// <summary>
 		/// Based on the filename in the existing directory, get the file contents as a byte array.
 		/// </summary>
 		/// <param name="fileName">Name of existing file.</param>
-		/// <returns><see cref="Task{TFile}"/> or null if file not found.</returns>
+		/// <returns><see cref="File"/> or null if file not found.</returns>
 		Task<TFile> GetFileAsync(string fileName);
-    }
+	}
 }

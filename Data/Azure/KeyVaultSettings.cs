@@ -32,7 +32,7 @@ namespace Noftware.In.Faux.Data.Azure
         /// </summary>
         /// <param name="vaultAddress">KeyVault address.</param>
         /// <param name="clientId">KeyVault client Id.</param>
-        /// <param name="clientId">KeyVault client Id.</param>
+        /// <param name="tenantId">KeyVault tenant Id.</param>
         /// <param name="secret">KeyVault secret.</param>
         public KeyVaultSettings(string vaultAddress, string tenantId, string clientId, string secret)
         {

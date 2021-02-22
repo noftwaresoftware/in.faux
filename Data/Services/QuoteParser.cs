@@ -27,6 +27,7 @@ namespace Noftware.In.Faux.Data.Services
 		/// Constructor.
 		/// </summary>
 		/// <param name="settings">Settings for the parser.</param>
+		/// <param name="quoteService"></param>
 		public QuoteParser(QuoteParserSettings settings, IQuoteService quoteService)
 		{
 			_settings = settings;
@@ -99,9 +100,9 @@ namespace Noftware.In.Faux.Data.Services
 							LoadImage(quote);
 							if (quote.OriginalImage != null)
 							{
-                                // Resized/display image
-                                ResizeImage(quote, (int)_settings.MaximumResizedImageDimension, out byte[] newImage, out int newHeight, out int newWidth);
-                                quote.ResizedImage = newImage;
+								// Resized/display image
+								ResizeImage(quote, (int)_settings.MaximumResizedImageDimension, out byte[] newImage, out int newHeight, out int newWidth);
+								quote.ResizedImage = newImage;
 								quote.ResizedImageHeight = newHeight;
 								quote.ResizedImageWidth = newWidth;
 
@@ -207,10 +208,10 @@ namespace Noftware.In.Faux.Data.Services
 				quote.OriginalImageHeight = image.Height;
 				quote.OriginalImageWidth = image.Width;
 
-                using var ms = new MemoryStream();
-                image.Save(ms, image.RawFormat);
-                quote.OriginalImage = ms.ToArray();
-            }
+				using var ms = new MemoryStream();
+				image.Save(ms, image.RawFormat);
+				quote.OriginalImage = ms.ToArray();
+			}
 		}
 
 		/// <summary>
@@ -294,10 +295,10 @@ namespace Noftware.In.Faux.Data.Services
 				//graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
 				graphics.DrawImage(srcImage, 0, 0, newImageWidth, newImageHeight);
-                using var ms = new MemoryStream();
-                destImage.Save(ms, srcImage.RawFormat);
-                newImageBytes = ms.ToArray();
-            } // using (var graphics = Graphics.FromImage(destImage))
+				using var ms = new MemoryStream();
+				destImage.Save(ms, srcImage.RawFormat);
+				newImageBytes = ms.ToArray();
+			} // using (var graphics = Graphics.FromImage(destImage))
 
 			destImage.Dispose();
 			srcImage.Dispose();

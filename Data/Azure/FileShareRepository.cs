@@ -54,7 +54,7 @@ namespace Noftware.In.Faux.Data.Azure
         /// <summary>
         /// Delete the Azure file share.
         /// </summary>
-        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        /// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
         public async Task<bool> DeleteAsync()
         {
             bool success = false;
@@ -84,7 +84,7 @@ namespace Noftware.In.Faux.Data.Azure
         /// <summary>
         /// Create the Azure file share directory.
         /// </summary>
-        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        /// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
         public async Task<bool> CreateAsync()
         {
             bool success = false;
@@ -130,7 +130,7 @@ namespace Noftware.In.Faux.Data.Azure
         /// <summary>
         /// Delete the Azure file share directory.
         /// </summary>
-        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        /// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
         public async Task<bool> DeleteDirectoryAsync()
         {
             bool success = false;
@@ -160,7 +160,7 @@ namespace Noftware.In.Faux.Data.Azure
         /// <summary>
         /// Create the Azure file share directory.
         /// </summary>
-        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        /// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
         public async Task<bool> CreateDirectoryAsync()
         {
             bool success = false;
@@ -207,7 +207,7 @@ namespace Noftware.In.Faux.Data.Azure
         /// Add or update the file.
         /// </summary>
         /// <param name="file">File.</param>
-        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        /// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
         public async Task<bool> AddOrUpdateAsync(TFile file)
         {
             if (file is null)
@@ -262,7 +262,7 @@ namespace Noftware.In.Faux.Data.Azure
         /// Based on the filename in the existing directory, get the file contents as a byte array.
         /// </summary>
         /// <param name="fileName">Name of existing file.</param>
-        /// <returns><see cref="Task{TFile}"/> or null if file not found.</returns>
+        /// <returns><see cref="File"/> or null if file not found.</returns>
         public async Task<TFile> GetFileAsync(string fileName)
         {
             var file = new TFile()

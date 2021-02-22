@@ -15,7 +15,7 @@ namespace Noftware.In.Faux.Client.Services
         /// <summary>
         /// Get a random quote from the data store and map to the view model.
         /// </summary>
-        /// <returns><see cref="Quote"/></returns>
+        /// <returns><see cref="ViewQuote"/></returns>
         Task<ViewQuote> GetRandomQuoteAsync();
 
         /// <summary>
@@ -23,14 +23,14 @@ namespace Noftware.In.Faux.Client.Services
         /// </summary>
         /// <param name="quoteKey">Quote key unique identifier.</param>
         /// <param name="fileName">Name of file.</param>
-        /// <returns><see cref="Task{string}"/></returns>
+        /// <returns><see cref="string"/></returns>
         Task<string> GetResizedImageAsync(string quoteKey, string fileName);
 
         /// <summary>
         /// Search for quotes based on a space-delimited phrase and map to view models.
         /// </summary>
         /// <param name="searchPhrase">Words delimited by spaces.</param>
-        /// <returns><see cref="Task{IEnumerable{ViewQuote}}"/></returns>
+        /// <returns><see cref="IEnumerable{ViewQuote}"/></returns>
         Task<IEnumerable<ViewQuote>> SearchQuotesAsync(string searchPhrase);
     }
 }

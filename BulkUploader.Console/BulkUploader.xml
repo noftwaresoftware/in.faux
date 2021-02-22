@@ -33,13 +33,13 @@
             <summary>
             Get a list of command-line arguments to display to the user.
             </summary>
-            <returns><see cref="!:IEnumerable&lt;string&gt;"/></returns>
+            <returns><see cref="T:System.Collections.IEnumerable"/></returns>
         </member>
         <member name="M:Noftware.In.Faux.BulkUploader.Helpers.GetInputInformation">
             <summary>
             Get a list of keyboard inputs to display to the user.
             </summary>
-            <returns><see cref="!:IEnumerable&lt;string&gt;"/></returns>
+            <returns><see cref="T:System.Collections.IEnumerable"/></returns>
         </member>
         <member name="T:Noftware.In.Faux.BulkUploader.Program">
             <summary>

@@ -55,7 +55,7 @@ namespace Noftware.In.Faux.Data.Services
         /// Check for quote existence by key.
         /// </summary>
         /// <param name="key">Unique identifier.</param>
-        /// <returns><see cref="Task{bool}"/></returns>
+        /// <returns><see cref="bool"/></returns>
         public Task<bool> ExistsAsync(string key)
         {
             bool exists = _cachedQuotes.Any(f => f.Key == key);
@@ -66,7 +66,7 @@ namespace Noftware.In.Faux.Data.Services
         /// Get quote by key.
         /// </summary>
         /// <param name="key">Unique identifier.</param>
-        /// <returns><see cref="Task{Quote}"/></returns>
+        /// <returns><see cref="Quote"/></returns>
         public Task<Quote> GetAsync(string key)
         {
             var quote = _cachedQuotes.FirstOrDefault(f => f.Key == key);
@@ -76,7 +76,7 @@ namespace Noftware.In.Faux.Data.Services
         /// <summary>
         /// Get random quote.
         /// </summary>
-        /// <returns><see cref="Task{Quote}"/></returns>
+        /// <returns><see cref="Quote"/></returns>
         public Task<Quote> GetRandomAsync()
         {
             if (_cachedQuotes.Count > 0)

@@ -250,7 +250,7 @@
             <summary>
             Get a random quote from the data store and map to the view model.
             </summary>
-            <returns><see cref="T:System.Threading.Tasks.Task`1"/></returns>
+            <returns><see cref="T:Noftware.In.Faux.Client.ViewModels.ViewQuote"/></returns>
         </member>
         <member name="M:Noftware.In.Faux.Client.Services.ClientQuoteService.GetResizedImageAsync(System.String,System.String)">
             <summary>
@@ -258,14 +258,14 @@
             </summary>
             <param name="quoteKey">Quote key unique identifier.</param>
             <param name="fileName">Name of file.</param>
-            <returns><see cref="!:Task&lt;string&gt;"/></returns>
+            <returns>Base-64 encoded image.</returns>
         </member>
         <member name="M:Noftware.In.Faux.Client.Services.ClientQuoteService.SearchQuotesAsync(System.String)">
             <summary>
             Search for quotes based on a space-delimited phrase and map to view models.
             </summary>
             <param name="searchPhrase">Words delimited by spaces.</param>
-            <returns><see cref="!:Task&lt;IEnumerable&lt;ViewQuote&gt;&gt;"/></returns>
+            <returns><see cref="T:System.Collections.Generic.IEnumerable`1"/></returns>
         </member>
         <member name="T:Noftware.In.Faux.Client.Services.IClientQuoteService">
             <summary>
@@ -276,7 +276,7 @@
             <summary>
             Get a random quote from the data store and map to the view model.
             </summary>
-            <returns><see cref="!:Quote"/></returns>
+            <returns><see cref="T:Noftware.In.Faux.Client.ViewModels.ViewQuote"/></returns>
         </member>
         <member name="M:Noftware.In.Faux.Client.Services.IClientQuoteService.GetResizedImageAsync(System.String,System.String)">
             <summary>
@@ -284,14 +284,14 @@
             </summary>
             <param name="quoteKey">Quote key unique identifier.</param>
             <param name="fileName">Name of file.</param>
-            <returns><see cref="!:Task&lt;string&gt;"/></returns>
+            <returns><see cref="T:System.String"/></returns>
         </member>
         <member name="M:Noftware.In.Faux.Client.Services.IClientQuoteService.SearchQuotesAsync(System.String)">
             <summary>
             Search for quotes based on a space-delimited phrase and map to view models.
             </summary>
             <param name="searchPhrase">Words delimited by spaces.</param>
-            <returns><see cref="!:Task&lt;IEnumerable&lt;ViewQuote&gt;&gt;"/></returns>
+            <returns><see cref="T:System.Collections.Generic.IEnumerable`1"/></returns>
         </member>
         <member name="T:Noftware.In.Faux.Client.ViewModels.ViewQuote">
             <summary>

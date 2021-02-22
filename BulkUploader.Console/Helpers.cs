@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Noftware.In.Faux.BulkUploader
         /// <summary>
         /// Get a list of command-line arguments to display to the user.
         /// </summary>
-        /// <returns><see cref="IEnumerable{string}"/></returns>
+        /// <returns><see cref="IEnumerable"/></returns>
         public static IEnumerable<string> GetArgumentInformation()
         {
             var argItems = new List<string>()
@@ -30,7 +31,7 @@ namespace Noftware.In.Faux.BulkUploader
         /// <summary>
         /// Get a list of keyboard inputs to display to the user.
         /// </summary>
-        /// <returns><see cref="IEnumerable{string}"/></returns>
+        /// <returns><see cref="IEnumerable"/></returns>
         public static IEnumerable<string> GetInputInformation()
         {
             var inputItems = new List<string>()

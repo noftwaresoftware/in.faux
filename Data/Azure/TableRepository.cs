@@ -55,7 +55,7 @@ namespace Noftware.In.Faux.Data.Azure
         /// <summary>
         /// Delete the Azure table.
         /// </summary>
-        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        /// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
         public async Task<bool> DeleteTableAsync()
         {
             bool success = false;
@@ -85,7 +85,7 @@ namespace Noftware.In.Faux.Data.Azure
         /// <summary>
         /// Create the Azure table.
         /// </summary>
-        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        /// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
         public async Task<bool> CreateTableAsync()
         {
             bool success = false;
@@ -140,7 +140,7 @@ namespace Noftware.In.Faux.Data.Azure
         /// Add or update the Azure table.
         /// </summary>
         /// <param name="tableEntity">Azure table.</param>
-        /// <returns><see cref="Task{bool}"/> True if success. False if otherwise.</returns>
+        /// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
         public async Task<bool> AddOrUpdateAsync(TEntity tableEntity)
         {
             if (tableEntity is null)
@@ -163,25 +163,12 @@ namespace Noftware.In.Faux.Data.Azure
             }
         }
 
-        ///// <summary>
-        ///// Get a random item based on the specified random row key and either the first item greater than rowKey, less than rowKey, or null if not found.
-        ///// </summary>
-        ///// <param name="selectColumns">Specified columns to include.</param>
-        ///// <returns><see cref="Task{TEntity}"/></returns>
-        //public async Task<TEntity> GetRandomAsync(params string[] selectColumns)
-        //{
-        //    const string comparisonOperator = "gt";
-
-        //    var entity = await this.GetRandomByComparisonOperatorAsync(comparisonOperator, _partitionKey, System.Guid.NewGuid().ToString(), selectColumns);
-
-        //    return entity;
-        //}
-
         /// <summary>
         /// Get an item based on the row key.
         /// </summary>
         /// <param name="rowKey">The row key.</param>
-        /// <returns><see cref="Task{TEntity}"/> or null, if not found.</returns>
+        /// <param name="selectColumns">Columns to select.</param>
+        /// <returns><see cref="TableEntity"/> or null, if not found.</returns>
         public async Task<TEntity> GetAsync(string rowKey, params string[] selectColumns)
         {
             var query = new TableQuery<TEntity>()
@@ -242,38 +229,6 @@ namespace Noftware.In.Faux.Data.Azure
 
             } while (token != null);
         }
-
-        ///// <summary>
-        ///// Get a random item based on the specified partition key and either the first item greater than rowKey, less than rowKey, or null if not found.
-        ///// </summary>
-        ///// <param name="comparisonOperator">OData comparison operators, i.e. gt, lt, eq, etc.</param>
-        ///// <param name="partitionKey">Partition key.</param>
-        ///// <param name="rowKey">Row key used in the greater than or less than comparison.</param>
-        ///// <param name="selectColumns">Specified columns to include.</param>
-        ///// <returns><see cref="Task{TEntity}"/></returns>
-        //private async Task<TEntity> GetRandomByComparisonOperatorAsync(string comparisonOperator, string partitionKey, string rowKey, params string[] selectColumns)
-        //{
-        //    var query = new TableQuery<TEntity>()
-        //    {
-        //        FilterString = $"PartitionKey eq '{partitionKey}' and RowKey {comparisonOperator} '{rowKey}'",
-        //        TakeCount = 1
-        //    };
-
-        //    // Which columns to include?
-        //    if (selectColumns != null && selectColumns.Length > 0)
-        //    {
-        //        // Include specified columns
-        //        query.SelectColumns = selectColumns;
-        //    }
-
-        //    var queryResult = await _table.ExecuteQuerySegmentedAsync(query, null);
-        //    if (queryResult.Results.Any() == true)
-        //    {
-        //        return queryResult.Results.First();
-        //    }
-
-        //    return null;
-        //}
 
         /// <summary>
         /// Event handler to notify caller of status.

@@ -65,7 +65,7 @@ namespace Noftware.In.Faux.Data.Services
         /// <summary>
         /// Get a random quote from the data store.
         /// </summary>
-        /// <returns><see cref="Task{Quote}"/></returns>
+        /// <returns><see cref="Quote"/></returns>
         public async Task<Quote> GetRandomQuoteAsync()
         {
             // This is only a single quote metadata record
@@ -107,7 +107,7 @@ namespace Noftware.In.Faux.Data.Services
         /// </summary>
         /// <param name="quoteKey">Quote key unique identifier.</param>
         /// <param name="fileName">Name of file.</param>
-        /// <returns><see cref="Task{string}"/></returns>
+        /// <returns><see cref="string"/></returns>
         public async Task<string> GetResizedImageAsync(string quoteKey, string fileName)
         {
             var file = await _resizedImageFileRepository.GetFileAsync(fileName);
@@ -129,7 +129,7 @@ namespace Noftware.In.Faux.Data.Services
         /// Search for quotes via one or more words. Words should be separated by spaces.
         /// </summary>
         /// <param name="searchPhrase">Search word(s) separated by spaces.</param>
-        /// <returns><see cref="Task{IEnumerable{Quote}}"/></returns>
+        /// <returns><see cref="IEnumerable{Quote}"/></returns>
         public async Task<IEnumerable<Quote>> SearchQuotesAsync(string searchPhrase)
         {
             if (string.IsNullOrWhiteSpace(searchPhrase) == true)
@@ -228,7 +228,7 @@ namespace Noftware.In.Faux.Data.Services
         /// Build the search word index by filtering out characters/words that should not be indexed, such as punctuation and whitespace.
         /// </summary>
         /// <param name="input">Input string.</param>
-        /// <returns><see cref="IEnumerable{string}"/> or null, if input is empty.</returns>
+        /// <returns><see cref="IEnumerable{String}"/> or null, if input is empty.</returns>
         public IEnumerable<string> BuildSearchWords(string input)
         {
             // Empty string
@@ -282,7 +282,7 @@ namespace Noftware.In.Faux.Data.Services
         /// <summary>
         /// Get only the list of quote fields required for this service.
         /// </summary>
-        /// <returns><see cref="string[]"/></returns>
+        /// <returns>Select columns.</returns>
         private static string[] GetQuoteSelectFields()
         {
             string[] selectFields = new string[] {
@@ -298,7 +298,7 @@ namespace Noftware.In.Faux.Data.Services
         /// <summary>
         /// Get only the list of quote metadata fields required for this service.
         /// </summary>
-        /// <returns><see cref="string[]"/></returns>
+        /// <returns>Select fields.</returns>
         private static string[] GetQuoteMetadataSelectFields()
         {
             string[] selectFields = new string[] {
@@ -311,7 +311,7 @@ namespace Noftware.In.Faux.Data.Services
         /// <summary>
         /// Get only the list of quote search fields required for this service.
         /// </summary>
-        /// <returns><see cref="string[]"/></returns>
+        /// <returns>Select fields.</returns>
         private static string[] GetQuoteSearchSelectFields()
         {
             string[] selectFields = new string[] {

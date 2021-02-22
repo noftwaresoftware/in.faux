@@ -1,5 +1,6 @@
 ﻿using Noftware.In.Faux.Core.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace Noftware.In.Faux.Core.Services
         /// <summary>
         /// Get a random quote item.
         /// </summary>
-        /// <returns><see cref="Task{Quote}"/></returns>
+        /// <returns><see cref="Quote"/></returns>
         Task<Quote> GetRandomQuoteAsync();
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace Noftware.In.Faux.Core.Services
         /// </summary>
         /// <param name="quoteKey">Quote key unique identifier.</param>
         /// <param name="fileName">Name of file.</param>
-        /// <returns><see cref="Task{string}"/></returns>
+        /// <returns><see cref="string"/></returns>
         Task<string> GetResizedImageAsync(string quoteKey, string fileName);
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace Noftware.In.Faux.Core.Services
         /// Build the search word index by filtering out characters/words that should not be indexed, such as punctuation and whitespace.
         /// </summary>
         /// <param name="input">Input string.</param>
-        /// <returns><see cref="IEnumerable{string}"/> or null, if input is empty.</returns>
+        /// <returns><see cref="IEnumerable"/> or null, if input is empty.</returns>
         IEnumerable<string> BuildSearchWords(string input);
     }
 }

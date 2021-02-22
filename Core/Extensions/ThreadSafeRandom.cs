@@ -10,9 +10,10 @@ namespace Noftware.In.Faux.Core.Extensions
     /// <summary>
     /// A thread-safe random number implementation.
     /// </summary>
-    /// <seealso cref="https://stackoverflow.com/questions/3049467/is-c-sharp-random-number-generator-thread-safe/24648788#24648788"/>
     public static class ThreadSafeRandom
     {
+        // https://stackoverflow.com/questions/3049467/is-c-sharp-random-number-generator-thread-safe/24648788#24648788
+
         // Random number generator
         private static readonly System.Random _globalRandom = new Random();
 

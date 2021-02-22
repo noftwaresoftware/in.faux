@@ -29,7 +29,7 @@ namespace Noftware.In.Faux.Function
             var services = builder.Services;
 
             // Get the Azure Table storage connection string
-            string tblStgConnectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
+            string tblStgConnectionString = Environment.GetEnvironmentVariable("TableStorageConnectionString");
 
             // Azure table repository for quotes
             services.AddScoped<ITableRepository<QuoteTableEntity>, QuoteTableRepository>(f =>
