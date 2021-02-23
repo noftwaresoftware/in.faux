@@ -37,9 +37,9 @@ namespace Noftware.In.Faux.Function
         /// <returns><see cref="Quote"/></returns>
         [FunctionName("randomquote")]
         public async Task<IActionResult> GetRandomQuote(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req, ILogger log)
         {
-            log.LogInformation("randomquote function request.");
+            log?.LogInformation("randomquote function request.");
 
             var quote = await _quoteService.GetRandomQuoteAsync();
 
@@ -64,7 +64,7 @@ namespace Noftware.In.Faux.Function
                 [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
                 ILogger log)
         {
-            log.LogInformation("resizedimage function request.");
+            log?.LogInformation("resizedimage function request.");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
@@ -85,7 +85,7 @@ namespace Noftware.In.Faux.Function
         /// <remarks>
         /// Posted body format:
         /// {
-        ///   "phrase": "tommy tutone",
+        ///   "phrase": "tommy tutone"
         /// }
         /// </remarks>
         [FunctionName("search")]
@@ -93,7 +93,7 @@ namespace Noftware.In.Faux.Function
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("search function request.");
+            log?.LogInformation("search function request.");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);

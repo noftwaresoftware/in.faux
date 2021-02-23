@@ -233,6 +233,18 @@
             Method invoked when the component is ready to start, having received its initial parameters from its parent in the render tree.
             </summary>
         </member>
+        <member name="T:Noftware.In.Faux.Client.Program">
+            <summary>
+            Entry point for WebAssembly app.
+            </summary>
+        </member>
+        <member name="M:Noftware.In.Faux.Client.Program.Main(System.String[])">
+            <summary>
+            Entry point for WebAssembly app.
+            </summary>
+            <param name="args">Command line arguments.</param>
+            <returns><see cref="T:System.Threading.Tasks.Task"/></returns>
+        </member>
         <member name="T:Noftware.In.Faux.Client.Services.ClientQuoteService">
             <summary>
             Client quote service interface.
