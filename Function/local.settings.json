@@ -1,0 +1,10 @@
+{
+	"IsEncrypted": false,
+	"Values": {
+		"TableStorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=[[AccountName]];AccountKey=[[AccountKey]];BlobEndpoint=https://[[AccountName]].blob.core.windows.net/;TableEndpoint=https://[[AccountName]].table.core.windows.net/;QueueEndpoint=https://[[AccountName]].queue.core.windows.net/;FileEndpoint=https://[[AccountName]].file.core.windows.net/"
+	},
+	"Host": {
+		"LocalHttpPort": 7071,
+		"CORS": "*"
+	}
+}
