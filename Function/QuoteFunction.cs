@@ -33,6 +33,7 @@ namespace Noftware.In.Faux.Function
         /// <summary>
         /// Get a random quote.
         /// </summary>
+        /// <param name="req">Represents the incoming side of an individual HTTP request.</param>
         /// <param name="log">Logger.</param>
         /// <returns><see cref="Quote"/></returns>
         [FunctionName("randomquote")]

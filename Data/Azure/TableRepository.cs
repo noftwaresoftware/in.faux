@@ -186,7 +186,7 @@ namespace Noftware.In.Faux.Data.Azure
             var queryResult = await _table.ExecuteQuerySegmentedAsync(query, null);
             if (queryResult.Results.Any() == true)
             {
-                OnStatusUpdate($"Successfully obtained {rowKey} from table {_tableName}.", OperationStatus.Success);
+                OnStatusUpdate($"Successfully obtained '{rowKey}' from table {_tableName}.", OperationStatus.Success);
                 return queryResult.Results.First();
             }
 

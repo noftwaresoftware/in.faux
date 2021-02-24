@@ -139,8 +139,10 @@ namespace Noftware.In.Faux.BulkUploader
             var tableRepoQuoteMetadata = services.GetService<ITableRepository<QuoteMetadataTableEntity>>();
             tableRepoQuoteMetadata.StatusUpdate += TableRepositoryOnStatusUpdate;
             var quoteMetadata = await tableRepoQuoteMetadata.GetAsync("1");
-            if (quoteMetadata == null)
+            if (quoteMetadata == null || mode == PersistenceMode.Overwrite)
             {
+                // If there is no Metadata row or the user chose 'overwrite', start net-new
+                // =====
                 // Set the row counter. It will be updated again once all data is processed.
                 quoteRowCounter = 0;
 
