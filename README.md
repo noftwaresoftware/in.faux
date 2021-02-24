@@ -49,7 +49,7 @@ in.faux random quote generator can be used to display any type of information wi
 8. The name of your GitHub appears along with dropdown fields for **Organization**, **Repository**, and **Branch**.
 9. Choose your *Organization*, *Repository*, and *Branch*.
 10. Choose *Blazor* for the **Build Presets**.
-11. Leave defaults for **App location** specify *Client*, for **API location** specify *Function*, and for **Output location** specify *wwwroot*.
+11. For **App location** specify *Client*, for **API location** specify *Function*, and for **Output location** specify *wwwroot*.
 12. Select **Review + create** button, review and follow any remaining steps.
 13. Once the app is deployed (check github\'s Actions for completion), go to yo ur newly created **Static Web App** in the Azure Portal, click the **Configuration** menu item, and add a new setting called *TableStorageConnectionString*. You can obtain your table storage connection string via the *Access keys* menu item in your storage account (created in step 1).
 
