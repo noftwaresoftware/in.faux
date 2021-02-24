@@ -1,5 +1,5 @@
 # in.faux random quote generator
-In.Faux random quote generator can be used to display any type of information with an associated image.
+in.faux random quote generator can be used to display any type of information with an associated image.
 
 **Examples**:
 - Word of the day.
@@ -34,20 +34,21 @@ In.Faux random quote generator can be used to display any type of information wi
 ### Setup and configuration - static web app:
 0. In the Azure web portal, create a new **Resource Group** (or use an existing one).
 1. In the resource group, create **Table storage** (or use an existing one, if you already have one provisioned). Note: The tables will automatically be created. They are called *Quote*, *QuoteImpression*, *QuoteMetadata*, and *QuoteSearchIndex*.
-**If you are debugging/testing in Visual Studio and are not yet ready to deploy to Azure, ignore steps 3-12 below. Instead follow these two steps:**
+**If you are debugging/testing in Visual Studio and are not yet ready to deploy to Azure, ignore steps 3-13 below. Instead follow these two steps:**
 - In the **Client** project, uncomment *ApiBaseAddress* so that \"http://localhost:7071" is enabled.
 - In the **Function** project, set the *TableStorageConnectionString* setting with the table storage connection string. You can obtain your table storage connection string via the *Access keys* menu item in your storage account (created in step 1).
-**If you are ready to deploy to Azure, follow steps 3-12:**
-3. Go back to the resource group, click **Add**, and search for *static web app*.
-4. In the **Static Web App** creation page, enter the *Name* and choose the *Region* nearest you.
-5. Click the **Sign in with GitHub** button. If you are not already signed into GitHub, enter you GitHub credentials.
-6. An **Authorize Azure Static Web Apps** page appears. Click the *Authorize* button.
-7. The name of your GitHub appears along with dropdown fields for **Organization**, **Repository**, and **Branch**.
-8. Choose your *Organization*, *Repository*, and *Branch*.
-9. Choose *Blazor* for the **Build Presets**.
-10. Leave defaults for **App location** specify *Client*, for **API location** specify *Function*, and for **Output location** specify *wwwroot*.
-11. Select **Review + create** button, review and follow any remaining steps.
-12. Once the app is deployed (check github\'s Actions for completion), go to yo ur newly created **Static Web App** in the Azure Portal, click the **Configuration** menu item, and add a new setting called *TableStorageConnectionString*. You can obtain your table storage connection string via the *Access keys* menu item in your storage account (created in step 1).
+**If you are ready to deploy to Azure, follow steps 3-13:**
+3. In the Client project, comment ApiBaseAddress so that it is not available.
+4. Go back to the resource group, click **Add**, and search for *static web app*.
+5. In the **Static Web App** creation page, enter the *Name* and choose the *Region* nearest you.
+6. Click the **Sign in with GitHub** button. If you are not already signed into GitHub, enter you GitHub credentials.
+7. An **Authorize Azure Static Web Apps** page appears. Click the *Authorize* button.
+8. The name of your GitHub appears along with dropdown fields for **Organization**, **Repository**, and **Branch**.
+9. Choose your *Organization*, *Repository*, and *Branch*.
+10. Choose *Blazor* for the **Build Presets**.
+11. Leave defaults for **App location** specify *Client*, for **API location** specify *Function*, and for **Output location** specify *wwwroot*.
+12. Select **Review + create** button, review and follow any remaining steps.
+13. Once the app is deployed (check github\'s Actions for completion), go to yo ur newly created **Static Web App** in the Azure Portal, click the **Configuration** menu item, and add a new setting called *TableStorageConnectionString*. You can obtain your table storage connection string via the *Access keys* menu item in your storage account (created in step 1).
 
 ### Setup and configuration - input file:
 At time of writing, the only means to upload data is via the provided console application and its proprietary text file. The reason for the proprietary text file was it was easy to keep it updated via notepad (as opposed to a structured format like JSON or XML). The next version will include web forms to administer quotes.
