@@ -57,7 +57,7 @@ in.faux random quote generator can be used to display any type of information wi
 At time of writing, the only means to upload data is via the provided console application and its proprietary text file. The reason for the proprietary text file was it was easy to keep it updated via notepad (as opposed to a structured format like JSON or XML). The next version will include web forms to administer quotes.
 
 **Input text file format**:
-All elements of a single quote must be on a single line.
+All elements of a quote must be on a single line.
 *Example*:
 > Himalayan cat {The Himalayan, is a breed or sub-breed of long-haired cat like the Persian, except for its blue eyes.} [Himalayan1.png] |persian,himmy,siamese|
 
