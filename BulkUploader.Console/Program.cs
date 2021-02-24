@@ -29,7 +29,7 @@ namespace Noftware.In.Faux.BulkUploader
         /// <param name="args">Optional command-line arguments.</param>
         public static async Task Main(string[] args)
         {
-            ConsoleInformationWriteLine("[ Quote data and image Azure persistence for Noftware In.Faux ]");
+            ConsoleInformationWriteLine("[ Quote data and image Azure persistence for Noftware in.faux ]");
             ConsoleInformationWriteLine();
 
             var services = Configure();
@@ -129,7 +129,7 @@ namespace Noftware.In.Faux.BulkUploader
             // ~~~~~
             // [ All inputs were validated. Begin processing. ]
             // ~~~~~
-            int quoteRowCounter = 0;
+            int quoteRowCounter;
 
             ConsoleInformationWriteLine();
             ConsoleInformationWriteLine($"Mode: {mode}");
@@ -153,6 +153,11 @@ namespace Noftware.In.Faux.BulkUploader
                     Timestamp = DateTimeOffset.UtcNow
                 };
                 await tableRepoQuoteMetadata.AddOrUpdateAsync(quoteMetadata);
+            }
+            else
+            {
+                // Get the current total count
+                quoteRowCounter = quoteMetadata.QuoteTotalCount;
             }
 
             // Quote table repository
