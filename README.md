@@ -58,6 +58,7 @@ All elements of a single quote must be on a single line.
 > Himalayan cat {The Himalayan, is a breed or sub-breed of long-haired cat like the Persian, except for its blue eyes.} [Himalayan1.png] |persian,himmy,siamese|
 
 **Structure and data elements**:
+
 0. Quote text.
 1. Quote explanation (Between **\{** and **\}** tags. Optional but empty **\{\}** tags are required.).
 2. File name (Between **\[** and **\]** tags. Optional but empty **\[\]** tags are required. *Do not enter a path/directory. That will be specified via the console app\'s settings.*)
