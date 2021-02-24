@@ -41,7 +41,7 @@ in.faux random quote generator can be used to display any type of information wi
 
 **If you are ready to deploy to Azure, follow steps 3-13:**
 
-3. In the Client project, comment ApiBaseAddress so that it is not available.
+3. In the Client project, comment out ApiBaseAddress so that it is not available.
 4. Go back to the resource group, click **Add**, and search for *static web app*.
 5. In the **Static Web App** creation page, enter the *Name* and choose the *Region* nearest you.
 6. Click the **Sign in with GitHub** button. If you are not already signed into GitHub, enter you GitHub credentials.
