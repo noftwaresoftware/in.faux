@@ -11,7 +11,7 @@ in.faux quote generator can be used to display any type of information with an a
 - _or anything else you can think of!_
 
 **Showcase sites**:
-- [Business Cliché Generator](https://www.businessclichegenerator.com/r "Business Cliché Generator")
+- [Business Cliché Generator](https://www.businessclichegenerator.com "Business Cliché Generator")
 
 **Solution technologies**:
 - [Azure Static Web App](https://docs.microsoft.com/en-us/azure/static-web-apps/deploy-blazor "Azure Static Web App")
