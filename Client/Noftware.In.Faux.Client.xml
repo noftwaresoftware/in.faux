@@ -19,6 +19,11 @@
             Injected Quote Service.
             </summary>
         </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteButton.Quote">
+            <summary>
+            Random quote.
+            </summary>
+        </member>
         <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteButton.OnInitializedAsync">
             <summary>
             Method invoked when the component is ready to start, having received its initial parameters from its parent in the render tree.
@@ -101,6 +106,11 @@
             Injected Quote Service.
             </summary>
         </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteRandom.Quote">
+            <summary>
+            Random quote.
+            </summary>
+        </member>
         <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteRandom.OnInitializedAsync">
             <summary>
             Method invoked when the component is ready to start, having received its initial parameters from its parent in the render tree.
@@ -122,37 +132,37 @@
             Injected Configuration.
             </summary>
         </member>
-        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._showBusyIndicator">
+        <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.ShowBusyIndicator">
             <summary>
             Show busy indicator?
             </summary>
         </member>
-        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._quoteSearch">
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.QuoteSearchView">
             <summary>
             Quote search view model.
             </summary>
         </member>
-        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._searchResults">
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.SearchResults">
             <summary>
             Results to display.
             </summary>
         </member>
-        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._noResultsFound">
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.NoResultsFound">
             <summary>
             True if no search results were found based on the search phrase.
             </summary>
         </member>
-        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._resultsFound">
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.ResultsFound">
             <summary>
             True if search results were found based on the search phrase.
             </summary>
         </member>
-        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._textName">
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.TextName">
             <summary>
             Count of the search results for display.
             </summary>
         </member>
-        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch._resultsCountText">
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteSearch.ResultsCountText">
             <summary>
             Name of the quote's text field (for display purposes).
             </summary>
@@ -197,6 +207,31 @@
         <member name="P:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.TimerRefreshSeconds">
             <summary>
             Parameter: The number of seconds to elapse to get the next random quote.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.Quote">
+            <summary>
+            Random quote.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.CurrentCounter">
+            <summary>
+            Current counter for the user to see the next refresh.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.CurrentCounterDisplay">
+            <summary>
+            UI for the current counter.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.RecurringTimer">
+            <summary>
+            Timer: Recurring timer to display a new quote.
+            </summary>
+        </member>
+        <member name="F:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.TextName">
+            <summary>
+            Text name.
             </summary>
         </member>
         <member name="M:Noftware.In.Faux.Client.Pages.Quotes.Components.QuoteTimer.OnInitializedAsync">

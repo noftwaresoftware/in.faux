@@ -1,29 +1,29 @@
-﻿@if (_showBusyIndicator == true)
+﻿@if (this.ShowBusyIndicator == true)
 {
     <BusyIndicator />
 }
 
-<h2 class="quote">@_textName search</h2>
-<EditForm Model="@_quoteSearch" OnValidSubmit="@OnSubmitAsync" class="mb-3">
+<h2 class="quote">@TextName search</h2>
+<EditForm Model="@QuoteSearchView" OnValidSubmit="@OnSubmitAsync" class="mb-3">
     <DataAnnotationsValidator />
     <div class="mb-3">
-        <InputText @bind-Value="@_quoteSearch.Phrase" @onkeyup="@OnSearchKeyUpAsync" id="SearchPhrase" class="form-control" placeholder="Separate multiple words with a space" />
-        <ValidationMessage For=@( () => _quoteSearch.Phrase ) />
+        <InputText @bind-Value="@QuoteSearchView.Phrase" @onkeyup="@OnSearchKeyUpAsync" id="SearchPhrase" class="form-control" placeholder="Separate multiple words with a space" />
+        <ValidationMessage For=@( () => this.QuoteSearchView.Phrase ) />
     </div>
     <div>
-        <button type="submit" class="btn btn-success">Search</button>
+        <button type="submit" class="btn btn-primary">Search</button>
     </div>
 </EditForm>
 
-@if (_noResultsFound == true)
+@if (this.NoResultsFound == true)
 {
     <div>No results found.</div>
 }
-@if (_resultsFound == true)
+@if (this.ResultsFound == true)
 {
-    <div class="small">@_resultsCountText.</div>
+    <div class="small">@ResultsCountText.</div>
 }
-@if (_searchResults?.Any() == true)
+@if (this.SearchResults?.Any() == true)
 {
-    <QuoteList Quotes="_searchResults" />
+    <QuoteList Quotes="SearchResults" />
 }

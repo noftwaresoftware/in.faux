@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿using Noftware.In.Faux.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +9,8 @@ namespace Noftware.In.Faux.Data.Azure.Entities
 	/// <summary>
 	/// Azure Table entity for quote items.
 	/// </summary>
-	public class QuoteTableEntity : TableEntity
-	{
+	public class QuoteTableEntity : BaseTableEntity
+    {
 		/// <summary>
 		/// The text.
 		/// </summary>

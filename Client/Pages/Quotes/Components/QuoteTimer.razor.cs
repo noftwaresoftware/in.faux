@@ -37,20 +37,30 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         [Parameter]
         public int TimerRefreshSeconds { get; set; }
 
-        // Random quote
-        private ViewQuote _quote = null;
+        /// <summary>
+        /// Random quote.
+        /// </summary>
+        private ViewQuote Quote = null;
 
-        // Current counter for the user to see the next refresh
-        private int _currentCounter = 0;
+        /// <summary>
+        /// Current counter for the user to see the next refresh.
+        /// </summary>
+        private int CurrentCounter = 0;
 
-        // UI for the current counter
-        private string _currentCounterDisplay = null;
+        /// <summary>
+        /// UI for the current counter.
+        /// </summary>
+        private string CurrentCounterDisplay = null;
 
-        // Timer: Recurring timer to display a new quote
-        private System.Timers.Timer _recurringTimer;
+        /// <summary>
+        /// Timer: Recurring timer to display a new quote.
+        /// </summary>
+        private System.Timers.Timer RecurringTimer;
 
-        // Text name
-        private string _textName;
+        /// <summary>
+        /// Text name.
+        /// </summary>
+        private string TextName;
 
         /// <summary>
         /// Method invoked when the component is ready to start, having received its initial parameters from its parent in the render tree.
@@ -59,16 +69,16 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         protected override async Task OnInitializedAsync()
         {
             // Item name to display when the timer reaches zero
-            _textName = Configuration["TextName"].ToLowerInvariant();
+            this.TextName = Configuration["TextName"].ToLowerInvariant();
 
-            _quote = null;
+            Quote = null;
             await Task.Delay(1);
 
             // Run the Quote timer every 1 second
-            _recurringTimer = new System.Timers.Timer(1000);
-            _recurringTimer.Elapsed += this.OnElapsedQuoteTimerAsync;
-            _recurringTimer.AutoReset = false;
-            _recurringTimer.Start();
+            this.RecurringTimer = new System.Timers.Timer(1000);
+            this.RecurringTimer.Elapsed += this.OnElapsedQuoteTimerAsync;
+            this.RecurringTimer.AutoReset = false;
+            this.RecurringTimer.Start();
 
             await Task.Delay(1);
         }
@@ -82,35 +92,35 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         {
             try
             {
-                if (_currentCounter > 0)
+                if (this.CurrentCounter > 0)
                 {
                     // Display
-                    if (_currentCounter == 1)
+                    if (this.CurrentCounter == 1)
                     {
                         // For the busy indicator
-                        _currentCounterDisplay = $"Getting the next {_textName}";
-                        _quote = null;
+                        this.CurrentCounterDisplay = $"Getting the next {TextName}";
+                        this.Quote = null;
                         await Task.Delay(1);
                     }
                     else
                     {
-                        _currentCounterDisplay = $"Refreshing in {_currentCounter} seconds";
+                        this.CurrentCounterDisplay = $"Refreshing in {CurrentCounter} seconds";
                     }
-                    _currentCounter--;
+                    this.CurrentCounter--;
                 }
                 else
                 {
                     // For the busy indicator
-                    _quote = null;
+                    this.Quote = null;
                     await Task.Delay(1);
 
-                    _currentCounterDisplay = string.Empty;
+                    this.CurrentCounterDisplay = string.Empty;
 
                     // Get a random quote
-                    _quote = await this.QuoteService.GetRandomQuoteAsync();
+                    this.Quote = await this.QuoteService.GetRandomQuoteAsync();
 
                     // Reset the visual counter
-                    _currentCounter = TimerRefreshSeconds;
+                    this.CurrentCounter = TimerRefreshSeconds;
 
                     await Task.Delay(1);
                 }
@@ -123,7 +133,7 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
                 Console.WriteLine($"QuoteTimer.OnTimerGetQuoteCallBack error: {ex}");
             }
 
-            _recurringTimer.Start();
+            this.RecurringTimer.Start();
         }
 
         /// <summary>
@@ -132,7 +142,17 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         /// </summary>
         public void Dispose()
         {
-            _recurringTimer?.Dispose();
+            GC.SuppressFinalize(this);
+            try
+            {
+                this.RecurringTimer?.Stop();
+                this.RecurringTimer?.Dispose();
+            }
+            catch (Exception)
+            {
+                // Swallow exception
+                Console.WriteLine("A dispose error occurred.");
+            }
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿<div class="small">
-    @_currentCounterDisplay&nbsp;
+    @this.CurrentCounterDisplay&nbsp;
 </div>
-@if (_quote is null)
+@if (this.Quote is null)
 {
     <BusyIndicator />
 }
 else
 {
-    <QuoteDisplay Quote="@_quote" />
+    <QuoteDisplay Quote="@this.Quote" />
 }

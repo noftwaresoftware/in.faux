@@ -293,7 +293,7 @@
             </summary>
             <param name="rowKey">The row key.</param>
             <param name="selectColumns">Columns to select.</param>
-            <returns><see cref="T:Microsoft.Azure.Cosmos.Table.TableEntity"/> or null, if not found.</returns>
+            <returns><see cref="T:Noftware.In.Faux.Core.Models.BaseTableEntity"/> or null, if not found.</returns>
         </member>
         <member name="M:Noftware.In.Faux.Data.Azure.TableRepository`1.SearchAsync(System.Collections.Generic.IEnumerable{Noftware.In.Faux.Core.Models.TableEntityFilter},System.String[])">
             <summary>

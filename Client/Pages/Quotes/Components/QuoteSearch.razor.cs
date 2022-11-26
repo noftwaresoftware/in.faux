@@ -35,44 +35,44 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         /// <summary>
         /// Show busy indicator?
         /// </summary>
-        private bool _showBusyIndicator { get; set; }
+        private bool ShowBusyIndicator { get; set; }
 
         /// <summary>
         /// Quote search view model.
         /// </summary>
-        private readonly ViewQuoteSearch _quoteSearch = new ViewQuoteSearch();
+        private readonly ViewQuoteSearch QuoteSearchView = new();
 
         /// <summary>
         /// Results to display.
         /// </summary>
-        private IEnumerable<ViewQuote> _searchResults = null;
+        private IEnumerable<ViewQuote> SearchResults = null;
 
         /// <summary>
         /// True if no search results were found based on the search phrase.
         /// </summary>
-        private bool _noResultsFound = false;
+        private bool NoResultsFound = false;
 
         /// <summary>
         /// True if search results were found based on the search phrase.
         /// </summary>
-        private bool _resultsFound = false;
+        private bool ResultsFound = false;
 
         /// <summary>
         /// Count of the search results for display.
         /// </summary>
-        private string _textName;
+        private string TextName;
 
         /// <summary>
         /// Name of the quote's text field (for display purposes).
         /// </summary>
-        private string _resultsCountText;
+        private string ResultsCountText;
 
         /// <summary>
         /// Method invoked when the component is ready to start, having received its initial parameters from its parent in the render tree.
         /// </summary>
         protected override void OnInitialized()
         {
-            _textName = Configuration["TextName"];
+            this.TextName = Configuration["TextName"];
         }
 
         /// <summary>
@@ -91,21 +91,21 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         /// </summary>
         private async Task OnSubmitAsync()
         {
-            _noResultsFound = false;
-            _searchResults = null;
-            _resultsCountText = null;
+            this.NoResultsFound = false;
+            this.SearchResults = null;
+            this.ResultsCountText = null;
 
             // Show busy indicator
             await this.BusyIndicatorVisibilityAsync(showBusyIndicator: true);
 
-            _searchResults = await this.QuoteService.SearchQuotesAsync(_quoteSearch.Phrase);
+            this.SearchResults = await this.QuoteService.SearchQuotesAsync(QuoteSearchView.Phrase);
 
             // Show the 'not found' or 'results' panel
-            _noResultsFound = (_searchResults.Any() == false);
-            _resultsFound = !_noResultsFound;
+            this.NoResultsFound = (SearchResults.Any() == false);
+            this.ResultsFound = !NoResultsFound;
 
-            // Get the results count. Only shown if _resultsFound is true.
-            _resultsCountText = "result".Pluralize(_searchResults.Count());
+            // Get the results count. Only shown if ResultsFound is true.
+            this.ResultsCountText = "result".Pluralize(SearchResults.Count());
 
             // Hide busy indicator
             await this.BusyIndicatorVisibilityAsync(showBusyIndicator: false);
@@ -122,7 +122,7 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         private async Task BusyIndicatorVisibilityAsync(bool showBusyIndicator)
         {
             // Show or hide busy indicator
-            _showBusyIndicator = showBusyIndicator;
+            this.ShowBusyIndicator = showBusyIndicator;
             await Task.Delay(1);
         }
     }

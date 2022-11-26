@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿using Noftware.In.Faux.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +10,8 @@ namespace Noftware.In.Faux.Data.Azure.Entities
 	/// <summary>
 	/// Azure Table entity for quote search index.
 	/// </summary>
-	public class QuoteSearchIndexTableEntity : TableEntity
-	{
+	public class QuoteSearchIndexTableEntity : BaseTableEntity
+    {
 		/// <summary>
 		/// The indexed quote word.
 		/// </summary>

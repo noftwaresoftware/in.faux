@@ -57,5 +57,5 @@ namespace Noftware.In.Faux.Core.Data
 		/// <param name="fileName">Name of existing file.</param>
 		/// <returns><see cref="File"/> or null if file not found.</returns>
 		Task<TFile> GetFileAsync(string fileName);
-	}
+    }
 }

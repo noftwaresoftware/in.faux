@@ -1,13 +1,11 @@
-﻿using Noftware.In.Faux.Core.Data;
-using Microsoft.Azure.Cosmos.Table;
-using Noftware.In.Faux.Core.Extensions;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System;
-using Noftware.In.Faux.Data.Azure.Entities;
+﻿using Azure;
+using Azure.Data.Tables;
+using Azure.Data.Tables.Models;
+using Noftware.In.Faux.Core.Data;
 using Noftware.In.Faux.Core.Models;
-using Microsoft.Azure.Cosmos.Table.Protocol;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Noftware.In.Faux.Data.Azure
 {
@@ -15,13 +13,10 @@ namespace Noftware.In.Faux.Data.Azure
     /// Azure table repository.
     /// </summary>
     /// <typeparam name="TEntity">Model of type TableEntity.</typeparam>
-    public abstract class TableRepository<TEntity> : ITableRepository<TEntity> where TEntity : TableEntity, new()
+    public abstract class TableRepository<TEntity> : ITableRepository<TEntity> where TEntity : BaseTableEntity, new()
     {
         // Table client
-        private readonly CloudTableClient _tableClient;
-
-        // Table to be persisted to
-        private readonly CloudTable _table;
+        private readonly TableClient _tableClient;
 
         // Table name
         private readonly string _tableName;
@@ -42,13 +37,12 @@ namespace Noftware.In.Faux.Data.Azure
         /// <param name="partitionKey">Table partition key.</param>
         public TableRepository(string storageConnectionString, string tableName, string partitionKey)
         {
-            CloudStorageAccount account = CloudStorageAccount.Parse(storageConnectionString);
-            _tableClient = account.CreateCloudTableClient();
+            var tableServiceClient = new TableServiceClient(storageConnectionString);
 
             _tableName = tableName;
 
-            _table = _tableClient.GetTableReference(tableName);
-            _table.CreateIfNotExists();
+            _tableClient = tableServiceClient.GetTableClient(_tableName);
+            _tableClient.CreateIfNotExists();
             _partitionKey = partitionKey;
         }
 
@@ -58,26 +52,30 @@ namespace Noftware.In.Faux.Data.Azure
         /// <returns><see cref="bool"/> True if success. False if otherwise.</returns>
         public async Task<bool> DeleteTableAsync()
         {
+            Response response = null;
             bool success = false;
 
             try
             {
-                success = await _table.DeleteIfExistsAsync();
+                response = await _tableClient.DeleteAsync();
+
+                // Final status notification
+                success = !response.IsError;
+                if (success == true)
+                {
+                    OnStatusUpdate($"{_tableName} table was successfully deleted.", OperationStatus.Success);
+                }
+                else
+                {
+                    OnStatusUpdate($"{_tableName} table was not successfully deleted (Status: {response.Status}).", OperationStatus.Error);
+                }
             }
             catch (Exception ex)
             {
                 OnStatusUpdate($"An error occurred deleting table {_tableName}. {ex}", OperationStatus.Error);
             }
 
-            // Final status notification
-            if (success == true)
-            {
-                OnStatusUpdate($"{_tableName} table was successfully deleted.", OperationStatus.Success);
-            }
-            else
-            {
-                OnStatusUpdate($"{_tableName} table was not successfully deleted.", OperationStatus.Error);
-            }
+            response?.Dispose();
 
             return success;
         }
@@ -97,20 +95,20 @@ namespace Noftware.In.Faux.Data.Azure
             {
                 try
                 {
-                    await _table.CreateIfNotExistsAsync();
+                    Response<TableItem> response = await _tableClient.CreateIfNotExistsAsync();
                     count = MaxTries + 1;
                     success = true;
                 }
-                catch (StorageException stgEx)
+                catch (RequestFailedException reqEx)
                 {
-                    if ((stgEx.RequestInformation.HttpStatusCode == 409) && (stgEx.RequestInformation.ExtendedErrorInformation.ErrorCode.Equals(TableErrorCodeStrings.TableBeingDeleted)))
+                    if (reqEx.ErrorCode == TableErrorCode.TableBeingDeleted)
                     {
                         OnStatusUpdate($"{count + 1}: The {_tableName} table is currently being created. Please wait.", OperationStatus.Warning);
                         await Task.Delay(1000); // The table is currently being deleted. Try again until it works.
                     }
                     else
                     {
-                        OnStatusUpdate($"A storage error occurred creating table {_tableName}. {stgEx}", OperationStatus.Error);
+                        OnStatusUpdate($"A storage error occurred creating table {_tableName}. {reqEx}", OperationStatus.Error);
                     }
                 }
                 catch (Exception ex)
@@ -145,22 +143,28 @@ namespace Noftware.In.Faux.Data.Azure
         {
             if (tableEntity is null)
             {
-                OnStatusUpdate($"nameof{tableEntity} was null. Unable to persist to table {_tableName}.", OperationStatus.Error);
+                OnStatusUpdate($"nameof{tableEntity} was null. Unable to persist.", OperationStatus.Error);
                 return false;
             }
-
-            var operation = TableOperation.InsertOrReplace(tableEntity);
             try
             {
-                var result = await _table.ExecuteAsync(operation);
-                OnStatusUpdate($"Persisted row key '{tableEntity.RowKey}' to table {_tableName}.", OperationStatus.Success);
-                return true;
+                var response = await _tableClient.UpsertEntityAsync(tableEntity);
+                if (response.IsError == true)
+                {
+                    OnStatusUpdate($"An error occurred persisting to {_tableName}. {response.ReasonPhrase} (Status: {response.Status})", OperationStatus.Error);
+                }
+                else
+                {
+                    OnStatusUpdate($"Persisted row key '{tableEntity.RowKey}' to table {_tableName}.", OperationStatus.Success);
+                    return true;
+                }
             }
             catch (Exception ex)
             {
                 OnStatusUpdate($"An error occurred persisting row key '{tableEntity.RowKey}' to table {_tableName}. {ex}", OperationStatus.Error);
-                return false;
             }
+
+            return false;
         }
 
         /// <summary>
@@ -168,26 +172,25 @@ namespace Noftware.In.Faux.Data.Azure
         /// </summary>
         /// <param name="rowKey">The row key.</param>
         /// <param name="selectColumns">Columns to select.</param>
-        /// <returns><see cref="TableEntity"/> or null, if not found.</returns>
+        /// <returns><see cref="BaseTableEntity"/> or null, if not found.</returns>
         public async Task<TEntity> GetAsync(string rowKey, params string[] selectColumns)
         {
-            var query = new TableQuery<TEntity>()
-            {
-                FilterString = $"PartitionKey eq '{_partitionKey}' and RowKey eq '{rowKey}'"
-            };
-
             // Which columns to include?
+            Response<TEntity> response;
             if (selectColumns != null && selectColumns.Length > 0)
             {
                 // Include specified columns
-                query.SelectColumns = selectColumns;
+                response = await _tableClient.GetEntityAsync<TEntity>(_partitionKey, rowKey, selectColumns);
+            }
+            else
+            {
+                response = await _tableClient.GetEntityAsync<TEntity>(_partitionKey, rowKey);
             }
 
-            var queryResult = await _table.ExecuteQuerySegmentedAsync(query, null);
-            if (queryResult.Results.Any() == true)
+            if (response is not null)
             {
                 OnStatusUpdate($"Successfully obtained '{rowKey}' from table {_tableName}.", OperationStatus.Success);
-                return queryResult.Results.First();
+                return response.Value;
             }
 
             OnStatusUpdate($"{rowKey} not found in table {_tableName}.", OperationStatus.Error);
@@ -205,29 +208,24 @@ namespace Noftware.In.Faux.Data.Azure
             var builder = new TableEntityFilterBuilder();
             string filter = builder.Build(filters);
 
-            var query = new TableQuery<TEntity>()
-            {
-                FilterString = $"PartitionKey eq '{_partitionKey}' {filter}"
-            };
+            string filterString = $"PartitionKey eq '{_partitionKey}' {filter}";
 
             // Which columns to include?
+            AsyncPageable<TEntity> results;
             if (selectColumns != null && selectColumns.Length > 0)
             {
                 // Include specified columns
-                query.SelectColumns = selectColumns;
+                results = _tableClient.QueryAsync<TEntity>(filter: filterString, select: selectColumns);
+            }
+            else
+            {
+                results = _tableClient.QueryAsync<TEntity>(filter: filterString);
             }
 
-            TableContinuationToken token = null;
-            do
+            await foreach (var item in results)
             {
-                var queryResult = await _table.ExecuteQuerySegmentedAsync(query, token);
-                foreach (var item in queryResult.Results)
-                {
-                    yield return item;
-                }
-                token = queryResult.ContinuationToken;
-
-            } while (token != null);
+                yield return item;
+            }
         }
 
         /// <summary>

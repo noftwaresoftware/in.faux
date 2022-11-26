@@ -1,7 +1,9 @@
 {
 	"IsEncrypted": false,
 	"Values": {
-		"TableStorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=[[AccountName]];AccountKey=[[AccountKey]];BlobEndpoint=https://[[AccountName]].blob.core.windows.net/;TableEndpoint=https://[[AccountName]].table.core.windows.net/;QueueEndpoint=https://[[AccountName]].queue.core.windows.net/;FileEndpoint=https://[[AccountName]].file.core.windows.net/"
+		"TableStorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=businessclichegennonprod;AccountKey=g3r7AJfFxZDdQXk6l5Ka4a7j1d2zDZmBujOjrqufqLcGFxFI/n9fHpzzhZclgjz+tRs0ySsWU/QyWhbSAFf1fg==;EndpointSuffix=core.windows.net",
+		"AzureWebJobsStorage": "UseDevelopmentStorage=true",
+		"FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated"
 	},
 	"Host": {
 		"LocalHttpPort": 7071,

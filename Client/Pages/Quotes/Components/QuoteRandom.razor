@@ -1,8 +1,8 @@
-﻿@if (_quote is null)
+﻿@if (Quote is null)
 {
     <BusyIndicator />
 }
 else
 {
-    <QuoteDisplay Quote="@_quote" />
+    <QuoteDisplay Quote="@this.Quote" />
 }

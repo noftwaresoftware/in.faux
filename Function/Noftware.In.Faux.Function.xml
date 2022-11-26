@@ -15,19 +15,20 @@
             </summary>
             <param name="quoteService">Quote service.</param>
         </member>
-        <member name="M:Noftware.In.Faux.Function.QuoteFunction.GetRandomQuote(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Extensions.Logging.ILogger)">
+        <member name="M:Noftware.In.Faux.Function.QuoteFunction.GetRandomQuote(Microsoft.Azure.Functions.Worker.Http.HttpRequestData,Microsoft.Azure.Functions.Worker.FunctionContext)">
             <summary>
             Get a random quote.
             </summary>
-            <param name="log">Logger.</param>
+            <param name="req">Represents the incoming side of an individual HTTP request.</param>
+            <param name="executionContext">Encapsulates the information about a function execution.</param>
             <returns><see cref="T:Noftware.In.Faux.Core.Models.Quote"/></returns>
         </member>
-        <member name="M:Noftware.In.Faux.Function.QuoteFunction.GetResizedImage(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Extensions.Logging.ILogger)">
+        <member name="M:Noftware.In.Faux.Function.QuoteFunction.GetResizedImage(Microsoft.Azure.Functions.Worker.Http.HttpRequestData,Microsoft.Azure.Functions.Worker.FunctionContext)">
             <summary>
             Get a Base 64 encoded resized image.
             </summary>
             <param name="req">HTTP request.</param>
-            <param name="log">Logger.</param>
+            <param name="executionContext">Encapsulates the information about a function execution.</param>
             <returns><see cref="T:System.String"/></returns>
             <remarks>
             Posted body format:
@@ -37,12 +38,12 @@
             }
             </remarks>
         </member>
-        <member name="M:Noftware.In.Faux.Function.QuoteFunction.SearchQuotes(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Extensions.Logging.ILogger)">
+        <member name="M:Noftware.In.Faux.Function.QuoteFunction.SearchQuotes(Microsoft.Azure.Functions.Worker.Http.HttpRequestData,Microsoft.Azure.Functions.Worker.FunctionContext)">
             <summary>
             Search the quotes.
             </summary>
             <param name="req">HTTP request.</param>
-            <param name="log">Logger.</param>
+            <param name="executionContext">Encapsulates the information about a function execution.</param>
             <returns><see cref="T:System.Collections.Generic.IEnumerable`1"/></returns>
             <remarks>
             Posted body format:
@@ -50,17 +51,6 @@
               "phrase": "tommy tutone"
             }
             </remarks>
-        </member>
-        <member name="T:Noftware.In.Faux.Function.QuoteFunctionStartup">
-            <summary>
-            DI for function.
-            </summary>
-        </member>
-        <member name="M:Noftware.In.Faux.Function.QuoteFunctionStartup.Configure(Microsoft.Azure.Functions.Extensions.DependencyInjection.IFunctionsHostBuilder)">
-            <summary>
-            DI for function.
-            </summary>
-            <param name="builder">Function host builder.</param>
         </member>
     </members>
 </doc>

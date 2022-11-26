@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿using Azure.Data.Tables;
 using Noftware.In.Faux.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -9,8 +9,8 @@ namespace Noftware.In.Faux.Core.Data
     /// <summary>
     /// Azure table repository interface.
     /// </summary>
-    /// <typeparam name="TEntity">Model of type TableEntity.</typeparam>
-    public interface ITableRepository<TEntity> where TEntity : TableEntity, new()
+    /// <typeparam name="TEntity">Model of type <see cref="BaseTableEntity"/>.</typeparam>
+    public interface ITableRepository<TEntity> where TEntity : BaseTableEntity, new()
     {
         /// <summary>
         /// Event handler to notify caller of status.

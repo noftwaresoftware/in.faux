@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿using Noftware.In.Faux.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Noftware.In.Faux.Data.Azure.Entities
     /// <summary>
     /// Azure Table entity for quote a single quote meta data.
     /// </summary>
-    public class QuoteMetadataTableEntity : TableEntity
+    public class QuoteMetadataTableEntity : BaseTableEntity
     {
         /// <summary>
         /// The total number of quote rows.

@@ -42,7 +42,7 @@ namespace Noftware.In.Faux.Core.Models
 						}
 					default:
 						{
-							filterText.Append(" ");
+							filterText.Append(' ');
 							break;
 						}
 				} // switch (filter.BooleanOperator)

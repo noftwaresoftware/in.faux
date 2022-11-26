@@ -1,4 +1,4 @@
-﻿using Microsoft.Azure.Cosmos.Table;
+﻿using Noftware.In.Faux.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Noftware.In.Faux.Data.Azure.Entities
     /// <summary>
     /// Represents a single view/impression of a quote.
     /// </summary>
-    public class QuoteImpressionTableEntity : TableEntity
+    public class QuoteImpressionTableEntity : BaseTableEntity
     {
         /// <summary>
         /// The row key (int) of the quote.

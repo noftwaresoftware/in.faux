@@ -22,8 +22,10 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         [Inject]
         public IClientQuoteService QuoteService { get; set; }
 
-        // Random quote
-        private ViewQuote _quote = null;
+        /// <summary>
+        /// Random quote.
+        /// </summary>
+        private ViewQuote Quote = null;
 
         /// <summary>
         /// Method invoked when the component is ready to start, having received its initial parameters from its parent in the render tree.
@@ -32,11 +34,11 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         protected override async Task OnInitializedAsync()
         {
             // For busy indicator
-            _quote = null;
+            this.Quote = null;
             await Task.Delay(1);
 
             // Get a random quote
-            _quote = await this.QuoteService.GetRandomQuoteAsync();
+            this.Quote = await this.QuoteService.GetRandomQuoteAsync();
 
             await Task.Delay(1);
         }

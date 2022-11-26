@@ -148,7 +148,7 @@ namespace Noftware.In.Faux.BulkUploader
 
                 quoteMetadata = new QuoteMetadataTableEntity()
                 {
-                    ETag = "*",
+                    ETag = Azure.ETag.All,
                     PartitionKey = "QuoteMetadata",
                     QuoteTotalCount = quoteRowCounter,
                     RowKey = "1",                           // There is only ever a single row
@@ -313,7 +313,7 @@ namespace Noftware.In.Faux.BulkUploader
             } // await foreach (var parsedQuote in parsedQuotes)
 
             // Update the total row quote count
-            quoteMetadata.ETag = "*";
+            quoteMetadata.ETag = Azure.ETag.All;
             quoteMetadata.QuoteTotalCount = quoteRowCounter;
             quoteMetadata.Timestamp = DateTimeOffset.UtcNow;
             await tableRepoQuoteMetadata.AddOrUpdateAsync(quoteMetadata);
@@ -349,11 +349,11 @@ namespace Noftware.In.Faux.BulkUploader
             arg = arg.Trim().ToLowerInvariant();
 
             // Remove any delimiters
-            if (arg.Contains("-") == true)
+            if (arg.Contains('-') == true)
             {
                 arg = arg.Replace("-", string.Empty);
             }
-            if (arg.Contains("/") == true)
+            if (arg.Contains('/') == true)
             {
                 arg = arg.Replace("/", string.Empty);
             }

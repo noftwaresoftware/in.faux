@@ -7,6 +7,7 @@ using Noftware.In.Faux.Client.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Noftware.In.Faux.Client
 {
@@ -24,6 +25,7 @@ namespace Noftware.In.Faux.Client
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
+            builder.RootComponents.Add<HeadOutlet>("head::after");
 
             string baseAddress = builder.Configuration["ApiBaseAddress"] ?? builder.HostEnvironment.BaseAddress;
             builder.Services.AddScoped(sp => new HttpClient() { BaseAddress = new Uri(baseAddress) });
