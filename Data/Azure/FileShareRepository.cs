@@ -1,4 +1,6 @@
-﻿using Azure;
+﻿// Ignore Spelling: Noftware Faux
+
+using Azure;
 using Azure.Storage.Files.Shares;
 using Azure.Storage.Files.Shares.Models;
 using Noftware.In.Faux.Core.Data;
@@ -242,7 +244,7 @@ namespace Noftware.In.Faux.Data.Azure
                     while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
                     {
                         // Create a memory stream for the buffer to upload
-                        using MemoryStream ms = new MemoryStream(buffer, 0, bytesRead);
+                        using MemoryStream ms = new(buffer, 0, bytesRead);
                         var result = await fileClient.Value.UploadRangeAsync(new HttpRange(index, ms.Length), ms);
                         index += ms.Length; // increment the index to the account for bytes already written
                     }

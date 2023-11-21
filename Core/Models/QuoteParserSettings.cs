@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Ignore Spelling: Noftware Faux
 
 namespace Noftware.In.Faux.Core.Models
 {
-	/// <summary>
-	/// Settings for the quote flat file parser and image resizing.
-	/// </summary>
-	public class QuoteParserSettings
+    /// <summary>
+    /// Settings for the quote flat file parser and image resizing.
+    /// </summary>
+    public class QuoteParserSettings
 	{
 		/// <summary>
 		/// Maximum resized dimension in pixels.

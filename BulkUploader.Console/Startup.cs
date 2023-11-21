@@ -1,38 +1,27 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿// Ignore Spelling: Noftware Faux Uploader
+
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Noftware.In.Faux.Data.Azure;
+using Noftware.In.Faux.Core.Data;
+using Noftware.In.Faux.Core.Extensions;
+using Noftware.In.Faux.Core.Models;
+using Noftware.In.Faux.Core.Services;
 using Noftware.In.Faux.Data.Azure.Entities;
 using Noftware.In.Faux.Data.Repositories;
 using Noftware.In.Faux.Data.Services;
-using Noftware.In.Faux.Core.Data;
-using Noftware.In.Faux.Core.Services;
-using Noftware.In.Faux.Core.Extensions;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Noftware.In.Faux.Core.Models;
 
 namespace Noftware.In.Faux.BulkUploader
 {
     /// <summary>
     /// DI startup.
     /// </summary>
-    public class Startup
+    /// <param name="configuration">Represents a set of key/value application configuration properties.</param>
+    public class Startup(IConfiguration configuration)
     {
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="configuration">Represents a set of key/value application configuration properties.</param>
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
         /// <summary>
         /// Represents a set of key/value application configuration properties.
         /// </summary>
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; } = configuration;
 
         /// <summary>
         /// This method gets called by the runtime. Use this method to add services to the container.

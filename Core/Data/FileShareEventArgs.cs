@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Ignore Spelling: Noftware Faux
 
 namespace Noftware.In.Faux.Core.Data
 {
     /// <summary>
     /// Event arguments for Azure file share notifications.
     /// </summary>
-    public class FileShareEventArgs : DataEventArgs
-    {
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="message">Notification message.</param>
-        /// <param name="operationStatus">Status of the operation.</param>
-        public FileShareEventArgs(string message, OperationStatus operationStatus) : base(message, operationStatus) { }
-    }
+    /// <param name="message">Notification message.</param>
+    /// <param name="operationStatus">Status of the operation.</param>
+    public class FileShareEventArgs(string message, OperationStatus operationStatus) : DataEventArgs(message, operationStatus) { }
 }

@@ -1,15 +1,14 @@
-﻿using System;
+﻿// Ignore Spelling: Noftware Faux
+
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Noftware.In.Faux.Core.Models
 {
-	/// <summary>
-	/// A quote parsed from a source text file. 
-	/// </summary>
-	public class ParsedQuote
+    /// <summary>
+    /// A quote parsed from a source text file. 
+    /// </summary>
+    public class ParsedQuote
 	{
 		/// <summary>
 		/// Source line.

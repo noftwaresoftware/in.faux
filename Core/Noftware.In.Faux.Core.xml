@@ -8,6 +8,15 @@
             <summary>
             Base class for all data-related event arguments.
             </summary>
+            <param name="message">Notification message.</param>
+            <param name="status">Status of the operation.</param>
+        </member>
+        <member name="M:Noftware.In.Faux.Core.Data.DataEventArgs.#ctor(System.String,Noftware.In.Faux.Core.Data.OperationStatus)">
+            <summary>
+            Base class for all data-related event arguments.
+            </summary>
+            <param name="message">Notification message.</param>
+            <param name="status">Status of the operation.</param>
         </member>
         <member name="P:Noftware.In.Faux.Core.Data.DataEventArgs.Message">
             <summary>
@@ -18,13 +27,6 @@
             <summary>
             Status of the operation.
             </summary>
-        </member>
-        <member name="M:Noftware.In.Faux.Core.Data.DataEventArgs.#ctor(System.String,Noftware.In.Faux.Core.Data.OperationStatus)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="message">Notification message.</param>
-            <param name="status">Status of the operation.</param>
         </member>
         <member name="T:Noftware.In.Faux.Core.Data.OperationStatus">
             <summary>
@@ -50,10 +52,12 @@
             <summary>
             Event arguments for Azure file share notifications.
             </summary>
+            <param name="message">Notification message.</param>
+            <param name="operationStatus">Status of the operation.</param>
         </member>
         <member name="M:Noftware.In.Faux.Core.Data.FileShareEventArgs.#ctor(System.String,Noftware.In.Faux.Core.Data.OperationStatus)">
             <summary>
-            Constructor.
+            Event arguments for Azure file share notifications.
             </summary>
             <param name="message">Notification message.</param>
             <param name="operationStatus">Status of the operation.</param>
@@ -156,10 +160,12 @@
             <summary>
             Event arguments for Azure table repository notifications.
             </summary>
+            <param name="message">Notification message.</param>
+            <param name="operationStatus">Status of the operation.</param>
         </member>
         <member name="M:Noftware.In.Faux.Core.Data.TableRepositoryEventArgs.#ctor(System.String,Noftware.In.Faux.Core.Data.OperationStatus)">
             <summary>
-            Constructor.
+            Event arguments for Azure table repository notifications.
             </summary>
             <param name="message">Notification message.</param>
             <param name="operationStatus">Status of the operation.</param>

@@ -1,22 +1,23 @@
-﻿using System;
+﻿// Ignore Spelling: Noftware Faux
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Noftware.In.Faux.Core.Models
 {
-	/// <summary>
-	/// Azure table entity filter builder.
-	/// </summary>
-	public class TableEntityFilterBuilder
+    /// <summary>
+    /// Azure table entity filter builder.
+    /// </summary>
+    public class TableEntityFilterBuilder
 	{
-		/// <summary>
-		/// Based on one or more filter expressions, build a filter for an Azure table query.
-		/// </summary>
-		/// <param name="filters">One of more filters.</param>
-		/// <returns><see cref="string"/> filter or null, if the filters parameter is empty.</returns>
-		public string Build(IEnumerable<TableEntityFilter> filters)
+        /// <summary>
+        /// Based on one or more filter expressions, build a filter for an Azure table query.
+        /// </summary>
+        /// <param name="filters">One of more filters.</param>
+        /// <returns><see cref="string"/> filter or null, if the filters parameter is empty.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
+        public string Build(IEnumerable<TableEntityFilter> filters)
 		{
 			if (filters?.Any() == false)
 			{

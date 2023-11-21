@@ -1,17 +1,15 @@
-﻿using System;
+﻿// Ignore Spelling: Noftware Faux
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
-using System.Threading;
-using Noftware.In.Faux.Core.Models;
 using Microsoft.AspNetCore.Components;
-using Noftware.In.Faux.Core.Extensions;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using Noftware.In.Faux.Client.Services;
 using Noftware.In.Faux.Client.ViewModels;
-using Microsoft.AspNetCore.Components.Web;
+using Noftware.In.Faux.Core.Extensions;
 
 namespace Noftware.In.Faux.Client.Pages.Quotes.Components
 {

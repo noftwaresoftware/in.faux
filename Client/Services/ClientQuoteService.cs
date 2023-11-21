@@ -1,15 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Noftware.In.Faux.Client.ViewModels;
-using Noftware.In.Faux.Core.Models;
-using System;
+﻿// Ignore Spelling: Noftware Faux
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Noftware.In.Faux.Client.ViewModels;
+using Noftware.In.Faux.Core.Models;
 
 namespace Noftware.In.Faux.Client.Services
 {
@@ -76,10 +76,7 @@ namespace Noftware.In.Faux.Client.Services
 
 
             // If quote is still empty, get the default out-of-the-box one
-            if (quote is null)
-            {
-                quote = Quote.GetDefault();
-            }
+            quote ??= Quote.GetDefault();
 
             // Map to view model
             if (quote is not null)

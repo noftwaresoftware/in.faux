@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Ignore Spelling: Noftware Faux
+
 using Dawn;
 
 namespace Noftware.In.Faux.Core.Extensions

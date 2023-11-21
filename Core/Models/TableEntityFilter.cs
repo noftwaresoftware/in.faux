@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// Ignore Spelling: Noftware Faux
 
 namespace Noftware.In.Faux.Core.Models
 {
-	/// <summary>
-	/// A single Azure table entity filter to be used in the filter builder.
-	/// </summary>
-	public class TableEntityFilter
+    /// <summary>
+    /// A single Azure table entity filter to be used in the filter builder.
+    /// </summary>
+    public class TableEntityFilter
 	{
 		/// <summary>
 		/// Boolean operator.

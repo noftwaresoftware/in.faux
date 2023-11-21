@@ -1,10 +1,9 @@
-﻿using Noftware.In.Faux.Core.Models;
-using System;
+﻿// Ignore Spelling: Noftware Faux
+
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Noftware.In.Faux.Core.Models;
 
 namespace Noftware.In.Faux.Core.Services
 {

@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+﻿// Ignore Spelling: Noftware Faux
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Noftware.In.Faux.Client.Services;
 using Noftware.In.Faux.Client.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Noftware.In.Faux.Client.Pages.Quotes.Components
 {
@@ -53,12 +51,12 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
             // Get the display image, if it was not loaded
             if (quote.Base64Image == null)
             {
-                await this.BusyIndicatorVisibilityAsync(quote, showBusyIndicator: true);
+                await BusyIndicatorVisibilityAsync(quote, showBusyIndicator: true);
 
                 string resizedImage = await this.QuoteService.GetResizedImageAsync(quote.Key, quote.FileName);
                 quote.Base64Image = resizedImage;
 
-                await this.BusyIndicatorVisibilityAsync(quote, showBusyIndicator: false);
+                await BusyIndicatorVisibilityAsync(quote, showBusyIndicator: false);
             }
 
             // Does the 'display' image need to be fetched?
@@ -85,7 +83,7 @@ namespace Noftware.In.Faux.Client.Pages.Quotes.Components
         /// <param name="quote">The associated quote's row to show the busy indicator within.</param>
         /// <param name="showBusyIndicator">True to show or false to hide.</param>
         /// <returns><see cref="Task"/></returns>
-        private async Task BusyIndicatorVisibilityAsync(ViewQuote quote, bool showBusyIndicator)
+        private static async Task BusyIndicatorVisibilityAsync(ViewQuote quote, bool showBusyIndicator)
         {
             // Show or hide busy indicator
             quote.SearchShowBusyIndicator = showBusyIndicator;

@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿// Ignore Spelling: Noftware Faux
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Noftware.In.Faux.Client.Pages.Quotes
 {
@@ -27,7 +24,7 @@ namespace Noftware.In.Faux.Client.Pages.Quotes
         /// </summary>
         protected override void OnInitialized()
         {
-            int.TryParse(Configuration["TimerRefreshSeconds"], out SecondsRefresh);
+            _ = int.TryParse(Configuration["TimerRefreshSeconds"], out SecondsRefresh);
         }
     }
 }

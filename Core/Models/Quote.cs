@@ -1,6 +1,6 @@
-﻿using System;
+﻿// Ignore Spelling: Noftware Faux
+
 using System.Collections.Generic;
-using System.Text;
 
 namespace Noftware.In.Faux.Core.Models
 {

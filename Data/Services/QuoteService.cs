@@ -1,67 +1,34 @@
-﻿using Noftware.In.Faux.Core.Services;
-using Noftware.In.Faux.Data.Azure;
-using Noftware.In.Faux.Core.Models;
+﻿// Ignore Spelling: Noftware Faux
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Noftware.In.Faux.Core.Extensions;
-using System.Security.Cryptography;
-using System.IO;
-using Noftware.In.Faux.Data.Azure.Entities;
-using Noftware.In.Faux.Core.Data;
 using System.Text;
+using System.Threading.Tasks;
+using Noftware.In.Faux.Core.Data;
+using Noftware.In.Faux.Core.Extensions;
+using Noftware.In.Faux.Core.Models;
+using Noftware.In.Faux.Core.Services;
+using Noftware.In.Faux.Data.Azure.Entities;
 
 namespace Noftware.In.Faux.Data.Services
 {
     /// <summary>
     /// Service for obtaining quote items from the data store.
     /// </summary>
-    public class QuoteService : IQuoteService
+    /// <param name="quoteTableRepository">Azure Table repository for quotes.</param>
+    /// <param name="quoteTablemetaDataRepository">Azure Table repository for a single quote metadata item.</param>
+    /// <param name="quoteSearchTableRepository">Azure Table repository for the quote search index.</param>
+    /// <param name="quoteImpressionTableRepository">Azure Table repository for the quote impressions.</param>
+    /// <param name="resizedImageFileRepository">Azure file share repository for resized quote images.</param>
+    /// <param name="thumbnailImageFileRepository">Azure file share repository for thumbnail quote images.</param>
+    public class QuoteService(ITableRepository<QuoteTableEntity> quoteTableRepository,
+        ITableRepository<QuoteMetadataTableEntity> quoteTablemetaDataRepository,
+        ITableRepository<QuoteSearchIndexTableEntity> quoteSearchTableRepository,
+        ITableRepository<QuoteImpressionTableEntity> quoteImpressionTableRepository,
+        IFileShareRepository<ResizedImageFile> resizedImageFileRepository,
+        IFileShareRepository<ThumbnailImageFile> thumbnailImageFileRepository) : IQuoteService
     {
-        // Azure Table repository for quotes
-        private readonly ITableRepository<QuoteTableEntity> _quoteTableRepository;
-
-        // Azure Table repository for a single quote metadata item
-        private readonly ITableRepository<QuoteMetadataTableEntity> _quoteTableMetadataRepository;
-
-        // Azure Table repository for the quote search index
-        private readonly ITableRepository<QuoteSearchIndexTableEntity> _quoteSearchTableRepository;
-
-        // Azure Table repository for the quote search index
-        private readonly ITableRepository<QuoteImpressionTableEntity> _quoteImpressionTableRepository;
-
-        // Azure file share repository for resized quote images
-        private readonly IFileShareRepository<ResizedImageFile> _resizedImageFileRepository;
-
-        // Azure file share repository for thumbnail quote images
-        private readonly IFileShareRepository<ThumbnailImageFile> _thumbnailImageFileRepository;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="quoteTableRepository">Azure Table repository for quotes.</param>
-        /// <param name="quoteTablemetaDataRepository">Azure Table repository for a single quote metadata item.</param>
-        /// <param name="quoteSearchTableRepository">Azure Table repository for the quote search index.</param>
-        /// <param name="quoteImpressionTableRepository">Azure Table repository for the quote impressions.</param>
-        /// <param name="resizedImageFileRepository">Azure file share repository for resized quote images.</param>
-        /// <param name="thumbnailImageFileRepository">Azure file share repository for thumbnail quote images.</param>
-        public QuoteService(ITableRepository<QuoteTableEntity> quoteTableRepository,
-            ITableRepository<QuoteMetadataTableEntity> quoteTablemetaDataRepository,
-            ITableRepository<QuoteSearchIndexTableEntity> quoteSearchTableRepository,
-            ITableRepository<QuoteImpressionTableEntity> quoteImpressionTableRepository,
-            IFileShareRepository<ResizedImageFile> resizedImageFileRepository,
-            IFileShareRepository<ThumbnailImageFile> thumbnailImageFileRepository)
-        {
-            _quoteTableRepository = quoteTableRepository;
-            _quoteTableMetadataRepository = quoteTablemetaDataRepository;
-            _quoteSearchTableRepository = quoteSearchTableRepository;
-            _quoteImpressionTableRepository = quoteImpressionTableRepository;
-
-            _resizedImageFileRepository = resizedImageFileRepository;
-            _thumbnailImageFileRepository = thumbnailImageFileRepository;
-        }
-
         /// <summary>
         /// Get a random quote from the data store.
         /// </summary>
@@ -69,7 +36,7 @@ namespace Noftware.In.Faux.Data.Services
         public async Task<Quote> GetRandomQuoteAsync()
         {
             // This is only a single quote metadata record
-            var quoteMetadata = await _quoteTableMetadataRepository.GetAsync("1", GetQuoteMetadataSelectFields());
+            var quoteMetadata = await quoteTablemetaDataRepository.GetAsync("1", GetQuoteMetadataSelectFields());
             if (quoteMetadata is null)
             {
                 return null;
@@ -82,7 +49,7 @@ namespace Noftware.In.Faux.Data.Services
             int randomQuoteKey = ThreadSafeRandom.Next(1, totalQuoteCount + 1);
 
             // Get the quote based on row key
-            var quoteEntity = await _quoteTableRepository.GetAsync(randomQuoteKey.ToString(), GetQuoteSelectFields());
+            var quoteEntity = await quoteTableRepository.GetAsync(randomQuoteKey.ToString(), GetQuoteSelectFields());
             if (quoteEntity is null)
             {
                 return null;
@@ -110,11 +77,11 @@ namespace Noftware.In.Faux.Data.Services
         /// <returns><see cref="string"/></returns>
         public async Task<string> GetResizedImageAsync(string quoteKey, string fileName)
         {
-            var file = await _resizedImageFileRepository.GetFileAsync(fileName);
+            var file = await resizedImageFileRepository.GetFileAsync(fileName);
             string base64Image = (file is null ? null : System.Convert.ToBase64String(file.Contents));
 
             // Add a new impression/view
-            await _quoteImpressionTableRepository.AddOrUpdateAsync(new QuoteImpressionTableEntity()
+            await quoteImpressionTableRepository.AddOrUpdateAsync(new QuoteImpressionTableEntity()
             {
                 QuoteRowKey = quoteKey,
                 PartitionKey = "QuoteImpression",
@@ -184,7 +151,7 @@ namespace Noftware.In.Faux.Data.Services
             }
 
             // Search the search index for all matches and get a count of items by matches 
-            var searchedWords = await _quoteSearchTableRepository.SearchAsync(filters, selectFieldsSearch).ToListAsync();
+            var searchedWords = await quoteSearchTableRepository.SearchAsync(filters, selectFieldsSearch).ToListAsync();
             var groupedSearchWords = searchedWords.GroupBy(g => g.QuoteRowKey)
                                         .Select(group => new
                                         {
@@ -203,12 +170,12 @@ namespace Noftware.In.Faux.Data.Services
             foreach (var groupedSearchWord in groupedSearchWords)
             {
                 // Get the quote
-                var quoteEntity = await _quoteTableRepository.GetAsync(groupedSearchWord.QuoteRowKey, selectFieldsQuote);
+                var quoteEntity = await quoteTableRepository.GetAsync(groupedSearchWord.QuoteRowKey, selectFieldsQuote);
                 if (quoteEntity != null)
                 {
                     // Get the thumbnail and build the return quote
-                    var resizedFile = await _resizedImageFileRepository.GetFileAsync(quoteEntity.FileName);
-                    var thumbnailFile = await _thumbnailImageFileRepository.GetFileAsync(quoteEntity.FileName);
+                    var resizedFile = await resizedImageFileRepository.GetFileAsync(quoteEntity.FileName);
+                    var thumbnailFile = await thumbnailImageFileRepository.GetFileAsync(quoteEntity.FileName);
 
                     var quote = new Quote()
                     {
@@ -285,12 +252,12 @@ namespace Noftware.In.Faux.Data.Services
         /// <returns>Select columns.</returns>
         private static string[] GetQuoteSelectFields()
         {
-            string[] selectFields = new string[] {
+            string[] selectFields = [
                 nameof(QuoteTableEntity.Description),
                 nameof(QuoteTableEntity.RowKey),
                 nameof(QuoteTableEntity.FileName),
                 nameof(QuoteTableEntity.Text)
-            };
+            ];
 
             return selectFields;
         }
@@ -301,9 +268,9 @@ namespace Noftware.In.Faux.Data.Services
         /// <returns>Select fields.</returns>
         private static string[] GetQuoteMetadataSelectFields()
         {
-            string[] selectFields = new string[] {
+            string[] selectFields = [
                 nameof(QuoteMetadataTableEntity.QuoteTotalCount)
-            };
+            ];
 
             return selectFields;
         }
@@ -314,10 +281,10 @@ namespace Noftware.In.Faux.Data.Services
         /// <returns>Select fields.</returns>
         private static string[] GetQuoteSearchSelectFields()
         {
-            string[] selectFields = new string[] {
+            string[] selectFields = [
                 nameof(QuoteSearchIndexTableEntity.QuoteRowKey),
                 nameof(QuoteSearchIndexTableEntity.Word)
-            };
+            ];
 
             return selectFields;
         }
