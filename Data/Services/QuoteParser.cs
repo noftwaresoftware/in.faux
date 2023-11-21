@@ -1,12 +1,13 @@
-﻿using Noftware.In.Faux.Core.Models;
+﻿// Ignore Spelling: Noftware Faux
+
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Noftware.In.Faux.Core.Models;
 using Noftware.In.Faux.Core.Services;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Processing;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 
 namespace Noftware.In.Faux.Data.Services
 {
@@ -15,32 +16,20 @@ namespace Noftware.In.Faux.Data.Services
     /// Format: Quote text {Meaning/explanation text} [FileName] |Comma-separated keywords/tags|
     /// Example: Circle back {Following up on progress.} [CircleBack.png] |reach,contact,follow,up,follow-up,communicate|
     /// </summary>
-    public class QuoteParser : IQuoteParser
+    /// <remarks>
+    /// Constructor.
+    /// </remarks>
+    /// <param name="settings">Settings for the parser.</param>
+    /// <param name="quoteService"></param>
+    public class QuoteParser(QuoteParserSettings settings, IQuoteService quoteService) : IQuoteParser
     {
-        // Settings for the parser
-        private readonly QuoteParserSettings _settings;
-
-        // Quote service to use BuildSearchWords()
-        private readonly IQuoteService _quoteService;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="settings">Settings for the parser.</param>
-        /// <param name="quoteService"></param>
-        public QuoteParser(QuoteParserSettings settings, IQuoteService quoteService)
-        {
-            _settings = settings;
-            _quoteService = quoteService;
-        }
-
         /// <summary>
         /// Parses the quote text file.
         /// </summary>
         /// <returns><see cref="IAsyncEnumerable{ParsedQuote}"/></returns>
         public async IAsyncEnumerable<ParsedQuote> ParseInputFileAsync()
         {
-            if (System.IO.File.Exists(_settings.QuoteTextFile) == false)
+            if (System.IO.File.Exists(settings.QuoteTextFile) == false)
             {
                 yield return null;
             }
@@ -53,7 +42,7 @@ namespace Noftware.In.Faux.Data.Services
             string description;
             string keywords;
 
-            string[] lines = await System.IO.File.ReadAllLinesAsync(_settings.QuoteTextFile);
+            string[] lines = await System.IO.File.ReadAllLinesAsync(settings.QuoteTextFile);
             foreach (var line in lines)
             {
                 cleanLine = line?.Trim();
@@ -73,8 +62,8 @@ namespace Noftware.In.Faux.Data.Services
                     cleanLine.Contains('[') == true && cleanLine.Contains(']') == true)
                     {
                         // Meaning: Ensure index2 is after index1
-                        index1 = cleanLine.IndexOf("{");
-                        index2 = cleanLine.IndexOf("}");
+                        index1 = cleanLine.IndexOf('{');
+                        index2 = cleanLine.IndexOf('}');
                         if (index2 > index1)
                         {
                             description = cleanLine.Substring(index1 + 1, index2 - index1 - 1)?.Trim();
@@ -90,8 +79,8 @@ namespace Noftware.In.Faux.Data.Services
                         quote.Text = text;
 
                         // Image: Ensure index2 is after index1
-                        index1 = cleanLine.IndexOf("[");
-                        index2 = cleanLine.IndexOf("]");
+                        index1 = cleanLine.IndexOf('[');
+                        index2 = cleanLine.IndexOf(']');
                         if (index2 > index1)
                         {
                             filename = cleanLine.Substring(index1 + 1, index2 - index1 - 1)?.Trim();
@@ -101,13 +90,13 @@ namespace Noftware.In.Faux.Data.Services
                             if (quote.OriginalImage != null)
                             {
                                 // Resized/display image
-                                ResizeImage(quote, (int)_settings.MaximumResizedImageDimension, out byte[] newImage, out int newHeight, out int newWidth);
+                                ResizeImage(quote, (int)settings.MaximumResizedImageDimension, out byte[] newImage, out int newHeight, out int newWidth);
                                 quote.ResizedImage = newImage;
                                 quote.ResizedImageHeight = newHeight;
                                 quote.ResizedImageWidth = newWidth;
 
                                 // Thumbnail image
-                                ResizeImage(quote, (int)_settings.MaximumThumbnailImageDimension, out newImage, out newHeight, out newWidth);
+                                ResizeImage(quote, (int)settings.MaximumThumbnailImageDimension, out newImage, out newHeight, out newWidth);
                                 quote.ThumbnailImage = newImage;
                                 quote.ThumbnailImageHeight = newHeight;
                                 quote.ThumbnailImageWidth = newWidth;
@@ -119,8 +108,8 @@ namespace Noftware.In.Faux.Data.Services
                         }
 
                         // Keywords: Ensure index2 is after index1
-                        index1 = cleanLine.IndexOf("|");
-                        index2 = cleanLine.LastIndexOf("|");
+                        index1 = cleanLine.IndexOf('|');
+                        index2 = cleanLine.LastIndexOf('|');
                         if (index2 > index1)
                         {
                             keywords = cleanLine.Substring(index1 + 1, index2 - index1 - 1)?.Trim();
@@ -128,7 +117,7 @@ namespace Noftware.In.Faux.Data.Services
                             {
                                 // Remove any spaces in the keywords and split on a comma
                                 keywords = keywords.Replace(" ", string.Empty);
-                                quote.KeyWords = keywords.Split(new char[] { ',' });
+                                quote.KeyWords = keywords.Split([',']);
                             }
                             else
                             {
@@ -145,7 +134,7 @@ namespace Noftware.In.Faux.Data.Services
                         if (string.IsNullOrWhiteSpace(quote.Text) == false)
                         {
                             // Get the search words from the Text
-                            var items = _quoteService.BuildSearchWords(quote.Text);
+                            var items = quoteService.BuildSearchWords(quote.Text);
                             if (items?.Any() == true)
                             {
                                 searchWords.AddRange(items);
@@ -154,7 +143,7 @@ namespace Noftware.In.Faux.Data.Services
                         if (string.IsNullOrWhiteSpace(quote.Description) == false)
                         {
                             // Get the search words from the Description
-                            var items = _quoteService.BuildSearchWords(quote.Description);
+                            var items = quoteService.BuildSearchWords(quote.Description);
                             if (items?.Any() == true)
                             {
                                 searchWords.AddRange(items);
@@ -184,7 +173,7 @@ namespace Noftware.In.Faux.Data.Services
         private void LoadImage(ParsedQuote quote)
         {
             string filename = quote.FileName;
-            string imageFile = System.IO.Path.Combine(_settings.InputImagePath, filename);
+            string imageFile = System.IO.Path.Combine(settings.InputImagePath, filename);
 
             if (System.IO.File.Exists(imageFile) == false)
             {
@@ -204,11 +193,11 @@ namespace Noftware.In.Faux.Data.Services
             else
             {
                 // Load file and store as byte array
-                using var image = SixLabors.ImageSharp.Image.Load(imageFile, out IImageFormat format);
+                using var image = SixLabors.ImageSharp.Image.Load(imageFile);
                 quote.OriginalImageHeight = image.Height;
                 quote.OriginalImageWidth = image.Width;
                 using var ms = new MemoryStream();
-                image.Save(ms, format);
+                image.Save(ms, image.Metadata.DecodedImageFormat);
                 quote.OriginalImage = ms.ToArray();
             }
         }
@@ -273,7 +262,7 @@ namespace Noftware.In.Faux.Data.Services
             newImageHeight = (int)newHeight;
             newImageWidth = (int)newWidth;
 
-            using var image = SixLabors.ImageSharp.Image.Load(quote.OriginalImage, out IImageFormat format);
+            using var image = SixLabors.ImageSharp.Image.Load(quote.OriginalImage);
             int height = newImageHeight;
             int width = newImageWidth;
 
@@ -281,7 +270,7 @@ namespace Noftware.In.Faux.Data.Services
                  .Resize(width, height));
 
             using var ms = new MemoryStream();
-            image.Save(ms, format);
+            image.Save(ms, image.Metadata.DecodedImageFormat);
             newImageBytes = ms.ToArray();
         }
     }

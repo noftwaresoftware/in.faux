@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// Ignore Spelling: Noftware Faux
+
+using System;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Noftware.In.Faux.Core.Extensions
 {
@@ -15,10 +13,10 @@ namespace Noftware.In.Faux.Core.Extensions
         // https://stackoverflow.com/questions/3049467/is-c-sharp-random-number-generator-thread-safe/24648788#24648788
 
         // Random number generator
-        private static readonly System.Random _globalRandom = new Random();
+        private static readonly System.Random _globalRandom = new();
 
         // ThreadLocal: Provides thread-local storage of data.
-        private static readonly ThreadLocal<Random> _localRandom = new ThreadLocal<Random>(() =>
+        private static readonly ThreadLocal<Random> _localRandom = new(() =>
         {
             lock (_globalRandom)
             {

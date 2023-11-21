@@ -1,36 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Ignore Spelling: Noftware Faux
+
+using System;
 
 namespace Noftware.In.Faux.Core.Data
 {
     /// <summary>
     /// Base class for all data-related event arguments.
     /// </summary>
-    public abstract class DataEventArgs : EventArgs
+    /// <param name="message">Notification message.</param>
+    /// <param name="status">Status of the operation.</param>
+    public abstract class DataEventArgs(string message, OperationStatus status) : EventArgs
     {
         /// <summary>
         /// Notification message.
         /// </summary>
-        public string Message { get; private set; }
+        public string Message { get; private set; } = message;
 
         /// <summary>
         /// Status of the operation.
         /// </summary>
-        public OperationStatus Status { get; set; }
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="message">Notification message.</param>
-        /// <param name="status">Status of the operation.</param>
-        public DataEventArgs(string message, OperationStatus status)
-        {
-            this.Status = status;
-            this.Message = message;
-        }
+        public OperationStatus Status { get; set; } = status;
     }
 
     /// <summary>

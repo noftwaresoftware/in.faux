@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// Ignore Spelling: Noftware Faux
+
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Noftware.In.Faux.Data.Extensions
 {
-	/// <summary>
-	/// String extensions/helpers.
-	/// </summary>
-	public static class StringExtensions
+    /// <summary>
+    /// String extensions/helpers.
+    /// </summary>
+    public static class StringExtensions
 	{
 		/// <summary>
 		/// Replace all text within the string while ignoring the case sensitivity.

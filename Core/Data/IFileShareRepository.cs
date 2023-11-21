@@ -1,17 +1,15 @@
-﻿using Azure.Storage.Files.Shares.Models;
-using Noftware.In.Faux.Core.Models;
+﻿// Ignore Spelling: Noftware Faux
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Noftware.In.Faux.Core.Models;
 
 namespace Noftware.In.Faux.Core.Data
 {
-	/// <summary>
-	/// Azure file share repository.
-	/// </summary>
-	public interface IFileShareRepository<TFile> where TFile : File, new()
+    /// <summary>
+    /// Azure file share repository.
+    /// </summary>
+    public interface IFileShareRepository<TFile> where TFile : File, new()
 	{
 		// https://www.serverless360.com/blog/azure-blob-storage-vs-file-storage
 

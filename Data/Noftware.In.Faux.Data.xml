@@ -328,43 +328,65 @@
             <summary>
             The Azure file share repository for original images. These are the original/untouched images from the source directory.
             </summary>
+            <remarks>
+            Constructor to set the Azure storage connection string.
+            </remarks>
+            <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
         <member name="M:Noftware.In.Faux.Data.Repositories.OriginalQuoteFileShareRepository.#ctor(System.String)">
             <summary>
-            Constructor to set the Azure storage connection string.
+            The Azure file share repository for original images. These are the original/untouched images from the source directory.
             </summary>
+            <remarks>
+            Constructor to set the Azure storage connection string.
+            </remarks>
             <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
         <member name="T:Noftware.In.Faux.Data.Repositories.QuoteImpressionTableRepository">
             <summary>
             The Azure table repository for the quote impressions.
             </summary>
+            <remarks>
+            Constructor to set the Azure storage connection string.
+            </remarks>
+            <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
         <member name="M:Noftware.In.Faux.Data.Repositories.QuoteImpressionTableRepository.#ctor(System.String)">
             <summary>
-            Constructor to set the Azure storage connection string.
+            The Azure table repository for the quote impressions.
             </summary>
+            <remarks>
+            Constructor to set the Azure storage connection string.
+            </remarks>
             <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
         <member name="T:Noftware.In.Faux.Data.Repositories.QuoteMetadataTableRepository">
             <summary>
             The Azure table repository for the single quote metadata item.
             </summary>
+            <remarks>
+            Constructor to set the Azure storage connection string.
+            </remarks>
+            <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
         <member name="M:Noftware.In.Faux.Data.Repositories.QuoteMetadataTableRepository.#ctor(System.String)">
             <summary>
-            Constructor to set the Azure storage connection string.
+            The Azure table repository for the single quote metadata item.
             </summary>
+            <remarks>
+            Constructor to set the Azure storage connection string.
+            </remarks>
             <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
         <member name="T:Noftware.In.Faux.Data.Repositories.QuoteSearchIndexTableRepository">
             <summary>
             The Azure table repository for the quote search index.
             </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
         <member name="M:Noftware.In.Faux.Data.Repositories.QuoteSearchIndexTableRepository.#ctor(System.String)">
             <summary>
-            Constructor to set the Azure storage connection string.
+            The Azure table repository for the quote search index.
             </summary>
             <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
@@ -372,10 +394,11 @@
             <summary>
             The Azure table repository for quotes.
             </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
         <member name="M:Noftware.In.Faux.Data.Repositories.QuoteTableRepository.#ctor(System.String)">
             <summary>
-            Constructor to set the Azure storage connection string.
+            The Azure table repository for quotes.
             </summary>
             <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
@@ -383,21 +406,29 @@
             <summary>
             The Azure file share repository for resized images. These are the ones shown with each quote.
             </summary>
+            <remarks>
+            Constructor to set the Azure storage connection string.
+            </remarks>
+            <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
         <member name="M:Noftware.In.Faux.Data.Repositories.ResizedQuoteFileShareRepository.#ctor(System.String)">
             <summary>
-            Constructor to set the Azure storage connection string.
+            The Azure file share repository for resized images. These are the ones shown with each quote.
             </summary>
+            <remarks>
+            Constructor to set the Azure storage connection string.
+            </remarks>
             <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
         <member name="T:Noftware.In.Faux.Data.Repositories.ThumbnailQuoteFileShareRepository">
             <summary>
             The Azure file share repository for thumbnail images. These are the ones shown with multiple search results.
             </summary>
+            <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
         <member name="M:Noftware.In.Faux.Data.Repositories.ThumbnailQuoteFileShareRepository.#ctor(System.String)">
             <summary>
-            Constructor to set the Azure storage connection string.
+            The Azure file share repository for thumbnail images. These are the ones shown with multiple search results.
             </summary>
             <param name="storageConnectionString">Azure storage connection string.</param>
         </member>
@@ -451,11 +482,21 @@
             Format: Quote text {Meaning/explanation text} [FileName] |Comma-separated keywords/tags|
             Example: Circle back {Following up on progress.} [CircleBack.png] |reach,contact,follow,up,follow-up,communicate|
             </summary>
+            <remarks>
+            Constructor.
+            </remarks>
+            <param name="settings">Settings for the parser.</param>
+            <param name="quoteService"></param>
         </member>
         <member name="M:Noftware.In.Faux.Data.Services.QuoteParser.#ctor(Noftware.In.Faux.Core.Models.QuoteParserSettings,Noftware.In.Faux.Core.Services.IQuoteService)">
             <summary>
-            Constructor.
+            Parses a text file that contains quote data.
+            Format: Quote text {Meaning/explanation text} [FileName] |Comma-separated keywords/tags|
+            Example: Circle back {Following up on progress.} [CircleBack.png] |reach,contact,follow,up,follow-up,communicate|
             </summary>
+            <remarks>
+            Constructor.
+            </remarks>
             <param name="settings">Settings for the parser.</param>
             <param name="quoteService"></param>
         </member>
@@ -485,10 +526,16 @@
             <summary>
             Service for obtaining quote items from the data store.
             </summary>
+            <param name="quoteTableRepository">Azure Table repository for quotes.</param>
+            <param name="quoteTablemetaDataRepository">Azure Table repository for a single quote metadata item.</param>
+            <param name="quoteSearchTableRepository">Azure Table repository for the quote search index.</param>
+            <param name="quoteImpressionTableRepository">Azure Table repository for the quote impressions.</param>
+            <param name="resizedImageFileRepository">Azure file share repository for resized quote images.</param>
+            <param name="thumbnailImageFileRepository">Azure file share repository for thumbnail quote images.</param>
         </member>
         <member name="M:Noftware.In.Faux.Data.Services.QuoteService.#ctor(Noftware.In.Faux.Core.Data.ITableRepository{Noftware.In.Faux.Data.Azure.Entities.QuoteTableEntity},Noftware.In.Faux.Core.Data.ITableRepository{Noftware.In.Faux.Data.Azure.Entities.QuoteMetadataTableEntity},Noftware.In.Faux.Core.Data.ITableRepository{Noftware.In.Faux.Data.Azure.Entities.QuoteSearchIndexTableEntity},Noftware.In.Faux.Core.Data.ITableRepository{Noftware.In.Faux.Data.Azure.Entities.QuoteImpressionTableEntity},Noftware.In.Faux.Core.Data.IFileShareRepository{Noftware.In.Faux.Data.Azure.Entities.ResizedImageFile},Noftware.In.Faux.Core.Data.IFileShareRepository{Noftware.In.Faux.Data.Azure.Entities.ThumbnailImageFile})">
             <summary>
-            Constructor.
+            Service for obtaining quote items from the data store.
             </summary>
             <param name="quoteTableRepository">Azure Table repository for quotes.</param>
             <param name="quoteTablemetaDataRepository">Azure Table repository for a single quote metadata item.</param>

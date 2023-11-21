@@ -1,10 +1,8 @@
-﻿using Azure;
-using Azure.Data.Tables;
+﻿// Ignore Spelling: Noftware Faux
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Azure;
+using Azure.Data.Tables;
 
 namespace Noftware.In.Faux.Core.Models
 {

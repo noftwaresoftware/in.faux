@@ -1,16 +1,13 @@
-﻿using Noftware.In.Faux.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Ignore Spelling: Noftware Faux
+
+using Noftware.In.Faux.Core.Models;
 
 namespace Noftware.In.Faux.Data.Azure.Entities
 {
-	/// <summary>
-	/// Azure Table entity for quote search index.
-	/// </summary>
-	public class QuoteSearchIndexTableEntity : BaseTableEntity
+    /// <summary>
+    /// Azure Table entity for quote search index.
+    /// </summary>
+    public class QuoteSearchIndexTableEntity : BaseTableEntity
     {
 		/// <summary>
 		/// The indexed quote word.

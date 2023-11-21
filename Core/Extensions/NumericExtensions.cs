@@ -1,8 +1,8 @@
-﻿using System;
+﻿// Ignore Spelling: Noftware Faux
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Noftware.In.Faux.Core.Extensions
 {

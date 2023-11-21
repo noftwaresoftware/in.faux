@@ -1,18 +1,16 @@
-﻿using Noftware.In.Faux.Core.Models;
-using System;
+﻿// Ignore Spelling: Noftware Faux
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Noftware.In.Faux.Core.Models;
 
 namespace Noftware.In.Faux.Core.Services
 {
-	/// <summary>
-	/// Parses a text file that contains quote data.
-	/// Format: Quote text {Meaning/explanation text} [FileName] |Comma-separated keywords/tags|
-	/// Example: Circle back {Following up on progress.} [CircleBack.png] |reach,contact,follow,up,follow-up,communicate|
-	/// </summary>
-	public interface IQuoteParser
+    /// <summary>
+    /// Parses a text file that contains quote data.
+    /// Format: Quote text {Meaning/explanation text} [FileName] |Comma-separated keywords/tags|
+    /// Example: Circle back {Following up on progress.} [CircleBack.png] |reach,contact,follow,up,follow-up,communicate|
+    /// </summary>
+    public interface IQuoteParser
 	{
 		/// <summary>
 		/// Parses the quote text file.

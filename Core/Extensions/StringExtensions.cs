@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Ignore Spelling: Noftware Faux
 
 namespace Noftware.In.Faux.Core.Extensions
 {
@@ -26,7 +22,7 @@ namespace Noftware.In.Faux.Core.Extensions
             else
             {
                 var newInput = input;
-                if (input.EndsWith("y"))
+                if (input.EndsWith('y') == true)
                 {
                     newInput = newInput.TrimEnd('y');
                     newInput += "ie";

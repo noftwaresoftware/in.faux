@@ -1,9 +1,11 @@
-﻿using System;
+﻿// Ignore Spelling: Noftware Faux
+
+using System;
 using Azure.Core;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using Noftware.In.Faux.Data.Extensions;
 using Noftware.In.Faux.Core.Services;
+using Noftware.In.Faux.Data.Extensions;
 
 namespace Noftware.In.Faux.Data.Azure
 {
@@ -128,7 +130,7 @@ namespace Noftware.In.Faux.Data.Azure
                     }
 
                     // Does it contain a forward slash? If so, treat it as a version
-                    if (output.Contains("/") == true)
+                    if (output.Contains('/') == true)
                     {
                         var items = output.Split('/');
                         this.KeyName = items[0];

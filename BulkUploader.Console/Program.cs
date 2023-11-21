@@ -1,16 +1,17 @@
-﻿using System;
+﻿// Ignore Spelling: Noftware Faux Uploader
+
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System.Linq;
-using System.Threading.Tasks;
-using Noftware.In.Faux.Data.Azure;
 using Noftware.In.Faux.Core.Data;
-using Noftware.In.Faux.Data.Azure.Entities;
-using Noftware.In.Faux.Data.Repositories;
 using Noftware.In.Faux.Core.Extensions;
 using Noftware.In.Faux.Core.Models;
 using Noftware.In.Faux.Core.Services;
+using Noftware.In.Faux.Data.Azure.Entities;
+using Noftware.In.Faux.Data.Repositories;
 using Noftware.In.Faux.Data.Services;
 
 namespace Noftware.In.Faux.BulkUploader
@@ -76,7 +77,7 @@ namespace Noftware.In.Faux.BulkUploader
             PersistenceMode mode;
 
             // If arguments are specified, ensure they are valid
-            if (args?.Any() == true)
+            if (args?.Length > 0)
             {
                 // Only a single argument is supported
                 if (args.Length > 1)

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
+﻿// Ignore Spelling: Noftware Faux
+
+using System;
 using System.Threading.Tasks;
-using System.Threading;
-using Noftware.In.Faux.Core.Models;
 using Microsoft.AspNetCore.Components;
-using Noftware.In.Faux.Core.Services;
 using Microsoft.Extensions.Configuration;
 using Noftware.In.Faux.Client.Services;
 using Noftware.In.Faux.Client.ViewModels;

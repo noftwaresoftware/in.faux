@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// Ignore Spelling: Noftware Faux
+
 using System.Threading.Tasks;
 
 namespace Noftware.In.Faux.Core.Services

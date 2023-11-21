@@ -1,10 +1,11 @@
-﻿using Noftware.In.Faux.Core.Models;
-using Noftware.In.Faux.Core.Services;
-using Noftware.In.Faux.Core.Extensions;
-using System;
+﻿// Ignore Spelling: Noftware Faux
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Noftware.In.Faux.Core.Extensions;
+using Noftware.In.Faux.Core.Models;
+using Noftware.In.Faux.Core.Services;
 
 namespace Noftware.In.Faux.Data.Services
 {
@@ -14,7 +15,7 @@ namespace Noftware.In.Faux.Data.Services
     public class QuoteCacheService : ICacheService<Quote, string>
     {
         // Cached list
-        private readonly List<Quote> _cachedQuotes = new List<Quote>();
+        private readonly List<Quote> _cachedQuotes = [];
 
         /// <summary>
         /// Add or update a cached quote.

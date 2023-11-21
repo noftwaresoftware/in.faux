@@ -1,9 +1,8 @@
-﻿using Noftware.In.Faux.Client.ViewModels;
-using System;
+﻿// Ignore Spelling: Noftware Faux
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Noftware.In.Faux.Client.ViewModels;
 
 namespace Noftware.In.Faux.Client.Services
 {

@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿// Ignore Spelling: Noftware Faux
+
+using Microsoft.AspNetCore.Components;
 using Noftware.In.Faux.Client.ViewModels;
-using Noftware.In.Faux.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Noftware.In.Faux.Client.Pages.Quotes.Components
 {
