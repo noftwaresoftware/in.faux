@@ -97,10 +97,11 @@
             <summary>
             DI startup.
             </summary>
+            <param name="configuration">Represents a set of key/value application configuration properties.</param>
         </member>
         <member name="M:Noftware.In.Faux.BulkUploader.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Constructor.
+            DI startup.
             </summary>
             <param name="configuration">Represents a set of key/value application configuration properties.</param>
         </member>
