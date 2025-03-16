@@ -25,11 +25,11 @@ in.faux quote generator can be used to display any type of information with an a
 - You have an existing Azure subscription (free or paid).
 
 **Solution projects**
-- **In.Faux.Client** - WASM client (.NET 8)
-- **In.Faux.Core** - Library/shared project (.NET 8)
-- **In.Faux.Data** - Data project (.NET 8)
-- **In.Faux.Function** - Azure HttpTrigger Function (.NET 8)
-- **In.Faux.BulkUploader** - Console application to bulk upload data to Azure table storage (.NET 8)
+- **In.Faux.Client** - WASM client (.NET 9)
+- **In.Faux.Core** - Library/shared project (.NET 9)
+- **In.Faux.Data** - Data project (.NET 9)
+- **In.Faux.Function** - Azure HttpTrigger Function (.NET 9)
+- **In.Faux.BulkUploader** - Console application to bulk upload data to Azure table storage (.NET 9)
 
 ### Setup and configuration - static web app:
 0. In the Azure web portal, create a new **Resource Group** (or use an existing one).
