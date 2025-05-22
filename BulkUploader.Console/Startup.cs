@@ -71,8 +71,8 @@ namespace Noftware.In.Faux.BulkUploader
             });
 
             // Settings for the quote flat file parser and image resizing
-            int maxResizedImageDimension = this.Configuration["QuoteParser:MaximumResizedImageDimension"].ConvertTo<int>();
-            int maxThumbnailImageDimension = this.Configuration["QuoteParser:MaximumThumbnailImageDimension"].ConvertTo<int>();
+            int maxResizedImageDimension = System.Convert.ToInt32(this.Configuration["QuoteParser:MaximumResizedImageDimension"]);
+            int maxThumbnailImageDimension = System.Convert.ToInt32(this.Configuration["QuoteParser:MaximumThumbnailImageDimension"]);
             string inputImagePath = this.Configuration["QuoteParser:InputImagePath"];
             string quoteTextFile = this.Configuration["QuoteParser:QuoteTextFile"];
             services.AddScoped(f =>
