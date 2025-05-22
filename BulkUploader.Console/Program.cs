@@ -392,8 +392,8 @@ namespace Noftware.In.Faux.BulkUploader
             string tblStgConnectionString = config["Azure:StorageConnectionString"];
 
             // Settings for the quote flat file parser and image resizing
-            int maxResizedImageDimension = config["QuoteParser:MaximumResizedImageDimension"].ConvertTo<int>();
-            int maxThumbnailImageDimension = config["QuoteParser:MaximumThumbnailImageDimension"].ConvertTo<int>();
+            int maxResizedImageDimension = System.Convert.ToInt32(config["QuoteParser:MaximumResizedImageDimension"]);
+            int maxThumbnailImageDimension = System.Convert.ToInt32(config["QuoteParser:MaximumThumbnailImageDimension"]);
             string inputImagePath = config["QuoteParser:InputImagePath"];
             string quoteTextFile = config["QuoteParser:QuoteTextFile"];
 

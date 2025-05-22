@@ -195,18 +195,6 @@
             </returns>
             <exception cref="T:System.ArgumentOutOfRangeException">minValue is greater than maxValue.</exception>
         </member>
-        <member name="T:Noftware.In.Faux.Core.Extensions.ObjectExtensions">
-            <summary>
-            Extensions for object handling.
-            </summary>
-        </member>
-        <member name="M:Noftware.In.Faux.Core.Extensions.ObjectExtensions.ConvertTo``1(System.Object)">
-            <summary>
-            Based on the input, convert to the specified type (if possible).
-            </summary>
-            <param name="input">Object to be converted.</param>
-            <returns>T or default(T), if not convertible.</returns>
-        </member>
         <member name="T:Noftware.In.Faux.Core.Extensions.StringExtensions">
             <summary>
             String extensions/helpers.
